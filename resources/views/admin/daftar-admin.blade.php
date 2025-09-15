@@ -1,0 +1,61 @@
+@extends('.admin.komponen.admin-komponen')
+
+@section('title', 'Daftar Admin')
+
+@section('content')
+<div class="container-fluid">
+    <h3 class="mb-4">Daftar Peserta Sekolah</h3>
+
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Sekolah</th>
+                        <th>Jumlah Peserta</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($teams as $i => $team)
+                        <tr>
+                            <td>{{ $i+1 }}</td>
+                            <td>{{ $team->nama_tim }}</td>
+                            <td>{{ $team->members_count }}</td>
+                            <td>
+                                @if($team->status == 'pending')
+                                    <span class="badge bg-warning">Belum Diverifikasi</span>
+                                @else
+                                    <span class="badge bg-success">Terverifikasi</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ url('admin/detail-sekolah/'.$team->id) }}" class="btn btn-sm btn-info">Cek</a>
+
+                                @if($team->status == 'pending')
+                                    <form action="{{ route('admin.verifikasi',$team->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-success">Verifikasi</button>
+                                    </form>
+                                @else
+                                    <button class="btn btn-sm btn-secondary" disabled>Sudah</button>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center">Belum ada sekolah yang mendaftar.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection
