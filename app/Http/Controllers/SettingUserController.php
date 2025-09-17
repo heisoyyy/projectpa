@@ -10,6 +10,7 @@ class SettingUserController extends Controller
 {
     public function updatePassword(Request $request)
     {
+        
         $user = Auth::user();
 
         // Validasi input

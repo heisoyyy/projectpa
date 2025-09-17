@@ -1,4 +1,4 @@
-@extends('.user.komponen.user-komponen')
+@extends('user.komponen.komponen')
 
 @section('title', 'Setting Peserta')
 
@@ -7,7 +7,7 @@
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <div class="col-lg-6">
-            <div class="bg-white rounded p-4 shadow-sm h-100">
+            <div class="rounded p-4 shadow-sm h-100">
                 <h5 class="mb-4"><i class="fa fa-cog"></i> Pengaturan Akun</h5>
 
                 {{-- Pesan sukses --}}

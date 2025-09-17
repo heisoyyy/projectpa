@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // pemilik tim
             $table->string('nama_tim');
-            $table->enum('status', ['pending', 'verified', 'revisi'])->default('pending');
+            $table->enum('status', ['pending', 'verified'])->default('pending');
             $table->timestamps();
         });
     }

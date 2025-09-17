@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('role')->default('user');
             $table->string('status')->default('pending');
             $table->timestamps();
+            $table->rememberToken();
         });
     }
 

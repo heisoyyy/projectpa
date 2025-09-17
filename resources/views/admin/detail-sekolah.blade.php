@@ -1,4 +1,4 @@
-@extends('.admin.komponen.admin-komponen')
+@extends('admin.komponen.komponen')
 
 @section('title', 'Detail Sekolah')
 
@@ -12,13 +12,13 @@
             <h5 class="card-title">Data Sekolah</h5>
             <p><strong>Nama Sekolah:</strong> {{ $team->nama_tim }}</p>
             <p><strong>Alamat:</strong> {{ $team->user->kota ?? '-' }}</p>
-            <p><strong>Status:</strong> 
+            <p><strong>Status:</strong>
                 @if($team->status == 'pending')
-                    <span class="badge bg-warning">Belum Diverifikasi</span>
+                <span class="badge bg-warning">Belum Diverifikasi</span>
                 @elseif($team->status == 'verified')
-                    <span class="badge bg-success">Terverifikasi</span>
+                <span class="badge bg-success">Terverifikasi</span>
                 @else
-                    <span class="badge bg-danger">Perlu Perbaikan</span>
+                <span class="badge bg-danger">Perlu Perbaikan</span>
                 @endif
             </p>
         </div>
@@ -41,28 +41,30 @@
                 </thead>
                 <tbody>
                     @forelse($team->members->where('role','peserta') as $i => $peserta)
-                        <tr>
-                            <td>{{ $i+1 }}</td>
-                            <td>{{ $peserta->nama }}</td>
-                            <td>{{ ucfirst($peserta->posisi) }}</td>
-                            <td>{{ $peserta->nis }}</td>
-                            <td>
-                                @if($peserta->dokumen_1)
-                                    <a href="{{ asset('storage/'.$peserta->dokumen_1) }}" target="_blank" class="btn btn-sm btn-primary">Lihat</a>
-                                @else
-                                    <span class="text-muted">-</span>
-                                @endif
-                            </td>
-                            <td>
-                                @if($peserta->dokumen_2)
-                                    <a href="{{ asset('storage/'.$peserta->dokumen_2) }}" target="_blank" class="btn btn-sm btn-primary">Lihat</a>
-                                @else
-                                    <span class="text-muted">-</span>
-                                @endif
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ $i+1 }}</td>
+                        <td>{{ $peserta->nama }}</td>
+                        <td>{{ ucfirst($peserta->posisi) }}</td>
+                        <td>{{ $peserta->nis }}</td>
+                        <td>
+                            @if($peserta->dokumen_1)
+                            <a href="{{ asset('storage/'.$peserta->dokumen_1) }}" target="_blank" class="btn btn-sm btn-primary">Lihat</a>
+                            @else
+                            <span class="text-muted">-</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($peserta->dokumen_2)
+                            <a href="{{ asset('storage/'.$peserta->dokumen_2) }}" target="_blank" class="btn btn-sm btn-primary">Lihat</a>
+                            @else
+                            <span class="text-muted">-</span>
+                            @endif
+                        </td>
+                    </tr>
                     @empty
-                        <tr><td colspan="6" class="text-center">Belum ada peserta</td></tr>
+                    <tr>
+                        <td colspan="6" class="text-center">Belum ada peserta</td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -83,13 +85,15 @@
                 </thead>
                 <tbody>
                     @forelse($team->members->where('role','pelatih') as $i => $pelatih)
-                        <tr>
-                            <td>{{ $i+1 }}</td>
-                            <td>{{ $pelatih->nama }}</td>
-                            <td>{{ $pelatih->nomor_hp ?? '-' }}</td>
-                        </tr>
+                    <tr>
+                        <td>{{ $i+1 }}</td>
+                        <td>{{ $pelatih->nama }}</td>
+                        <td>{{ $pelatih->nomor_hp ?? '-' }}</td>
+                    </tr>
                     @empty
-                        <tr><td colspan="3" class="text-center">Belum ada pelatih</td></tr>
+                    <tr>
+                        <td colspan="3" class="text-center">Belum ada pelatih</td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -100,10 +104,10 @@
     <div class="d-flex gap-2">
         <form action="{{ route('admin.verifikasi', $team->id) }}" method="POST">
             @csrf
-            <button type="submit" name="status" value="revisi" class="btn btn-danger">Perlu Perbaikan</button>
             <button type="submit" name="status" value="pending" class="btn btn-warning">Belum Lengkap</button>
             <button type="submit" name="status" value="verified" class="btn btn-success">Terverifikasi</button>
         </form>
     </div>
+
 </div>
 @endsection

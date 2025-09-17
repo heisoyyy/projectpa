@@ -26,12 +26,18 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn([
-                'nomor_sekolah',
-                'kota',
-                'foto_profile',
-                'foto_surat_izin',
-            ]);
+            if (Schema::hasColumn('users', 'nomor_sekolah')) {
+                $table->dropColumn('nomor_sekolah');
+            }
+            if (Schema::hasColumn('users', 'kota')) {
+                $table->dropColumn('kota');
+            }
+            if (Schema::hasColumn('users', 'foto_profile')) {
+                $table->dropColumn('foto_profile');
+            }
+            if (Schema::hasColumn('users', 'foto_surat_izin')) {
+                $table->dropColumn('foto_surat_izin');
+            }
         });
     }
 };

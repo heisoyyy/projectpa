@@ -1,4 +1,4 @@
-@extends('.user.komponen.user-komponen')
+@extends('user.komponen.komponen')
 
 @section('title','Daftar Peserta')
 
@@ -6,7 +6,7 @@
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <div class="col-sm-12 col-xl-10">
-            <div class="bg-light rounded h-100 p-4 shadow-sm">
+            <div class="rounded h-100 p-4 shadow-sm">
                 <h6 class="mb-4">Form Pendaftaran Tim LKBB Komando</h6>
 
                 @if(session('success'))

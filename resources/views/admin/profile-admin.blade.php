@@ -1,4 +1,4 @@
-@extends('.admin.komponen.admin-komponen')
+@extends('admin.komponen.komponen')
 
 @section('title', 'Profile Admin')
 
@@ -11,10 +11,11 @@
   <div class="col-md-4">
     <div class="card shadow-sm">
       <div class="card-body text-center">
-        <img src="{{ asset('images/default.png') }}" 
+        <img src="{{ $admin->foto_profile ? asset('storage/'.$admin->foto_profile) : asset('images/default.png') }}" 
              class="rounded-circle mb-3" width="120" height="120" alt="Foto Profil">
-        <h5>Nama Admin</h5>
-        <p class="text-muted">admin@email.com</p>
+        <h5>{{ $admin->nama_sekolah ?? 'Admin' }}</h5>
+        <p class="text-muted">{{ $admin->email }}</p>
+        <p class="text-muted">No. Sekolah: {{ $admin->nomor_sekolah }}</p>
       </div>
     </div>
   </div>
@@ -26,24 +27,39 @@
         <h5 class="mb-0">Update Profil</h5>
       </div>
       <div class="card-body">
-        <form>
+        @if(session('success'))
+          <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          @method('PUT')
+
           <div class="mb-3">
             <label class="form-label">Nama Lengkap</label>
-            <input type="text" class="form-control" value="Nama Admin">
+            <input type="text" name="nama_sekolah" class="form-control" value="{{ old('nama_sekolah', $admin->nama_sekolah) }}">
+            @error('nama_sekolah') <small class="text-danger">{{ $message }}</small> @enderror
           </div>
+
+          <div class="mb-3">
+            <label class="form-label">Nomor Sekolah</label>
+            <input type="text" name="nomor_sekolah" class="form-control" value="{{ old('nomor_sekolah', $admin->nomor_sekolah) }}">
+            @error('nomor_sekolah') <small class="text-danger">{{ $message }}</small> @enderror
+          </div>
+
           <div class="mb-3">
             <label class="form-label">Email</label>
-            <input type="email" class="form-control" value="admin@email.com">
+            <input type="email" name="email" class="form-control" value="{{ old('email', $admin->email) }}">
+            @error('email') <small class="text-danger">{{ $message }}</small> @enderror
           </div>
-          <div class="mb-3">
-            <label class="form-label">No. Telepon</label>
-            <input type="text" class="form-control" value="08123456789">
-          </div>
+
           <div class="mb-3">
             <label class="form-label">Foto Profil</label>
-            <input type="file" class="form-control">
+            <input type="file" name="foto_profile" class="form-control">
+            @error('foto_profile') <small class="text-danger">{{ $message }}</small> @enderror
           </div>
-          <button type="button" class="btn btn-primary">Simpan Perubahan</button>
+
+          <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
         </form>
       </div>
     </div>

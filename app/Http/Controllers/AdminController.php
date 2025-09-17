@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use Illuminate\Http\Request;
-use App\Notifications\TeamStatusUpdated;
-
 
 class AdminController extends Controller
 {
@@ -26,19 +24,15 @@ class AdminController extends Controller
     // Update status verifikasi
     public function verifikasi(Request $request, $id)
     {
-        $team = Team::with('user')->findOrFail($id);
+        $team = Team::findOrFail($id);
 
         $request->validate([
-            'status' => 'required|in:pending,verified,revisi',
+            'status' => 'required|in:pending,verified',
         ]);
 
         $team->status = $request->status;
         $team->save();
 
-        // kirim notifikasi ke user pemilik tim
-        $team->user->notify(new TeamStatusUpdated($team));
-
-        return redirect()->route('admin.daftar')
-            ->with('success', 'Status tim berhasil diperbarui dan peserta diberitahu.');
+        return redirect()->back()->with('success', 'Status tim berhasil diperbarui.');
     }
 }

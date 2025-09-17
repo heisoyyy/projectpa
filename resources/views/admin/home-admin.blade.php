@@ -1,40 +1,40 @@
-@extends('.admin.komponen.admin-komponen')
+@extends('admin.komponen.komponen')
 
 @section('title', 'Dashboard Admin')
 
 @section('content')
 
 <div class="container-fluid">
-
-    <h3 class="mb-4">Dashboard Admin</h3>
-
+    <h3 class="mb-6 mt-8">Dashboard Admin</h3>
     {{-- Statistik --}}
-    <div class="row g-4 mb-4">
+
+    <div class="row g-4 mb-4 mt-6">
         <div class="col-md-3">
             <div class="card shadow-sm p-3 text-center border-start border-primary border-3">
                 <h6 class="text-muted">Sekolah Terdaftar</h6>
-                <p class="fs-3 fw-bold text-primary">12</p>
+                <p class="fs-3 fw-bold text-primary">{{ $totalSekolah ?? 0 }}</p>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow-sm p-3 text-center border-start border-success border-3">
                 <h6 class="text-muted">Peserta Terverifikasi</h6>
-                <p class="fs-3 fw-bold text-success">58</p>
+                <p class="fs-3 fw-bold text-success">0</p> {{-- nanti bisa ganti pakai data real --}}
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow-sm p-3 text-center border-start border-warning border-3">
                 <h6 class="text-muted">Jadwal Hari Ini</h6>
-                <p class="fs-3 fw-bold text-warning">3</p>
+                <p class="fs-3 fw-bold text-warning">{{ $jadwalHariIni ?? 0 }}</p>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow-sm p-3 text-center border-start border-danger border-3">
                 <h6 class="text-muted">Pendaftaran Terakhir</h6>
-                <p class="fs-3 fw-bold text-danger">2 jam lalu</p>
+                <p class="fs-3 fw-bold text-danger">{{ $waktuPendaftaranTerakhir ?? '-' }}</p>
             </div>
         </div>
     </div>
+
 
     {{-- Grafik --}}
     <div class="row mb-4">

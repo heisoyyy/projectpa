@@ -1,4 +1,4 @@
-@extends('.admin.komponen.admin-komponen')
+@extends('admin.komponen.komponen')
 
 @section('title', 'Jadwal Admin')
 

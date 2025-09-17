@@ -10,10 +10,12 @@ use App\Http\Controllers\HasilController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PesanUserController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\SettingUserController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileAdminController;
+use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\DashboardUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,11 +26,6 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return redirect('/home');
 });
-
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin', fn() => view('admin.home-admin'));
-});
-
 
 // ========================== HOMEPAGE ==========================
 
@@ -65,13 +62,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // ========== USER ==========
 Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/user', fn() => view('user.home-user'));
+
+    Route::get('/user', [DashboardUserController::class, 'index'])->name('user.home');
 
     Route::get('/user/home', [HomeController::class, 'index'])->name('user.home');
 
-    Route::get('/pesan', [PesanUserController::class, 'index'])->name('user.pesan.index');
-    Route::post('/pesan/read-all', [PesanUserController::class, 'markAllRead'])->name('user.pesan.readAll');
-    Route::get('/pesan/read/{pesan}', [PesanUserController::class, 'markRead'])->name('user.pesan.read');
+
+    // Pesan
+    Route::get('/user/pesan', [UserController::class, 'pesanIndex'])->name('user.pesan.index');
+    Route::get('/user/pesan/{pesan}', [UserController::class, 'pesanRead'])->name('user.pesan.read');
+
     // Dashboard User
     Route::get('/user/dashboard', [PendaftaranUserController::class, 'index'])
         ->name('user.dashboard');
@@ -94,25 +94,16 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::put('/user/profile-user', [ProfileUserController::class, 'update'])->name('user.profile.update');
     Route::post('/user/profile-user/upload-foto', [ProfileUserController::class, 'uploadFoto'])->name('user.profile.uploadFoto');
 
-
-    Route::put(
-        '/user/setting-user/password',
-        [\App\Http\Controllers\SettingUserController::class, 'updatePassword']
-    )->name('user.setting.updatePassword');
-
-    // Pesan
-    Route::get('/user/pesan', [UserController::class, 'pesanIndex'])->name('user.pesan.index');
-    Route::get('/user/pesan/{pesan}', [UserController::class, 'pesanRead'])->name('user.pesan.read');
+    Route::get('/user/setting-user', [SettingUserController::class, 'index'])->name('user.setting');
+    // Route::put('/user/setting-user/password',[SettingUserController::class, 'updatePassword'])->name('user.setting.updatePassword');
 });
-
-// TESS
-
 
 // ========== ADMIN ==========
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
-    // Home Admin
+    // Dashboard Admin
     Route::get('/admin', fn() => view('admin.home-admin'));
+    Route::get('/admin', [DashboardAdminController::class, 'index'])->name('admin.home');
 
     // Cek Pendaftaran
     Route::get('/admin/daftar-admin', [AdminController::class, 'index'])->name('admin.daftar');
@@ -138,7 +129,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/admin/hasil-admin/{hasil}', [HasilController::class, 'destroy'])->name('admin.hasil-admin.destroy');
 
     // Profile
-    Route::get('/admin/profile-admin', fn() => view('admin.profile-admin'));
+    Route::get('/admin/profile-admin', [ProfileAdminController::class, 'edit'])->name('admin.profile.edit');
+    Route::put('/admin/profile-admin', [ProfileAdminController::class, 'update'])->name('admin.profile.update');
 
     // Setinng
     Route::get('/admin/setting-admin', fn() => view('admin.setting-admin'));
@@ -160,4 +152,5 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Kelolal Home Page
     Route::get('/admin/kelola-homepage', fn() => view('admin.kelola-homepage'));
     // Route::get('/admin/detail-sekolah', fn() => view('admin.detail-sekolah'));
+
 });

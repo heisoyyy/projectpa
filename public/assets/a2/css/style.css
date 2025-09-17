@@ -1,8 +1,8 @@
 /********** Template CSS **********/
 :root {
     --primary: #000000;
-    --light: #F3F6F9;
-    --dark: #191C24;
+    --light: #ffffff;
+    --dark: #000000;
 }
 
 .back-to-top {
@@ -80,9 +80,9 @@
 }
 
 .content {
-    margin-left: 250px;
+    margin-left: 120px;
     min-height: 100vh;
-    background: #FFFFFF;
+    background: #ffffff;
     transition: 0.5s;
 }
 

@@ -11,7 +11,10 @@ class ProfileUserController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        return view('user.profile-user', compact('user'));
+        $team = $user->team; // ambil tim user (nullable)
+        $teamStatus = $team->status ?? null; // ambil status tim jika ada
+
+        return view('user.profile-user', compact('user', 'team', 'teamStatus'));
     }
 
     public function update(Request $request)
@@ -19,12 +22,10 @@ class ProfileUserController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'nama_sekolah'   => 'required|string|max:255',
-            'kota' => 'nullable|string|max:255',
-            'foto_surat_izin'=> 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'kota'             => 'nullable|string|max:255',
+            'foto_surat_izin'  => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
-        $user->nama_sekolah   = $request->nama_sekolah;
         $user->kota = $request->kota;
 
         if ($request->hasFile('foto_surat_izin')) {
@@ -51,8 +52,7 @@ class ProfileUserController extends Controller
             Storage::disk('public')->delete($user->foto_profile);
         }
 
-        $path = $request->file('foto_profile')->store('profile', 'public');
-        $user->foto_profile = $path;
+        $user->foto_profile = $request->file('foto_profile')->store('profile', 'public');
         $user->save();
 
         return back()->with('success', 'Foto profil berhasil diunggah.');
