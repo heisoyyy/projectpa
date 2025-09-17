@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -32,6 +33,13 @@ class AdminController extends Controller
 
         $team->status = $request->status;
         $team->save();
+
+        // 🔥 Catat aktivitas terbaru
+        Activity::create([
+            'team_id' => $team->id,
+            'action' => 'Perubahan status verifikasi tim',
+            'status' => $request->status,
+        ]);
 
         return redirect()->back()->with('success', 'Status tim berhasil diperbarui.');
     }

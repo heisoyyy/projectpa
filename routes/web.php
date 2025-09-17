@@ -16,6 +16,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DashboardUserController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\FeaturedController;
+use App\Http\Controllers\Admin\VideoController;
+use App\Http\Controllers\Admin\StatistikController;
+use App\Http\Controllers\Admin\JuaraController;
+use App\Http\Controllers\HomepageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +37,8 @@ Route::get('/', function () {
 // ========================== HOMEPAGE ==========================
 
 // Halaman Home
-Route::get('/home', fn() => view('home.index'))->name('home');
+// Route::get('/home', fn() => view('home.index'))->name('home');
+Route::get('/home', [HomepageController::class, 'index'])->name('home');
 
 // Halaman Contact
 Route::get('/home/contact', fn() => view('home.contact'))->name('contact');
@@ -109,6 +117,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/daftar-admin', [AdminController::class, 'index'])->name('admin.daftar');
     Route::get('/admin/detail-sekolah/{id}', [AdminController::class, 'detail'])->name('admin.detail');
     Route::post('/admin/verifikasi/{id}', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');
+    Route::delete('/admin/hapus-sekolah/{id}', [AdminController::class, 'hapusSekolah']);
 
     // Pesan 
     Route::get('/admin/pesan-admin', [PesanController::class, 'index'])->name('admin.pesan.index');
@@ -149,8 +158,75 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/laporan-admin/reset', [LaporanController::class, 'reset'])
         ->name('admin.laporan.reset');
 
-    // Kelolal Home Page
-    Route::get('/admin/kelola-homepage', fn() => view('admin.kelola-homepage'));
-    // Route::get('/admin/detail-sekolah', fn() => view('admin.detail-sekolah'));
+    // // Kelolal Home Page
+    // Route::get('/admin/kelola-homepage', fn() => view('admin.kelola-homepage'));
+    // // Route::get('/admin/detail-sekolah', fn() => view('admin.detail-sekolah'));
 
+
+
+});
+
+// // Kelola Homepage
+// Route::get('/admin/homepage', [HomepageController::class, 'index'])->name('admin.homepage');
+
+// // Banner
+// Route::post('banner', [BannerController::class, 'store'])->name('banner.store');
+// Route::put('banner/{banner}', [BannerController::class, 'update'])->name('banner.update');
+// Route::delete('banner/{banner}', [BannerController::class, 'destroy'])->name('banner.destroy');
+
+// // Featured
+// Route::put('featured/{id}', [FeaturedController::class, 'update'])->name('featured.update');
+// Route::post('accordion', [FeaturedController::class, 'storeAccordion'])->name('accordion.store');
+// Route::put('accordion/{accordion}', [FeaturedController::class, 'updateAccordion'])->name('accordion.update');
+// Route::delete('accordion/{accordion}', [FeaturedController::class, 'destroyAccordion'])->name('accordion.destroy');
+
+// // Video
+// Route::post('video', [VideoController::class, 'store'])->name('video.store');
+// Route::put('video/{video}', [VideoController::class, 'update'])->name('video.update');
+// Route::delete('video/{video}', [VideoController::class, 'destroy'])->name('video.destroy');
+
+// // Statistik
+// Route::put('statistik/judul', [StatistikController::class, 'updateJudul'])->name('statistik.judul.update');
+// Route::post('statistik', [StatistikController::class, 'store'])->name('statistik.store');
+// Route::put('statistik/{statistik}', [StatistikController::class, 'update'])->name('statistik.update');
+// Route::delete('statistik/{statistik}', [StatistikController::class, 'destroy'])->name('statistik.destroy');
+
+// // Juara
+// Route::post('juara', [JuaraController::class, 'store'])->name('juara.store');
+// Route::put('juara/{juara}', [JuaraController::class, 'update'])->name('juara.update');
+// Route::delete('juara/{juara}', [JuaraController::class, 'destroy'])->name('juara.destroy');
+
+
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+
+    // Homepage
+    Route::get('homepage', [App\Http\Controllers\Admin\HomepageController::class, 'index'])->name('admin.homepage');
+
+    // Banner
+    Route::post('banner', [BannerController::class, 'store'])->name('admin.banner.store');
+    Route::put('banner/{banner}', [BannerController::class, 'update'])->name('admin.banner.update');
+    Route::delete('banner/{banner}', [BannerController::class, 'destroy'])->name('admin.banner.destroy');
+
+    // Featured & Accordion
+    Route::put('featured/{id}', [FeaturedController::class, 'update'])->name('admin.featured.update');
+
+    Route::post('accordion', [FeaturedController::class, 'storeAccordion'])->name('admin.accordion.store');
+    Route::put('accordion/{accordion}', [FeaturedController::class, 'updateAccordion'])->name('admin.accordion.update');
+    Route::delete('accordion/{accordion}', [FeaturedController::class, 'destroyAccordion'])->name('admin.accordion.destroy');
+
+    // Video
+    Route::post('video', [VideoController::class, 'store'])->name('admin.video.store');
+    Route::put('video/{video}', [VideoController::class, 'update'])->name('admin.video.update');
+    Route::delete('video/{video}', [VideoController::class, 'destroy'])->name('admin.video.destroy');
+
+    // Statistik
+    Route::put('statistik/judul', [StatistikController::class, 'updateJudul'])->name('admin.statistik.judul.update');
+    Route::post('statistik', [StatistikController::class, 'store'])->name('admin.statistik.store');
+    Route::put('statistik/{statistik}', [StatistikController::class, 'update'])->name('admin.statistik.update');
+    Route::delete('statistik/{statistik}', [StatistikController::class, 'destroy'])->name('admin.statistik.destroy');
+
+    // Juara
+        Route::post('juara', [JuaraController::class, 'store'])->name('admin.juara.store');
+        Route::put('juara/{juara}', [JuaraController::class, 'update'])->name('admin.juara.update');
+        Route::delete('juara/{juara}', [JuaraController::class, 'destroy'])->name('admin.juara.destroy');
 });

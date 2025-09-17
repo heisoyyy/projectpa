@@ -1,64 +1,59 @@
-<!-- Modal Tambah Video -->
-<div class="modal fade" id="modalTambahVideo" tabindex="-1">
+{{-- Modal Tambah Video --}}
+<div class="modal fade" id="modalTambahVideo" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="#">
-                <div class="modal-header bg-primary text-white">
+        <form action="{{ route('video.store') }}" method="POST">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title">Tambah Video</h5>
-                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label>Judul</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label>Link</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label>Thumbnail</label>
-                        <input type="file" class="form-control">
-                    </div>
+                    <label>Judul</label>
+                    <input type="text" name="judul" class="form-control" required>
+
+                    <label>Link Youtube</label>
+                    <input type="text" name="link" class="form-control" required>
+
+                    <label>Thumbnail</label>
+                    <input type="file" name="thumbnail" class="form-control">
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary">Tambah Video</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 
-<!-- Modal Edit Video -->
-<div class="modal fade" id="modalEditVideo" tabindex="-1">
+{{-- Modal Edit Video --}}
+@foreach($videos as $video)
+<div class="modal fade" id="modalEditVideo{{ $video->id }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="#">
-                <div class="modal-header bg-warning">
+        <form action="{{ route('video.update', $video->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title">Edit Video</h5>
-                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label>Judul</label>
-                        <input type="text" class="form-control" value="LKBB Komando">
-                    </div>
-                    <div class="mb-3">
-                        <label>Link</label>
-                        <input type="text" class="form-control" value="https://youtube.com">
-                    </div>
-                    <div class="mb-3">
-                        <label>Thumbnail</label>
-                        <input type="file" class="form-control">
-                    </div>
-                    <img src="assets/images/video-frame.jpg" width="100" class="mt-2 rounded">
+                    <label>Judul</label>
+                    <input type="text" name="judul" value="{{ $video->judul }}" class="form-control" required>
+
+                    <label>Link Youtube</label>
+                    <input type="text" name="link" value="{{ $video->link }}" class="form-control" required>
+
+                    <label>Thumbnail</label>
+                    <input type="file" name="thumbnail" class="form-control">
+                    <small>Thumbnail sekarang: {{ $video->thumbnail }}</small>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button class="btn btn-warning">Update</button>
+                    <button type="submit" class="btn btn-warning">Update Video</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
+@endforeach

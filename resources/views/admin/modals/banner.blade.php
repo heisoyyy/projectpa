@@ -1,82 +1,59 @@
-{{-- Modal Tambah Accordion --}}
-<div class="modal fade" id="modalTambahAccordion" tabindex="-1" aria-hidden="true">
+{{-- Modal Tambah Banner --}}
+<div class="modal fade" id="modalTambahBanner" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah Accordion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">Pertanyaan</label>
-                    <input type="text" class="form-control" placeholder="Masukkan pertanyaan">
+        <form action="{{ route('banner.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Banner</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Jawaban</label>
-                    <textarea class="form-control" rows="3" placeholder="Masukkan jawaban"></textarea>
+                <div class="modal-body">
+                    <label>Judul</label>
+                    <input type="text" name="judul" class="form-control" required>
+
+                    <label>Kategori</label>
+                    <input type="text" name="kategori" class="form-control" required>
+
+                    <label>Gambar</label>
+                    <input type="file" name="gambar" class="form-control" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Tambah</button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button class="btn btn-primary">Simpan</button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 
-{{-- Modal Edit Accordion (contoh satu modal dipakai edit) --}}
-<div class="modal fade" id="modalEditAccordion" tabindex="-1" aria-hidden="true">
+{{-- Modal Edit Banner --}}
+@foreach($banners as $banner)
+<div class="modal fade" id="modalEditBanner{{ $banner->id }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Accordion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">Pertanyaan</label>
-                    <input type="text" class="form-control" value="LKBB Komando ?">
+        <form action="{{ route('banner.update', $banner->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Banner</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Jawaban</label>
-                    <textarea class="form-control" rows="3">Ajang tahunan yang diselenggarakan SMAN Plus Provinsi Riau ...</textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button class="btn btn-success">Update</button>
-            </div>
-        </div>
-    </div>
-</div>
+                <div class="modal-body">
+                    <label>Judul</label>
+                    <input type="text" name="judul" value="{{ $banner->judul }}" class="form-control" required>
 
-{{-- ================= MODAL EDIT FEATURED ================= --}}
-<div class="modal fade" id="modalEditFeatured" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Featured</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-            <label class="form-label">Upload Gambar</label>
-            <input type="file" class="form-control">
-            <small class="text-muted">Format: JPG, PNG | Max: 2MB</small>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Judul</label>
-            <input type="text" class="form-control" value="Lomba Ketangkasan Baris Berbaris">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Sub Judul</label>
-            <input type="text" class="form-control" value="KOMANDO">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        <button class="btn btn-success">Simpan Perubahan</button>
-      </div>
+                    <label>Kategori</label>
+                    <input type="text" name="kategori" value="{{ $banner->kategori }}" class="form-control" required>
+
+                    <label>Gambar</label>
+                    <input type="file" name="gambar" class="form-control">
+                    <small>Gambar sekarang: {{ $banner->gambar }}</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-warning">Update</button>
+                </div>
+            </div>
+        </form>
     </div>
-  </div>
 </div>
+@endforeach

@@ -12,8 +12,8 @@
           </li>
           <li class="nav-item">
               {{-- Kelola Homepage --}}
-              <a href="{{ url('admin/kelola-homepage') }}"
-                  class="nav-item nav-link {{ Request::is('admin/kelola-homepage*') ? 'active' : '' }}">
+              <a href="{{ url('admin/homepage') }}"
+                  class="nav-item nav-link {{ Request::is('admin/homepage*') ? 'active' : '' }}">
                   <i class="fa fa-home me-2"></i>Kelola Homepage
               </a>
           </li>

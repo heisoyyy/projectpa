@@ -18,9 +18,10 @@
         <div class="col-md-3">
             <div class="card shadow-sm p-3 text-center border-start border-success border-3">
                 <h6 class="text-muted">Peserta Terverifikasi</h6>
-                <p class="fs-3 fw-bold text-success">0</p> {{-- nanti bisa ganti pakai data real --}}
+                <p class="fs-3 fw-bold text-success">{{ $verifiedCount ?? 0 }}</p>
             </div>
         </div>
+
         <div class="col-md-3">
             <div class="card shadow-sm p-3 text-center border-start border-warning border-3">
                 <h6 class="text-muted">Jadwal Hari Ini</h6>
@@ -35,22 +36,35 @@
         </div>
     </div>
 
-
     {{-- Grafik --}}
     <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="card shadow-sm p-3">
-                <h6 class="mb-3">Statistik Peserta</h6>
-                <canvas id="pesertaChart" height="200"></canvas>
+        {{-- Statistik Peserta --}}
+        <div class="col-md-6 mb-3">
+            <div class="card border-0 shadow-lg rounded-3">
+                <div class="card-header bg-primary text-white d-flex align-items-center">
+                    <i class="bi bi-people-fill me-2"></i>
+                    <h6 class="mb-0">Statistik Peserta</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="pesertaChart" style="height:260px;"></canvas>
+                </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card shadow-sm p-3">
-                <h6 class="mb-3">Status Pendaftaran</h6>
-                <canvas id="statusChart" height="200"></canvas>
+
+        {{-- Status Pendaftaran --}}
+        <div class="col-md-6 mb-3">
+            <div class="card border-0 shadow-lg rounded-3">
+                <div class="card-header bg-success text-white d-flex align-items-center">
+                    <i class="bi bi-bar-chart-fill me-2"></i>
+                    <h6 class="mb-0">Status Pendaftaran</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="statusChart" style="height:260px;"></canvas>
+                </div>
             </div>
         </div>
     </div>
+
 
     {{-- Aktivitas Terbaru --}}
     <div class="card shadow-sm mb-4">
@@ -62,35 +76,38 @@
             <table class="table table-sm table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>Nama Peserta</th>
                         <th>Sekolah</th>
+                        <th>Aksi</th>
                         <th>Status</th>
                         <th>Waktu</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($latestActivities as $activity)
                     <tr>
-                        <td>Budi Santoso</td>
-                        <td>SMAN 1 Pekanbaru</td>
-                        <td><span class="badge bg-success">Terverifikasi</span></td>
-                        <td>10 menit lalu</td>
+                        <td>{{ $activity->team->nama_tim ?? '-' }}</td>
+                        <td>{{ $activity->action }}</td>
+                        <td>
+                            @if($activity->status == 'verified')
+                            <span class="badge bg-success">Terverifikasi</span>
+                            @elseif($activity->status == 'pending')
+                            <span class="badge bg-warning">Belum Diverifikasi</span>
+                            @else
+                            <span class="badge bg-secondary">{{ ucfirst($activity->status) }}</span>
+                            @endif
+                        </td>
+                        <td>{{ $activity->created_at->diffForHumans() }}</td>
                     </tr>
+                    @empty
                     <tr>
-                        <td>Siti Aminah</td>
-                        <td>SMAN 2 Pekanbaru</td>
-                        <td><span class="badge bg-warning">Diproses</span></td>
-                        <td>20 menit lalu</td>
+                        <td colspan="4" class="text-center text-muted">Belum ada aktivitas</td>
                     </tr>
-                    <tr>
-                        <td>Andi Pratama</td>
-                        <td>SMAN 3 Pekanbaru</td>
-                        <td><span class="badge bg-danger">Ditolak</span></td>
-                        <td>30 menit lalu</td>
-                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
+
 
     {{-- Quick Actions --}}
     <h5 class="mb-3">Akses Cepat</h5>

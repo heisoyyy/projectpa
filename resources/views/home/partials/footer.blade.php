@@ -1,8 +1,7 @@
 <footer>
   <div class="container">
     <div class="col-lg-8">
-      <p>Copyright © 2048 Villa Agency Co., Ltd. All rights reserved.
-        Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a>
+      <p>&copy; {{ date('Y') }} SMAN PLUS PROVINSI RIAU. All rights reserved.
       </p>
     </div>
   </div>
@@ -21,7 +20,7 @@
     border-radius: 15px;
     padding: 20px;
     width: 260px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     font-family: "Poppins", sans-serif;
   }
 
@@ -30,7 +29,8 @@
   }
 
   .label {
-    color: #9ca3af; /* abu-abu */
+    color: #9ca3af;
+    /* abu-abu */
     font-size: 14px;
     margin: 0;
   }
@@ -52,17 +52,20 @@
     background: #fff;
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
+
   .registration-form .form-group {
     margin-bottom: 18px;
   }
+
   .registration-form label {
     font-weight: 600;
     display: block;
     margin-bottom: 6px;
     color: #333;
   }
+
   .registration-form .form-control,
   .registration-form .form-control-file,
   .registration-form select {
@@ -72,6 +75,7 @@
     border: 1px solid #ddd;
     font-size: 15px;
   }
+
   .btn-submit {
     background: #800000;
     color: #fff;
@@ -83,6 +87,7 @@
     transition: 0.3s;
     font-size: 16px;
   }
+
   .btn-submit:hover {
     background: #dd0202ff;
   }
@@ -90,17 +95,18 @@
 
 <style>
   .alert {
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-}
-.alert-success {
-  background: #d4edda;
-  color: #155724;
-}
-.alert-danger {
-  background: #f8d7da;
-  color: #721c24;
-}
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+  }
 
+  .alert-success {
+    background: #d4edda;
+    color: #155724;
+  }
+
+  .alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+  }
 </style>

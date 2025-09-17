@@ -100,14 +100,26 @@
         </div>
     </div>
 
-    {{-- Tombol Verifikasi --}}
+    {{-- Tombol Verifikasi + Back --}}
     <div class="d-flex gap-2">
+        {{-- Form Verifikasi --}}
         <form action="{{ route('admin.verifikasi', $team->id) }}" method="POST">
             @csrf
             <button type="submit" name="status" value="pending" class="btn btn-warning">Belum Lengkap</button>
             <button type="submit" name="status" value="verified" class="btn btn-success">Terverifikasi</button>
         </form>
+
+        {{-- Tombol Back (pisah dari form) --}}
+        <button type="button" class="btn btn-secondary" onclick="window.history.back()">⬅ Kembali</button>
     </div>
 
 </div>
+
+<script>
+    window.addEventListener("pageshow", function(event) {
+        if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+            location.reload();
+        }
+    });
+</script>
 @endsection

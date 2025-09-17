@@ -1,72 +1,75 @@
-{{-- ================= MODAL EDIT JUDUL ================= --}}
+{{-- Modal Edit Judul Statistik --}}
 <div class="modal fade" id="modalEditJudulStatistik" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Judul Statistik</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <form action="{{ route('statistik.judul.update') }}" method="POST">
+      @csrf
+      @method('PUT')
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Judul Statistik</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <label>Judul Section</label>
+          <input type="text" name="judul_section" value="{{ $statistikJudul }}" class="form-control" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-warning">Update Judul</button>
+        </div>
       </div>
-      <div class="modal-body">
-        <input type="text" class="form-control" value="LKBB Komando 2025">
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        <button class="btn btn-success">Simpan</button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 
-
-{{-- ================= MODAL TAMBAH STATISTIK ================= --}}
+{{-- Modal Tambah Statistik --}}
 <div class="modal fade" id="modalTambahStatistik" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Tambah Statistik</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-            <label class="form-label">Label</label>
-            <input type="text" class="form-control" placeholder="cth: Pendaftar">
+    <form action="{{ route('statistik.store') }}" method="POST">
+      @csrf
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tambah Statistik</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Jumlah</label>
-            <input type="number" class="form-control" placeholder="cth: 20">
+        <div class="modal-body">
+          <label>Label</label>
+          <input type="text" name="label" class="form-control" required>
+
+          <label>Jumlah</label>
+          <input type="number" name="jumlah" class="form-control" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Tambah Statistik</button>
         </div>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        <button class="btn btn-success">Simpan</button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 
-
-{{-- ================= MODAL EDIT STATISTIK ================= --}}
-<div class="modal fade" id="modalEditStatistik" tabindex="-1" aria-hidden="true">
+{{-- Modal Edit Statistik --}}
+@foreach($statistiks as $stat)
+<div class="modal fade" id="modalEditStatistik{{ $stat->id }}" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Statistik</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-            <label class="form-label">Label</label>
-            <input type="text" class="form-control" value="Pendaftar">
+    <form action="{{ route('statistik.update', $stat->id) }}" method="POST">
+      @csrf
+      @method('PUT')
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Statistik</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Jumlah</label>
-            <input type="number" class="form-control" value="20">
+        <div class="modal-body">
+          <label>Label</label>
+          <input type="text" name="label" value="{{ $stat->label }}" class="form-control" required>
+
+          <label>Jumlah</label>
+          <input type="number" name="jumlah" value="{{ $stat->jumlah }}" class="form-control" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-warning">Update Statistik</button>
         </div>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        <button class="btn btn-success">Simpan</button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
+@endforeach
