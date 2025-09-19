@@ -16,8 +16,8 @@
               </a>
             </li>
             <li>
-              <a href="{{ url('/home/informasi') }}" 
-                 class="{{ request()->is('home/informasi') ? 'active' : '' }}">
+              <a href="{{ url('informasi') }}" 
+                 class="{{ request()->is('informasi') ? 'active' : '' }}">
                  Informasi
               </a>
             </li>

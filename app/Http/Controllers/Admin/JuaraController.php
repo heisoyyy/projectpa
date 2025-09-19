@@ -23,7 +23,7 @@ class JuaraController extends Controller
             'pelatih' => 'required|string',
             'jumlah_tim' => 'required|integer',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|image|max:2048'
+            'gambar' => 'nullable|image|max:10240'
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -43,7 +43,7 @@ class JuaraController extends Controller
             'pelatih' => 'required|string',
             'jumlah_tim' => 'required|integer',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|image|max:2048'
+            'gambar' => 'nullable|image|max:10240'
         ]);
 
         if ($request->hasFile('gambar')) {

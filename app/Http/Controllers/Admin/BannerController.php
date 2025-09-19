@@ -14,7 +14,7 @@ class BannerController extends Controller
             'judul' => 'required|string',
             'sub_judul' => 'required|string',
             'kategori' => 'required|string',
-            'gambar' => 'required|image|max:2048'
+            'gambar' => 'required|image|max:10240'
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -31,7 +31,7 @@ class BannerController extends Controller
             'judul' => 'required|string',
             'sub_judul' => 'required|string',
             'kategori' => 'required|string',
-            'gambar' => 'nullable|image|max:2048'
+            'gambar' => 'nullable|image|max:10240'
         ]);
 
         if ($request->hasFile('gambar')) {

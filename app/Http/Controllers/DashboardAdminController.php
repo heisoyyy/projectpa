@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\Activity;
 use App\Models\Jadwal;
+use App\Models\Setting;
 use Carbon\Carbon;
 
 class DashboardAdminController extends Controller
@@ -42,8 +43,13 @@ class DashboardAdminController extends Controller
             ? $pendaftaranTerakhir->created_at->diffForHumans()
             : '-';
 
-        // 🔥 Ambil 3 aktivitas terakhir
         $latestActivities = Activity::with('team')->latest()->take(3)->get();
+
+        // ambil setting pendaftaran
+        $setting = Setting::firstOrCreate(
+            ['key' => 'pendaftaran_enabled'],
+            ['value' => '1'] // default aktif
+        );
 
         return view('admin.home-admin', compact(
             'totalSekolah',
@@ -53,7 +59,21 @@ class DashboardAdminController extends Controller
             'labelsSekolah',
             'dataPeserta',
             'statusCounts',
-            'latestActivities' // dikirim ke view
+            'latestActivities',
+            'setting'
         ));
+    }
+
+    public function togglePendaftaran(Request $request)
+    {
+        $setting = Setting::firstOrCreate(
+            ['key' => 'pendaftaran_enabled'],
+            ['value' => '1']
+        );
+
+        $setting->value = $setting->value == '1' ? '0' : '1';
+        $setting->save();
+
+        return back()->with('success', 'Status pendaftaran berhasil diperbarui!');
     }
 }

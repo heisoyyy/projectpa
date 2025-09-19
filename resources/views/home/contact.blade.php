@@ -3,7 +3,8 @@
 @section('title', 'LKBB Komando')
 
 @section('content')
-<div class="page-heading header-text">
+<div class="page-heading header-text"
+  style="background: url('{{ Storage::url($informasi->background) }}') no-repeat center center/cover;">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -74,9 +75,18 @@
       </div>
       <div class="col-lg-12">
         <div id="map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8062.54813596318!2d101.39923702907177!3d0.4132533742490759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5a873ae3de173%3A0x6596574a06800d8d!2sSMA%20Negeri%20Plus%20Provinsi%20Riau!5e1!3m2!1sen!2sid!4v1755435483166!5m2!1sen!2sid" width="100%" height="500px" frameborder="0" style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);" allowfullscreen=""></iframe>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8062.54813596318!2d101.39923702907177!3d0.4132533742490759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5a873ae3de173%3A0x6596574a06800d8d!2sSMA%20Negeri%20Plus%20Provinsi%20Riau!5e1!3m2!1sen!2sid!4v1755435483166!5m2!1sen!2sid"
+            width="100%"
+            height="500"
+            style="border:0; border-radius:10px; box-shadow:0px 0px 15px rgba(0,0,0,0.15);"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
         </div>
       </div>
+
     </div>
   </div>
 </div>

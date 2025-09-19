@@ -100,34 +100,58 @@
 
 @if($jadwal)
 <script>
-    // ambil target waktu tampil dikurangi 15 menit
+    // Waktu tampil tim
     const tampilTime = new Date("{{ $jadwal->tanggal }} {{ $jadwal->waktu }}").getTime();
-    const targetTime = tampilTime - (15 * 60 * 1000); // 15 menit sebelum tampil
-
     const countdownEl = document.getElementById("countdown");
 
+    // Element status di tabel
+    const tableRow = document.querySelector('tr.table-primary');
+    const statusTd = tableRow.querySelector('td:nth-child(5) span.badge');
+
+    // Timer update setiap detik
     const timer = setInterval(() => {
         const now = new Date().getTime();
-        const distance = targetTime - now;
+        const distance = tampilTime - now;
 
-        if (distance <= 0) {
-            clearInterval(timer);
-            countdownEl.innerHTML = "Saatnya bersiap!";
+        // 15 menit sebelum tampil
+        if (distance <= 15 * 60 * 1000 && distance > 0) {
+            const minutesLeft = Math.floor(distance / (1000 * 60));
+            const secondsLeft = Math.floor((distance % (1000 * 60)) / 1000);
+            countdownEl.innerHTML = `Bersiap! ${minutesLeft}m ${secondsLeft}s lagi`;
+            countdownEl.classList.remove("text-success");
+            countdownEl.classList.add("text-danger");
+        }
+        // Sedang tampil
+        else if (distance <= 0 && distance > -30 * 60 * 1000) {
+            countdownEl.innerHTML = "Sedang Tampil";
             countdownEl.classList.remove("text-danger");
+            countdownEl.classList.add("text-primary");
+            statusTd.textContent = "Sedang Tampil";
+            statusTd.className = "badge bg-primary";
+        }
+        // Sudah tampil + tombol hasil
+        else if (distance <= -30 * 60 * 1000) {
+            clearInterval(timer);
+            countdownEl.innerHTML = "Selesai Tampil";
+            countdownEl.classList.remove("text-primary");
             countdownEl.classList.add("text-success");
-        } else {
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            statusTd.textContent = "Sudah Tampil";
+            statusTd.className = "badge bg-success";
 
-            countdownEl.innerHTML =
-                String(hours).padStart(2, '0') + ":" +
-                String(minutes).padStart(2, '0') + ":" +
-                String(seconds).padStart(2, '0');
+            // Tambah tombol cek hasil
+            if (!document.getElementById('cekHasilBtn')) {
+                const resultBtn = document.createElement('a');
+                resultBtn.id = "cekHasilBtn";
+                resultBtn.href = "{{ route('user.hasil') }}";
+                resultBtn.className = "btn btn-success btn-sm mt-2";
+                resultBtn.textContent = "Lihat Hasil";
+                countdownEl.parentNode.appendChild(resultBtn);
+            }
         }
     }, 1000);
 </script>
 @endif
+
 
 
 @endsection

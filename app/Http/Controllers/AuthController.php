@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Informasi\Informasi;
 
 class AuthController extends Controller
 {
@@ -27,7 +28,7 @@ class AuthController extends Controller
             'nomor_sekolah' => $request->nomor_sekolah,
             'kota' => $request->kota,
             'team_id'      => $request->team_id,
-            'role' => 'user',   
+            'role' => 'user',
         ]);
 
         return redirect()->route('login.form')->with('success', 'Registrasi berhasil! Silakan login.');
@@ -57,5 +58,11 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect('/home/login')->with('success', 'Berhasil logout.');
+    }
+    // Tampilkan form pendaftaran
+    public function showForm()
+    {
+        $informasi = Informasi::first(); // 🔥 untuk ambil background dll
+        return view('home.pendaftaran', compact('informasi'));
     }
 }

@@ -1,208 +1,112 @@
 @extends('home.komponen.home-ofc')
 
-@section('title', 'LKBB Komando')
+@section('title', 'LKBB Komando - Informasi')
 
 @section('content')
-  <div class="page-heading header-text">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h3>Informasi</h3>
-        </div>
+
+<!-- Page Heading -->
+<div class="page-heading header-text"
+  style="background: url('{{ Storage::url($informasi->background) }}') no-repeat center center/cover;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center text-white">
+        <h3>{{ $informasi->title }}</h3>
+        <p>{{ $informasi->description }}</p>
       </div>
     </div>
   </div>
-  
-  <div class="section properties">
-    <div class="container">
-      <ul class="properties-filter">
-        <li>
-          <a class="is_active" href="#!" data-filter="*">Show All</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".adv">Apartment</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".str">Villa House</a>
-        </li>
-        <li>
-          <a href="#!" data-filter=".rac">Penthouse</a>
-        </li>
-      </ul>
-      <div class="row properties-box">
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv">
-          <div class="item">
-            <a href="property-details.html"><img src="pubassets/images/property-01.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$2.264.000</h6>
-            <h4><a href="property-details.html">18 Old Street Miami, OR 97219</a></h4>
-            <ul>
-              <li>Bedrooms: <span>8</span></li>
-              <li>Bathrooms: <span>8</span></li>
-              <li>Area: <span>545m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>6 spots</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-02.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$1.180.000</h6>
-            <h4><a href="property-details.html">54 New Street Florida, OR 27001</a></h4>
-            <ul>
-              <li>Bedrooms: <span>6</span></li>
-              <li>Bathrooms: <span>5</span></li>
-              <li>Area: <span>450m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>8 spots</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv rac">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-03.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$1.460.000</h6>
-            <h4><a href="property-details.html">26 Mid Street Portland, OR 38540</a></h4>
-            <ul>
-              <li>Bedrooms: <span>5</span></li>
-              <li>Bathrooms: <span>4</span></li>
-              <li>Area: <span>225m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>10 spots</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 str">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-04.jpg" alt=""></a>
-            <span class="category">Apartment</span>
-            <h6>$584.500</h6>
-            <h4><a href="property-details.html">12 Hope Street Portland, OR 12650</a></h4>
-            <ul>
-              <li>Bedrooms: <span>4</span></li>
-              <li>Bathrooms: <span>3</span></li>
-              <li>Area: <span>125m2</span></li>
-              <li>Floor: <span>25th</span></li>
-              <li>Parking: <span>2 cars</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac str">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-05.jpg" alt=""></a>
-            <span class="category">Penthouse</span>
-            <h6>$925.600</h6>
-            <h4><a href="property-details.html">34 Hope Street Portland, OR 42680</a></h4>
-            <ul>
-              <li>Bedrooms: <span>4</span></li>
-              <li>Bathrooms: <span>4</span></li>
-              <li>Area: <span>180m2</span></li>
-              <li>Floor: <span>38th</span></li>
-              <li>Parking: <span>2 cars</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac adv">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-06.jpg" alt=""></a>
-            <span class="category">Modern Condo</span>
-            <h6>$450.000</h6>
-            <h4><a href="property-details.html">22 Hope Street Portland, OR 16540</a></h4>
-            <ul>
-              <li>Bedrooms: <span>3</span></li>
-              <li>Bathrooms: <span>2</span></li>
-              <li>Area: <span>165m2</span></li>
-              <li>Floor: <span>26th</span></li>
-              <li>Parking: <span>3 cars</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac str">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-03.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$980.000</h6>
-            <h4><a href="property-details.html">14 Mid Street Miami, OR 36450</a></h4>
-            <ul>
-              <li>Bedrooms: <span>8</span></li>
-              <li>Bathrooms: <span>8</span></li>
-              <li>Area: <span>550m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>12 spots</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac adv">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-02.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$1.520.000</h6>
-            <h4><a href="property-details.html">26 Old Street Miami, OR 12870</a></h4>
-            <ul>
-              <li>Bedrooms: <span>12</span></li>
-              <li>Bathrooms: <span>15</span></li>
-              <li>Area: <span>380m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>14 spots</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 rac adv">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-01.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$3.145.000</h6>
-            <h4><a href="property-details.html">34 New Street Miami, OR 24650</a></h4>
-            <ul>
-              <li>Bedrooms: <span>10</span></li>
-              <li>Bathrooms: <span>12</span></li>
-              <li>Area: <span>860m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>10 spots</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
+</div>
+
+
+<!-- History LKBB Komando -->
+<div class="section properties">
+  <div class="container">
+    <h4 class="mb-4 text-center">Peserta LKBB Komando</h4>
+
+    <!-- Filter by Kota -->
+    <ul class="properties-filter">
+      <li><a class="is_active" data-filter="*">Semua Kota</a></li>
+      @foreach($kotas as $kota)
+      <li><a data-filter=".{{ \Illuminate\Support\Str::slug($kota) }}">{{ $kota }}</a></li>
+      @endforeach
+    </ul>
+
+    <!-- Grid History -->
+    <div class="row properties-box" id="isotope-grid">
+      @foreach($allHistory as $item)
+      <div class="col-lg-4 col-md-6 properties-items mb-30 {{ \Illuminate\Support\Str::slug($item->kota) }}">
+        <div class="item">
+          <a href="{{ Storage::url($item->image) }}" target="_blank">
+            <img src="{{ Storage::url($item->image) }}"
+              alt="{{ $item->nama_sekolah }}"
+              class="img-fluid"
+              style="height:200px;object-fit:cover;">
+          </a>
+          <span class="category">{{ $item->kota }}</span>
+          <h4>{{ $item->nama_sekolah }}</h4>
+          <p>{{ $item->deskripsi }}</p>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a class="is_active" href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">>></a></li>
-          </ul>
-        </div>
-      </div>
+      @endforeach
     </div>
   </div>
+</div>
+
+
+
+<!-- Biodata + Dokumen -->
+<div class="section biodata-dokumen my-5">
+  <div class="container">
+    <div class="row">
+
+      <!-- Kepala Sekolah -->
+      @if($biodata->count() > 0)
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 text-center shadow-sm biodata-card">
+          <img src="{{ Storage::url($biodata[0]->foto) }}" class="card-img-top" alt="{{ $biodata[0]->nama }}">
+          <div class="card-body">
+            <h5 class="card-title">Kepala Sekolah</h5>
+            <p class="fw-bold mb-1">{{ $biodata[0]->nama }}</p>
+            <small class="text-muted">{{ $biodata[0]->deskripsi }}</small>
+          </div>
+        </div>
+      </div>
+      @endif
+
+      <!-- Dokumen Tengah -->
+      <div class="col-lg-6 mb-4">
+        <h4 class="mb-4 text-center fw-bold">Dokumen & Panduan</h4>
+        <div class="row g-3">
+          @foreach($dokumen as $doc)
+          <div class="col-md-6">
+            <div class="card text-center h-100 dokumen-card">
+              <img src="{{ Storage::url($doc->thumbnail) }}" class="card-img-top" alt="{{ $doc->judul }}">
+              <div class="card-body">
+                <h6 class="card-title fw-bold">{{ $doc->judul }}</h6>
+                <a href="{{ Storage::url($doc->file) }}" class="btn btn-primary btn-sm" target="_blank">Download</a>
+              </div>
+            </div>
+          </div>
+          @endforeach
+        </div>
+      </div>
+
+      <!-- Ketua OSIS -->
+      @if($biodata->count() > 1)
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 text-center shadow-sm biodata-card">
+          <img src="{{ Storage::url($biodata[1]->foto) }}" class="card-img-top" alt="{{ $biodata[1]->nama }}">
+          <div class="card-body">
+            <h5 class="card-title">Ketua OSIS</h5>
+            <p class="fw-bold mb-1">{{ $biodata[1]->nama }}</p>
+            <small class="text-muted">{{ $biodata[1]->deskripsi }}</small>
+          </div>
+        </div>
+      </div>
+      @endif
+
+    </div>
+  </div>
+</div>
+
 @endsection

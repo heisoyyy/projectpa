@@ -13,7 +13,7 @@ class JadwalController extends Controller
     {
         $jadwals = Jadwal::with('team.user')->orderBy('urutan')->get();
         $sekolahBelumJadwal = Team::whereDoesntHave('jadwal')->with('user')->get();
-        return view('admin.jadwal-admin', compact('jadwals','sekolahBelumJadwal'));
+        return view('admin.jadwal-admin', compact('jadwals', 'sekolahBelumJadwal'));
     }
 
     public function store(Request $request)
@@ -34,12 +34,34 @@ class JadwalController extends Controller
             'urutan' => $request->urutan,
         ]);
 
-        return redirect()->route('admin.jadwal.index')->with('success','Jadwal berhasil ditambahkan.');
+        return redirect()->route('admin.jadwal.index')->with('success', 'Jadwal berhasil ditambahkan.');
     }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'tanggal' => 'required|date',
+            'waktu' => 'required',
+            'tempat' => 'required',
+            'sekolah_id' => 'required|exists:teams,id',
+            'urutan' => 'required|integer',
+        ]);
+
+        $jadwal = Jadwal::findOrFail($id);
+        $jadwal->update([
+            'tanggal' => $request->tanggal,
+            'waktu' => $request->waktu,
+            'tempat' => $request->tempat,
+            'team_id' => $request->sekolah_id,
+            'urutan' => $request->urutan,
+        ]);
+
+        return redirect()->route('admin.jadwal.index')->with('success', 'Jadwal berhasil diperbarui.');
+    }
+
 
     public function destroy($id)
     {
         Jadwal::findOrFail($id)->delete();
-        return back()->with('success','Jadwal berhasil dihapus.');
+        return back()->with('success', 'Jadwal berhasil dihapus.');
     }
 }

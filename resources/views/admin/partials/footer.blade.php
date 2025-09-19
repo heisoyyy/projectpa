@@ -170,7 +170,7 @@
                 labels: ['Terverifikasi', 'Pending'],
                 datasets: [{
                     data: [statusCounts.verified, statusCounts.pending],
-                    backgroundColor: ['#198754', '#ffc107']
+                    backgroundColor: ['#33e0f0ff', '#ffc107']
                 }]
             }
         });
@@ -294,3 +294,62 @@
     });
 </script>
 
+@isset($sekolahs)
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let sekolahList = JSON.parse(String.raw`@json($sekolahs->pluck('nama_sekolah'))`);
+
+        document.querySelectorAll('.sekolah-input').forEach(input => {
+            const id = input.dataset.id;
+            const hidden = document.getElementById('namaSekolahHidden' + (id === 'create' ? 'Create' : id));
+            const dropdown = document.getElementById('sekolahDropdown' + (id === 'create' ? 'Create' : id));
+
+            function renderDropdown(filtered) {
+                dropdown.innerHTML = '';
+                if (!filtered.length) {
+                    dropdown.style.display = 'none';
+                    return;
+                }
+                filtered.forEach(s => {
+                    const li = document.createElement('li');
+                    li.classList.add('list-group-item', 'list-group-item-action');
+                    li.textContent = s;
+                    li.style.cursor = 'pointer';
+                    li.addEventListener('click', () => {
+                        input.value = s;
+                        hidden.value = s;
+                        dropdown.style.display = 'none';
+                    });
+                    dropdown.appendChild(li);
+                });
+                dropdown.style.display = 'block';
+            }
+
+            function updateDropdown() {
+                let value = input.value.trim();
+                if (value && !sekolahList.includes(value)) sekolahList.push(value);
+                hidden.value = value;
+                const filtered = sekolahList.filter(s => s.toLowerCase().includes(value.toLowerCase()));
+                renderDropdown(filtered);
+            }
+
+            input.addEventListener('input', updateDropdown);
+            input.addEventListener('focus', updateDropdown);
+
+            document.addEventListener('click', (e) => {
+                if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+@endisset
+
+<script>
+    function updateKota(select) {
+        let kotaInput = document.getElementById('kota');
+        let kota = select.options[select.selectedIndex].getAttribute('data-kota');
+        kotaInput.value = kota ?? '';
+    }
+</script>

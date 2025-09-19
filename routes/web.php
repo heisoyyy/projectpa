@@ -16,12 +16,20 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DashboardUserController;
+use App\Http\Controllers\HomepageController;
+// Homepage
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\FeaturedController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\StatistikController;
 use App\Http\Controllers\Admin\JuaraController;
-use App\Http\Controllers\HomepageController;
+
+// Informasi
+use App\Http\Controllers\Informasi\InformasiController;
+use App\Http\Controllers\Admin\KelolaInformasiController;
+use App\Http\Controllers\KontakController;
+use App\Http\Controllers\SettingPendaftaranController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,10 +49,11 @@ Route::get('/', function () {
 Route::get('/home', [HomepageController::class, 'index'])->name('home');
 
 // Halaman Contact
-Route::get('/home/contact', fn() => view('home.contact'))->name('contact');
+Route::get('/home/contact', [KontakController::class, 'contact'])->name('home.contact');
 
-// Halaman Informasi
-Route::get('/home/informasi', fn() => view('home.informasi'))->name('informasi');
+// Informasi
+Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi.index');
+
 
 // ========== AUTH ==========
 
@@ -55,7 +64,7 @@ Route::get('/home/pendaftaran', function () {
 
 // PROSES REGISTER (POST)
 Route::post('/home/pendaftaran', [AuthController::class, 'register'])->name('register.post');
-
+Route::get('/home/pendaftaran', [AuthController::class, 'showForm'])->name('register.form');
 // FORM LOGIN (GET)
 Route::get('/home/login', function () {
     return view('home.login');
@@ -75,7 +84,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
     Route::get('/user/home', [HomeController::class, 'index'])->name('user.home');
 
-
+    Route::get('/user/cek-dokumen', [App\Http\Controllers\UserController::class, 'cekDokumenStatus'])
+        ->name('user.cek-dokumen');
     // Pesan
     Route::get('/user/pesan', [UserController::class, 'pesanIndex'])->name('user.pesan.index');
     Route::get('/user/pesan/{pesan}', [UserController::class, 'pesanRead'])->name('user.pesan.read');
@@ -118,6 +128,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/detail-sekolah/{id}', [AdminController::class, 'detail'])->name('admin.detail');
     Route::post('/admin/verifikasi/{id}', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');
     Route::delete('/admin/hapus-sekolah/{id}', [AdminController::class, 'hapusSekolah']);
+    // Toggle status pendaftaran
+    Route::post('/pendaftaran/toggle', [DashboardAdminController::class, 'togglePendaftaran'])->name('admin.pendaftaran.toggle');
 
     // Pesan 
     Route::get('/admin/pesan-admin', [PesanController::class, 'index'])->name('admin.pesan.index');
@@ -129,6 +141,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Jadwal 
     Route::get('/admin/jadwal-admin', [JadwalController::class, 'index'])->name('admin.jadwal.index');
     Route::post('/admin/jadwal-admin', [JadwalController::class, 'store'])->name('admin.jadwal.store');
+    Route::put('/admin/jadwal-admin/{id}', [JadwalController::class, 'update'])->name('admin.jadwal.update');
     Route::delete('/admin/jadwal-admin/{id}', [JadwalController::class, 'destroy'])->name('admin.jadwal.destroy');
 
     // Hasil
@@ -197,6 +210,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // Route::delete('juara/{juara}', [JuaraController::class, 'destroy'])->name('juara.destroy');
 
 
+// Homepage Home
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
     // Homepage
@@ -226,7 +240,31 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('statistik/{statistik}', [StatistikController::class, 'destroy'])->name('admin.statistik.destroy');
 
     // Juara
-        Route::post('juara', [JuaraController::class, 'store'])->name('admin.juara.store');
-        Route::put('juara/{juara}', [JuaraController::class, 'update'])->name('admin.juara.update');
-        Route::delete('juara/{juara}', [JuaraController::class, 'destroy'])->name('admin.juara.destroy');
+    Route::post('juara', [JuaraController::class, 'store'])->name('admin.juara.store');
+    Route::put('juara/{juara}', [JuaraController::class, 'update'])->name('admin.juara.update');
+    Route::delete('juara/{juara}', [JuaraController::class, 'destroy'])->name('admin.juara.destroy');
+
+    // Informasi
+    // Kelola Informasi
+    Route::get('kelola-informasi', [KelolaInformasiController::class, 'index'])->name('admin.kelola-informasi');
+
+    Route::post('kelola-informasi/hero', [KelolaInformasiController::class, 'updateHero'])->name('admin.kelola-informasi.hero');
+
+    Route::post('kelola-informasi/biodata/{id}', [KelolaInformasiController::class, 'updateBiodata'])->name('admin.kelola-informasi.biodata');
+
+    Route::post('kelola-informasi/dokumen', [KelolaInformasiController::class, 'storeDokumen'])->name('admin.kelola-informasi.dokumen.store');
+    Route::put('kelola-informasi/dokumen/{id}', [KelolaInformasiController::class, 'updateDokumen'])->name('admin.kelola-informasi.dokumen.update');
+    Route::delete('kelola-informasi/dokumen/{id}', [KelolaInformasiController::class, 'deleteDokumen'])->name('admin.kelola-informasi.dokumen.delete');
+
+    Route::post('kelola-informasi/history', [KelolaInformasiController::class, 'storeHistory'])->name('admin.kelola-informasi.history.store');
+    Route::put('kelola-informasi/history/{id}', [KelolaInformasiController::class, 'updateHistory'])->name('admin.kelola-informasi.history.update');
+    Route::delete('kelola-informasi/history/{id}', [KelolaInformasiController::class, 'deleteHistory'])->name('admin.kelola-informasi.history.delete');
 });
+
+// Homepage Informasi
+// Route::get('/admin/kelola-informasi', fn() => view('admin.kelola-informasi'));
+
+
+
+// Admin
+// Route::get('/admin/kelola-informasi', [KelolaInformasiController::class, 'index'])->name('admin.kelola-informasi.index');

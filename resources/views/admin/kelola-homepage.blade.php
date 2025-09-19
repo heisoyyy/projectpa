@@ -55,6 +55,7 @@
                                         <input type="text" name="judul" value="{{ $banner->judul }}" class="form-control mb-2" placeholder="Judul">
                                         <input type="text" name="sub_judul" value="{{ $banner->sub_judul }}" class="form-control mb-2" placeholder="Sub Judul">
                                         <input type="text" name="kategori" value="{{ $banner->kategori }}" class="form-control mb-2" placeholder="Kategori">
+                                        <span> Gambar </span>
                                         <input type="file" name="gambar" class="form-control">
                                     </div>
                                     <div class="modal-footer">
@@ -85,6 +86,7 @@
                         <input type="text" name="judul" class="form-control mb-2" placeholder="Judul">
                         <input type="text" name="sub_judul" class="form-control mb-2" placeholder="Sub Judul">
                         <input type="text" name="kategori" class="form-control mb-2" placeholder="Kategori">
+                        <span> Gambar </span>
                         <input type="file" name="gambar" class="form-control">
                     </div>
                     <div class="modal-footer">
@@ -178,6 +180,7 @@
                     <div class="modal-body">
                         <input type="text" name="judul" value="{{ $featured->judul }}" class="form-control mb-2">
                         <input type="text" name="sub_judul" value="{{ $featured->sub_judul }}" class="form-control mb-2">
+                        <span> Gambar </span>
                         <input type="file" name="gambar" class="form-control">
                     </div>
                     <div class="modal-footer">
@@ -258,7 +261,9 @@
                                     <div class="modal-body">
                                         <input type="text" name="judul" value="{{ $video->judul }}" class="form-control mb-2">
                                         <input type="url" name="link" value="{{ $video->link }}" class="form-control mb-2">
+                                        <span> Thumbnail </span>
                                         <input type="file" name="thumbnail" class="form-control mb-2">
+                                        <span> Background </span>
                                         <input type="file" name="background" class="form-control">
                                     </div>
                                     <div class="modal-footer">
@@ -267,7 +272,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div>  
+                    </div>
 
                     @endforeach
                 </tbody>
@@ -288,7 +293,9 @@
                     <div class="modal-body">
                         <input type="text" name="judul" class="form-control mb-2" placeholder="Judul Video">
                         <input type="url" name="link" class="form-control mb-2" placeholder="Link Video">
+                        <span> Thumbnail </span>
                         <input type="file" name="thumbnail" class="form-control mb-2">
+                        <span> Background </span>
                         <input type="file" name="background" class="form-control">
                     </div>
                     <div class="modal-footer">
@@ -462,6 +469,7 @@
                                         <input type="text" name="nama_sekolah" value="{{ $juara->nama_sekolah }}" class="form-control mb-2">
                                         <input type="text" name="pelatih" value="{{ $juara->pelatih }}" class="form-control mb-2">
                                         <input type="number" name="jumlah_tim" value="{{ $juara->jumlah_tim }}" class="form-control mb-2">
+                                        <span> Gambar </span>
                                         <input type="file" name="gambar" class="form-control mb-2">
                                         <textarea name="deskripsi" class="form-control">{{ $juara->deskripsi }}</textarea>
                                     </div>
@@ -495,6 +503,7 @@
                         <input type="text" name="nama_sekolah" class="form-control mb-2" placeholder="Nama Sekolah">
                         <input type="text" name="pelatih" class="form-control mb-2" placeholder="Pelatih">
                         <input type="number" name="jumlah_tim" class="form-control mb-2" placeholder="Jumlah Tim">
+                        <span> Gambar </span>
                         <input type="file" name="gambar" class="form-control mb-2">
                         <textarea name="deskripsi" class="form-control" placeholder="Deskripsi"></textarea>
                     </div>
@@ -505,5 +514,5 @@
             </div>
         </div>
     </div>
-</div>
+</div>  
 @endsection

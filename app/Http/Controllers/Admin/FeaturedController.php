@@ -15,7 +15,7 @@ class FeaturedController extends Controller
         $data = $request->validate([
             'judul' => 'required|string',
             'sub_judul' => 'required|string',
-            'gambar' => 'nullable|image|max:2048'
+            'gambar' => 'nullable|image|max:10240'
         ]);
 
         if ($request->hasFile('gambar')) {

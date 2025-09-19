@@ -13,8 +13,8 @@ class VideoController extends Controller
         $data = $request->validate([
             'judul' => 'required|string',
             'link' => 'required|url',
-            'thumbnail' => 'nullable|image|max:2048',
-            'background' => 'nullable|image|max:2048'
+            'thumbnail' => 'nullable|image|max:10240',
+            'background' => 'nullable|image|max:10240'
         ]);
 
         if ($request->hasFile('thumbnail')) {
@@ -33,8 +33,8 @@ class VideoController extends Controller
         $data = $request->validate([
             'judul' => 'required|string',
             'link' => 'required|url',
-            'thumbnail' => 'nullable|image|max:2048',
-            'background' => 'nullable|image|max:2048'
+            'thumbnail' => 'nullable|image|max:10240',
+            'background' => 'nullable|image|max:10240'
         ]);
 
         if ($request->hasFile('thumbnail')) {

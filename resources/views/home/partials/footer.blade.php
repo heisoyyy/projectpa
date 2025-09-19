@@ -1,20 +1,26 @@
 <footer>
   <div class="container">
     <div class="col-lg-8">
-      <p>&copy; {{ date('Y') }} SMAN PLUS PROVINSI RIAU. All rights reserved.
-      </p>
+      <p>&copy; {{ date('Y') }} SMAN PLUS PROVINSI RIAU. All rights reserved.</p>
     </div>
   </div>
 </footer>
 
-<!-- Scripts -->
+<!-- Vendor Scripts -->
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+
+<!-- Plugin Scripts -->
 <script src="{{ asset('assets/js/isotope.min.js') }}"></script>
 <script src="{{ asset('assets/js/owl-carousel.js') }}"></script>
 <script src="{{ asset('assets/js/counter.js') }}"></script>
+
+<!-- Custom Scripts -->
 <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+<!-- Inline Styles -->
 <style>
+  /* ===== Card & Stats ===== */
   .card {
     background: #fff;
     border-radius: 15px;
@@ -22,15 +28,11 @@
     width: 260px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     font-family: "Poppins", sans-serif;
-  }
-
-  .item {
     margin-bottom: 15px;
   }
 
   .label {
     color: #9ca3af;
-    /* abu-abu */
     font-size: 14px;
     margin: 0;
   }
@@ -45,9 +47,8 @@
     border-bottom: 1px solid #e5e7eb;
     margin: 10px 0;
   }
-</style>
 
-<style>
+  /* ===== Registration Form ===== */
   .registration-form {
     background: #fff;
     padding: 25px;
@@ -91,9 +92,8 @@
   .btn-submit:hover {
     background: #dd0202ff;
   }
-</style>
 
-<style>
+  /* ===== Alerts ===== */
   .alert {
     padding: 10px;
     margin-bottom: 15px;
@@ -110,3 +110,33 @@
     color: #721c24;
   }
 </style>
+
+<!-- ===== Isotope Filtering ===== -->
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Isotope
+    var iso = new Isotope('#isotope-grid', {
+      itemSelector: '.properties-items',
+      layoutMode: 'fitRows',
+      transitionDuration: '0.4s'
+    });
+
+    // Filter buttons
+    document.querySelectorAll('.properties-filter a').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Remove active class from all buttons
+        document.querySelectorAll('.properties-filter a').forEach(a => a.classList.remove('is_active'));
+        // Add active class to clicked button
+        this.classList.add('is_active');
+
+        // Filter items
+        var filterValue = this.getAttribute('data-filter');
+        iso.arrange({
+          filter: filterValue
+        });
+      });
+    });
+  });
+</script>

@@ -4,44 +4,42 @@
 
 @section('content')
 
-<div class="container-fluid">
-    <h3 class="mb-6 mt-8">Dashboard Admin</h3>
-    {{-- Statistik --}}
+<div class="container-fluid py-4">
+    <h3 class="mb-5">Dashboard Admin</h3>
 
-    <div class="row g-4 mb-4 mt-6">
+    {{-- Statistik Ringkas --}}
+    <div class="row g-4 mb-5">
         <div class="col-md-3">
             <div class="card shadow-sm p-3 text-center border-start border-primary border-3">
-                <h6 class="text-muted">Sekolah Terdaftar</h6>
+                <h6 class="text-muted mb-2">Sekolah Terdaftar</h6>
                 <p class="fs-3 fw-bold text-primary">{{ $totalSekolah ?? 0 }}</p>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow-sm p-3 text-center border-start border-success border-3">
-                <h6 class="text-muted">Peserta Terverifikasi</h6>
+                <h6 class="text-muted mb-2">Peserta Terverifikasi</h6>
                 <p class="fs-3 fw-bold text-success">{{ $verifiedCount ?? 0 }}</p>
             </div>
         </div>
-
         <div class="col-md-3">
             <div class="card shadow-sm p-3 text-center border-start border-warning border-3">
-                <h6 class="text-muted">Jadwal Hari Ini</h6>
+                <h6 class="text-muted mb-2">Jadwal Hari Ini</h6>
                 <p class="fs-3 fw-bold text-warning">{{ $jadwalHariIni ?? 0 }}</p>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow-sm p-3 text-center border-start border-danger border-3">
-                <h6 class="text-muted">Pendaftaran Terakhir</h6>
+                <h6 class="text-muted mb-2">Pendaftaran Terakhir</h6>
                 <p class="fs-3 fw-bold text-danger">{{ $waktuPendaftaranTerakhir ?? '-' }}</p>
             </div>
         </div>
     </div>
 
     {{-- Grafik --}}
-    <div class="row mb-4">
-        {{-- Statistik Peserta --}}
+    <div class="row mb-5">
         <div class="col-md-6 mb-3">
-            <div class="card border-0 shadow-lg rounded-3">
-                <div class="card-header bg-primary text-white d-flex align-items-center">
+            <div class="card border-0 shadow rounded-3">
+                <div class="card-header bg-dark text-white d-flex align-items-center">
                     <i class="bi bi-people-fill me-2"></i>
                     <h6 class="mb-0">Statistik Peserta</h6>
                 </div>
@@ -51,10 +49,9 @@
             </div>
         </div>
 
-        {{-- Status Pendaftaran --}}
         <div class="col-md-6 mb-3">
-            <div class="card border-0 shadow-lg rounded-3">
-                <div class="card-header bg-success text-white d-flex align-items-center">
+            <div class="card border-0 shadow rounded-3">
+                <div class="card-header bg-dark text-white d-flex align-items-center">
                     <i class="bi bi-bar-chart-fill me-2"></i>
                     <h6 class="mb-0">Status Pendaftaran</h6>
                 </div>
@@ -65,16 +62,36 @@
         </div>
     </div>
 
+    {{-- Toggle Pendaftaran --}}
+    <div class="card shadow-sm mb-5">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h6 class="mb-0">Status Pendaftaran</h6>
+            <form action="{{ route('admin.pendaftaran.toggle') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-sm {{ $setting->value == '1' ? 'btn-danger' : 'btn-success' }}">
+                    {{ $setting->value == '1' ? 'Nonaktifkan' : 'Aktifkan' }}
+                </button>
+            </form>
+        </div>
+        <div class="card-body">
+            <p class="mb-0">
+                Saat ini:
+                <span class="badge {{ $setting->value == '1' ? 'bg-success' : 'bg-danger' }}">
+                    {{ $setting->value == '1' ? 'Pendaftaran Aktif' : 'Pendaftaran Nonaktif' }}
+                </span>
+            </p>
+        </div>
+    </div>
 
     {{-- Aktivitas Terbaru --}}
-    <div class="card shadow-sm mb-4">
+    <div class="card shadow-sm mb-5">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h6 class="mb-0">Aktivitas Terbaru</h6>
             <a href="{{ url('admin/daftar-admin') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
         </div>
-        <div class="card-body">
-            <table class="table table-sm table-hover mb-0">
-                <thead>
+        <div class="card-body table-responsive">
+            <table class="table table-hover table-sm mb-0">
+                <thead class="table-light">
                     <tr>
                         <th>Sekolah</th>
                         <th>Aksi</th>
@@ -108,10 +125,9 @@
         </div>
     </div>
 
-
     {{-- Quick Actions --}}
     <h5 class="mb-3">Akses Cepat</h5>
-    <div class="d-flex flex-wrap gap-2">
+    <div class="d-flex flex-wrap gap-2 mb-5">
         <a href="{{ url('admin/daftar-admin') }}" class="btn btn-primary">
             <i class="fa fa-user-check me-2"></i>Verifikasi Peserta
         </a>
@@ -127,6 +143,5 @@
     </div>
 
 </div>
-
 
 @endsection

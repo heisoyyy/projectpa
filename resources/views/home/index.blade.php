@@ -7,7 +7,9 @@
   <div class="owl-carousel owl-banner">
     @foreach($banners as $banner)
     <div class="item item-{{ $loop->iteration }}"
-      style="background-image: url('{{ asset('storage/'.$banner->gambar) }}');">
+      style="
+      background-image: url('{{ asset('storage/'.$banner->gambar) }}'); 
+      ">
       <div class="header-text">
         <span class="category">{{ $banner->kategori }} <em>{{ $banner->judul }}</em></span>
         <h2>{!! nl2br(e($banner->sub_judul ?? '')) !!}</h2>
@@ -24,7 +26,7 @@
       <div class="col-lg-4">
         <div class="left-image">
           <img src="{{ asset('storage/'.$featured->gambar) }}" alt="">
-          <a href="#"><img src="{{ asset('assets/images/featured-icon.png') }}" alt="" style="max-width: 60px; padding: 0;"></a>
+          <img src="{{ asset('assets/images/featured-icon.png') }}" alt="" style="max-width: 60px; padding: 0;">
         </div>
       </div>
       <div class="col-lg-5">
@@ -190,21 +192,34 @@
       <div class="col-lg-4 offset-lg-4">
         <div class="section-heading text-center">
           <h6>| LKBB Komando 2025</h6>
-          <h2>Pendaftaran Dibuka LKBB Komando 2025!</h2>
+          <h2>Pendaftaran LKBB Komando 2025!</h2>
         </div>
       </div>
     </div>
 
+    @php
+    $pendaftaran = \App\Models\Setting::where('key','pendaftaran_enabled')->first();
+    @endphp
+
+    @if($pendaftaran && $pendaftaran->value == '1')
     <div class="icon-button text-center">
       <a href="{{ url('home/pendaftaran') }}">
         <span class="icon"><i class="fa fa-calendar"></i></span>
         <span class="text">DAFTAR SEKARANG!</span>
       </a>
     </div>
+    @else
+    <div class="icon-button text-center text-muted">
+      <span class="icon"><i class="fa fa-ban"></i></span>
+      <span class="text">Pendaftaran Ditutup</span>
+    </div>
+    @endif
   </div>
 </div>
 
-<div class="contact section">
+
+<div class="contact section"
+  style="background-image: url('{{ asset('storage/' . ($videos->first()->background ?? 'images/video-bg.jpg')) }}');">
   <div class="container">
     <div class="row">
       <div class="col-lg-4 offset-lg-4">
@@ -222,7 +237,7 @@
     <div class="row">
       <div class="col-lg-7">
         <div id="map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!..." width="100%" height="500px" frameborder="0" style="border:0; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.15);" allowfullscreen></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8062.54813596318!2d101.39923702907177!3d0.4132533742490759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5a873ae3de173%3A0x6596574a06800d8d!2sSMA%20Negeri%20Plus%20Provinsi%20Riau!5e1!3m2!1sen!2sid!4v1755435483166!5m2!1sen!2sid" width="100%" height="500px" frameborder="0" style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);" allowfullscreen=""></iframe>
         </div>
         <div class="row">
           <div class="col-lg-6">

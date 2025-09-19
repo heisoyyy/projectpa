@@ -3,7 +3,8 @@
 @section('title', 'Pendaftaran - LKBB Komando')
 
 @section('content')
-<div class="page-heading header-text">
+<div class="page-heading header-text"
+  style="background: url('{{ Storage::url($informasi->background) }}') no-repeat center center/cover;">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -22,6 +23,16 @@
           <h2>Form Pendaftaran LKBB Komando 2025</h2>
         </div>
 
+        @php
+        $pendaftaran = \App\Models\Setting::where('key','pendaftaran_enabled')->first();
+        @endphp
+
+        {{-- Jika pendaftaran ditutup --}}
+        @if(!$pendaftaran || $pendaftaran->value == '0')
+        <div class="alert alert-danger text-center">
+          <i class="fa fa-ban"></i> Pendaftaran saat ini <strong>DITUTUP</strong>.
+        </div>
+        @else
         <!-- Flash Message -->
         @if(session('success'))
         <div class="alert alert-success">
@@ -84,7 +95,7 @@
             </button>
           </div>
         </form>
-
+        @endif
 
       </div>
     </div>
