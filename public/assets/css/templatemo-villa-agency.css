@@ -87,6 +87,7 @@ Global Styles
 html,
 body {
   font-family: 'Poppins', sans-serif;
+  background-color: #ffffff;
 }
 
 ::selection {
@@ -100,7 +101,7 @@ body {
 }
 
 .section {
-  margin-top: 120px;
+  margin-top: 80px;
 }
 
 .section-heading {
@@ -343,27 +344,29 @@ Header Style
 
 .background-header {
   background-color: #fff;
-  height: 80px!important;
-  position: fixed!important;
-  top: 0!important;
+  height: 80px !important;
+  position: fixed !important;
+  top: 0 !important;
   left: 0;
   right: 0;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.15)!important;
-  -webkit-transition: all .5s ease 0s;
-  -moz-transition: all .5s ease 0s;
-  -o-transition: all .5s ease 0s;
-  transition: all .5s ease 0s;
+  transition: all 0.5s ease;
 }
 
 .header-area {
   position: relative;
-  background-color: #fff;
   height: 100px;
   z-index: 100;
-  -webkit-transition: all .5s ease 0s;
-  -moz-transition: all .5s ease 0s;
-  -o-transition: all .5s ease 0s;
-  transition: all .5s ease 0s;
+  background: linear-gradient(270deg, #250101, #7b1200, #bc002c, #200000);
+  background-size: 800% 800%;
+  animation: headerGradient 12s ease infinite;
+  transition: all 0.5s ease;
+}
+
+@keyframes headerGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .header-area .main-nav {
@@ -380,10 +383,10 @@ Header Style
 }
 
 .header-area .main-nav .logo h1 {
-  line-height: 100px;
+  line-height: 80px;
   font-size: 28px;
   text-transform: uppercase;
-  color: #1e1e1e;
+  color: #f5f4f4;
   font-weight: 700;
   letter-spacing: 2px;
 }
@@ -402,6 +405,32 @@ Header Style
   transition: all 0.3s ease 0s;
   position: relative;
   z-index: 999;
+}
+
+.header-area .main-nav ul.nav li {
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 80px;
+  line-height: 80px;
+}
+
+.header-area .main-nav ul.nav li a {
+  color: #fff;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+.logo-text {
+  margin-bottom: 10px;   /* menggantikan mb-10 */
+  font-size: 28px;
+  color: #f5f4f4;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.header-area .main-nav ul.nav li a:hover,
+.header-area .main-nav ul.nav li a.active {
+  color: #ffdddd;
 }
 
 .header-area .main-nav .nav li:last-child {
@@ -436,27 +465,22 @@ Header Style
 .header-area .main-nav .nav li:last-child a {
   background-color: #1e1e1e;
   color: #fff;
-  font-size: 14px;
-  font-weight: 400;
-  text-transform: none;
+  padding-left: 10px;
+  padding-right: 10px;
   border-radius: 20px;
-  padding-left: 0px;
+  display: flex;
+  align-items: center;
 }
 
 .header-area .main-nav .nav li:last-child a i {
-  background-color: #800000;
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  line-height: 40px;
-  margin-right: 10px;
-  border-radius: 50%;
-  margin-left: -1px;
+  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
 }
 
 .header-area .main-nav .nav li:last-child:hover a {
-  background-color: #1e1e1e;
+  background-color: #050000;
 }
 
 .header-area .main-nav .nav li:last-child:hover a i {
@@ -464,28 +488,24 @@ Header Style
 }
 
 .header-area .main-nav .nav li:hover a {
-  color: #800000;
+  color: #ffffff;
 }
 
 .header-area .main-nav .nav li a.active {
-  color: #800000;
+  color: #ffffff;
 }
 
 
 .background-header .main-nav .nav li a.active {
-  color: #800000;
+  color: #fff5f5;
 }
 
 .header-area .main-nav .menu-trigger {
-  cursor: pointer;
-  position: absolute;
-  top: 23px;
-  width: 32px;
-  height: 40px;
-  text-indent: -9999em;
-  z-index: 99;
-  right: 20px;
   display: none;
+  position: absolute;
+  top: 22px;
+  right: 20px;
+  cursor: pointer;
 }
 
 .background-header .main-nav .menu-trigger {
@@ -498,7 +518,7 @@ Header Style
 
 .header-area .main-nav .menu-trigger span,
 .header-area .main-nav .menu-trigger span:before,
-.header-area .main-nav .menu-trigger span:after {
+.header-area .main-nav .menu-trigger span:after {s
   -moz-transition: all 0.4s;
   -o-transition: all 0.4s;
   -webkit-transition: all 0.4s;
@@ -848,8 +868,9 @@ Featured Style
 }
 
 .featured .accordion {
+  border-radius: 6px 6px 7px 7px;
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 10px; 
   --bs-accordion-border-radius: 10px;
   --bs-accordion-inner-border-radius: 10px;
   --bs-accordion-bg: #fafafa;
@@ -859,6 +880,7 @@ Featured Style
 
 .featured .accordion-header {
   border-bottom: 1px solid #eaeaea;
+  border-radius: inherit
 }
 
 .featured .accordion-button {
@@ -866,12 +888,14 @@ Featured Style
   font-size: 17px;
   font-weight: 500;
   color: #1e1e1e;
+  border-radius: inherit;
 }
 
 .featured .accordion-button:not(.collapsed) {
   color: #800000;
   background-color: #fafafa;
   outline: none;
+  border-radius: inherit;
 }
 
 .featured .accordion-button::after {
@@ -927,48 +951,81 @@ Video Style
 --------------------------------------------- 
 */
 
+/* Video Section */
 .video {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  padding: 100px 0px 250px 0px;
+  padding: 100px 0 150px; /* dikurangi agar tidak terlalu jauh */
   position: relative;
+  color: #fff;
 }
-
-.video-content {
-  margin-top: -240px;
+.video::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); /* overlay gelap */
+  z-index: -9999;
 }
-
+.video .section-heading {
+  position: relative;
+  z-index: 2;
+}
+.video .section-heading h6 {
+  font-size: 16px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  color: #ffdddd;
+}
 .video .section-heading h2 {
+  font-size: 36px;
+  font-weight: 700;
   color: #fff;
 }
 
+/* Video Content */
+.video-content {
+  margin-top: -120px; /* sesuaikan agar tidak terlalu menumpuk */
+}
 .video-content .video-frame {
   position: relative;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
-
+.video-content .video-frame:hover {
+  transform: scale(1.05);
+}
 .video-content .video-frame img {
   border-radius: 10px;
+  width: 100%;
+  display: block;
 }
 
+/* Tombol Play */
 .video-content .video-frame a {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-26px, -26px);
-  width: 52px;
-  height: 52px;
-  background-color: #fff;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255,0,0,0.8);
   border-radius: 50%;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 24px;
   text-align: center;
-  line-height: 52px;
-  color: #800000;
-  outline: 15px solid rgba(254, 85, 37, 0.5);
-  font-size: 18px;
+  transition: all 0.3s ease;
 }
+.video-content .video-frame a:hover {
+  background-color: rgba(255,0,0,1);
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
 
 /* 
 ---------------------------------------------
@@ -976,18 +1033,40 @@ Fun Facts Style
 --------------------------------------------- 
 */
 
+/* Fun Facts Section */
 .fun-facts {
   text-align: center;
-  margin-top: 125px;
+  margin: 80px 0;
+  position: relative;
+  z-index: 1;
 }
 
+.fun-facts .section-heading h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #800000;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Counter Cards */
 .fun-facts .counter {
-  background-color: #ffeee9;
+  background: linear-gradient(145deg, #ea8f7d, #ed695f);
   position: relative;
-  border-radius: 10px;
-  width: 270px;
-  padding: 20px 0px;
+  border-radius: 15px;
+  width: 280px;
+  padding: 30px 20px;
   display: inline-block;
+  margin: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  cursor: default;
+}
+.fun-facts .counter:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
 }
 
 .fun-facts .counter h2,
@@ -996,29 +1075,65 @@ Fun Facts Style
   vertical-align: middle;
 }
 
+.fun-facts .counter h2 {
+  margin-right: 20px;
+  font-size: 48px;
+  color: #800000;
+  font-weight: 800;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
 .fun-facts .counter p {
-  text-align: left;
   font-size: 16px;
   color: #1e1e1e;
   font-weight: 600;
   line-height: 28px;
-}
-
-.fun-facts .counter h2 {
-  margin-right: 25px;
-  font-size: 40px;
-  color: #800000;
+  text-align: left;
 }
 
 .fun-facts .counter:after {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   background-color: #800000;
   border-radius: 50%;
   content: '';
-  right: -25px;
-  top: -25px;
+  right: -30px;
+  top: -30px;
+  transition: all 0.3s ease;
+}
+
+.fun-facts .counter:hover:after {
+  transform: scale(1.2);
+}
+
+/* Icon Optional */
+.fun-facts .counter i {
+  font-size: 28px;
+  color: #fff;
+  background-color: #800000;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .fun-facts .counter {
+    width: 100%;
+    margin: 15px 0;
+  }
+  .fun-facts .counter h2 {
+    font-size: 40px;
+  }
+  .fun-facts .section-heading h2 {
+    font-size: 32px;
+  }
 }
 
 
@@ -1029,7 +1144,6 @@ Best Deal Style
 */
 
 .best-deal {
-  background-color: #fafafa;
   padding: 100px 0px;
 }
 
@@ -1299,11 +1413,9 @@ Contact Style
 }
 
 
-/* 
----------------------------------------------
-Footer Style
---------------------------------------------- 
-*/
+/* ---------------------------------------------
+   Footer Style
+--------------------------------------------- */
 
 footer.footer-no-gap {
   margin-top: 0px;
@@ -1311,29 +1423,47 @@ footer.footer-no-gap {
 
 footer {
   margin-top: 150px;
-  background-color: #1e1e1e;
+  background: linear-gradient(270deg, #240000, #540000, #810202);
+  background-size: 400% 400%;
+  animation: footerGradient 25s ease infinite;
+
   min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 footer p {
+  margin: 0;
   text-align: center;
-  line-height: 100px;
   color: #fff;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 footer p a {
-  color: #fff;
+  color: #ff4b2b;
+  font-weight: 500;
+  text-decoration: none;
   transition: all .3s;
   position: relative;
   z-index: 3;
 }
 
 footer p a:hover {
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
+/* Animasi background */
+@keyframes footerGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
 /* 
 ---------------------------------------------

@@ -104,11 +104,11 @@
             <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditFeatured">Edit Featured</button>
         </div>
         <div class="card-body">
-            <div class="mb-3">
+            <div class="mb-3 featured-image">
                 @if($featured)
-                <img src="{{ asset('storage/'.$featured->gambar) }}" alt="">
+                <img src="{{ asset('storage/'.$featured->gambar) }}" alt="Featured Image" class="img-fluid">
                 @else
-                <img src="{{ asset('assets/images/default-featured.png') }}" alt="">
+                <img src="{{ asset('assets/images/default-featured.png') }}" alt="Default Featured Image" class="img-fluid">
                 @endif
             </div>
             <p><strong>Judul:</strong> {{ $featured->judul }}</p>
@@ -514,5 +514,5 @@
             </div>
         </div>
     </div>
-</div>  
+</div>
 @endsection

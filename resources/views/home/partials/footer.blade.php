@@ -1,10 +1,7 @@
-<footer>
-  <div class="container">
-    <div class="col-lg-8">
-      <p>&copy; {{ date('Y') }} SMAN PLUS PROVINSI RIAU. All rights reserved.</p>
-    </div>
-  </div>
+<footer class="footer">
+  <p>&copy; {{ date('Y') }} SMAN PLUS PROVINSI RIAU. All rights reserved.</p>
 </footer>
+
 
 <!-- Vendor Scripts -->
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>

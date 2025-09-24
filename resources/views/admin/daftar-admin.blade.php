@@ -1,9 +1,8 @@
 @extends('admin.komponen.komponen')
 
 @section('title', 'Daftar Admin')
-
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid text-center mt-4">
     <h3 class="mb-4">Daftar Peserta Sekolah</h3>
 
     @if(session('success'))
@@ -13,7 +12,7 @@
     <div class="card shadow-sm">
         <div class="card-body">
             <table class="table table-hover align-middle">
-                <thead>
+                <thead class="text-center">
                     <tr>
                         <th>No</th>
                         <th>Nama Sekolah</th>
@@ -23,7 +22,7 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-center">
                     @forelse($teams as $i => $team)
                     <tr>
                         <td>{{ $i+1 }}</td>

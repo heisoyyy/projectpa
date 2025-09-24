@@ -2,7 +2,7 @@
 @section('title','Hasil Lomba Admin')
 @section('content')
 
-<h3 class="mb-4">Input & Lihat Hasil Lomba</h3>
+<h3 class="mb-4 text-center">Input & Lihat Hasil Lomba</h3>
 
 <!-- Tombol Tambah Nilai -->
 <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#tambahHasilModal">
@@ -53,7 +53,7 @@
 </div>
 
 <!-- Tabel Hasil -->
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped text-center">
   <thead class="table-primary">
     <tr>
       <th>No</th>

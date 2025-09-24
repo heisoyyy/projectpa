@@ -53,11 +53,6 @@ Route::get('/home/contact', [KontakController::class, 'contact'])->name('home.co
 
 // Informasi
 Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi.index');
-
-
-// ========== AUTH ==========
-
-// FORM REGISTER (GET)
 Route::get('/home/pendaftaran', function () {
     return view('home.pendaftaran');
 })->name('register.form');
@@ -65,6 +60,10 @@ Route::get('/home/pendaftaran', function () {
 // PROSES REGISTER (POST)
 Route::post('/home/pendaftaran', [AuthController::class, 'register'])->name('register.post');
 Route::get('/home/pendaftaran', [AuthController::class, 'showForm'])->name('register.form');
+
+// ========== AUTH ==========
+
+// FORM REGISTER (GET)
 // FORM LOGIN (GET)
 Route::get('/home/login', function () {
     return view('home.login');

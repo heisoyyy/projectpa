@@ -142,4 +142,12 @@
     .navbar-red-900 .nav-link.active {
         color: #ffcccc !important; /* sedikit berbeda untuk link aktif */
     }
+    .featured-image img {
+    width: 15%;               /* mengikuti lebar container */
+    aspect-ratio: 5 / 6;       /* lebar : tinggi = 8:7 */
+    object-fit: cover;         /* tetap proporsional, crop jika perlu */
+    border-radius: 10px;       /* opsional, lebih rapi */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15); /* efek modern */
+}
 </style>
+

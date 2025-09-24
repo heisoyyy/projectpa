@@ -3,7 +3,7 @@
 @section('title', 'Pesan Admin')
 
 @section('content')
-<h3 class="mb-4">Kelola Pesan</h3>
+<h3 class="mb-4 text-center mt-4">Kelola Pesan</h3>
 
 <!-- Tombol Kirim Pesan -->
 <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#kirimPesanModal">
@@ -60,8 +60,8 @@
 <!-- Tabel Daftar Pesan -->
 <div class="card shadow-sm">
     <div class="card-body">
-        <h5 class="mb-3">Daftar Pesan</h5>
-        <table class="table table-bordered">
+        <h5 class="mb-3 text-center">Daftar Pesan</h5>
+        <table class="table table-bordered text-center">
             <thead class="table-light">
                 <tr>
                     <th>No</th>

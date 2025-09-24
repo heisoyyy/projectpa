@@ -1,12 +1,13 @@
 <header class="header-area header-sticky">
   <div class="container">
-    <div class="row">
+    <div class="row align-items-center">
       <div class="col-12">
-        <nav class="main-nav">
+        <nav class="main-nav d-flex justify-content-between align-items-center">
           <!-- Logo -->
-          <a href="{{ url('/home') }}" class="logo">
-            <h1>Komando</h1>
+          <a href="{{ url('/home') }}" class="logo d-flex align-items-center">
+            <h1 class="logo-text">Komando</h1>
           </a>
+
           <!-- Menu -->
           <ul class="nav">
             <li>
@@ -40,6 +41,8 @@
               </a>
             </li>
           </ul>
+
+          <!-- Mobile Menu Trigger -->
           <a class="menu-trigger">
             <span>Menu</span>
           </a>

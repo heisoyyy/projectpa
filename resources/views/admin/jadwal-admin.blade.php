@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h3 class="mb-4">Atur Jadwal Lomba</h3>
+<h3 class="mb-4 text-center">Atur Jadwal Lomba</h3>
 
 <!-- Tombol Tambah Jadwal -->
 <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#tambahJadwalModal">
@@ -59,7 +59,7 @@
 
 <!-- Tabel Jadwal -->
 <table class="table table-bordered table-striped">
-  <thead class="table-primary">
+  <thead class="table-primary text-center">
     <tr>
       <th>No</th>
       <th>Tanggal</th>
@@ -70,7 +70,7 @@
       <th>Aksi</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="text-center">
     @foreach($jadwals as $i => $jadwal)
     <tr>
       <td>{{ $i+1 }}</td>
@@ -81,7 +81,7 @@
       <td>{{ $jadwal->urutan }}</td>
       <td>
         <!-- Tombol Edit -->
-        <button class="btn btn-sm btn-warning mb-1" data-bs-toggle="modal" data-bs-target="#editJadwalModal{{ $jadwal->id }}">
+        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editJadwalModal{{ $jadwal->id }}">
           Edit
         </button>
 

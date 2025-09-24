@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="text-black text-center py-3 mt-auto">
-    SMAN PLUS PROVINSI RIAU. All rights reserved.
+    &copy; {{ date('Y') }} SMAN PLUS PROVINSI RIAU. All rights reserved.
 </footer>
 
 <!-- Bootstrap JS -->

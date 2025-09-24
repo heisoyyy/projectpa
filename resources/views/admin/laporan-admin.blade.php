@@ -2,7 +2,7 @@
 @section('title', 'Laporan Lomba')
 @section('content')
 
-<h3 class="mb-4">Laporan Perlombaan</h3>
+<h3 class="mb-4 text-center mt-4">Laporan Perlombaan</h3>
 
 <div class="row mb-4">
   <div class="col-md-3"><div class="card shadow-sm text-center"><div class="card-body"><h5>Total Sekolah</h5><h3>{{ $totalSekolah ?? 0 }}</h3></div></div></div>
@@ -19,9 +19,9 @@
 </div>
 
 <div class="card shadow-sm">
-  <div class="card-header bg-primary text-white"><h5 class="mb-0">Rekap Hasil Perlombaan</h5></div>
+  <div class="card-header bg-primary text-white text-center"><h5 class="mb-0">Rekap Hasil Perlombaan</h5></div>
   <div class="card-body">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped text-center">
       <thead class="table-primary">
         <tr><th>No</th><th>Sekolah</th><th>Total Nilai</th><th>Ranking</th><th>Aksi</th></tr>
       </thead>
