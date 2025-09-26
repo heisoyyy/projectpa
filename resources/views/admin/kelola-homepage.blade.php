@@ -3,8 +3,8 @@
 @section('title', 'Kelola Homepage')
 
 @section('content')
-<div class="container-fluid">
-    <h3 class="mb-4">Kelola Homepage</h3>
+<div class="container py-4  mt-2">
+    <h3 class="mb-4 text-center">Kelola Homepage</h3>
 
     {{-- ===== Banner ===== --}}
     <div class="card mb-4">
@@ -13,8 +13,8 @@
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalTambahBanner">+ Tambah Banner</button>
         </div>
         <div class="card-body">
-            <table class="table table-bordered table-striped">
-                <thead>
+            <table class="table table-bordered table-striped text-center">
+                <thead class="table-dark">
                     <tr>
                         <th>Judul</th>
                         <th>Sub Judul</th>
@@ -116,11 +116,10 @@
 
             {{-- Accordion --}}
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <h6>Accordion (FAQ)</h6>
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalTambahAccordion">+ Tambah Accordion</button>
+                <h6>Q and A</h6>
             </div>
-            <table class="table table-bordered">
-                <thead>
+            <table class="table table-bordered text-center">
+                <thead class="table-dark">
                     <tr>
                         <th>Pertanyaan</th>
                         <th>Jawaban</th>
@@ -191,28 +190,6 @@
         </div>
     </div>
 
-    {{-- Modal Tambah Accordion --}}
-    <div class="modal fade" id="modalTambahAccordion" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ route('admin.accordion.store') }}" method="POST">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title">Tambah Accordion</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="text" name="pertanyaan" class="form-control mb-2" placeholder="Pertanyaan">
-                        <textarea name="jawaban" class="form-control" placeholder="Jawaban"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     {{-- ===== Video ===== --}}
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
@@ -220,8 +197,8 @@
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalTambahVideo">+ Tambah Video</button>
         </div>
         <div class="card-body">
-            <table class="table table-bordered table-striped">
-                <thead>
+            <table class="table table-bordered table-striped text-center">
+                <thead class="table-dark">
                     <tr>
                         <th>Judul</th>
                         <th>Link</th>
@@ -315,8 +292,8 @@
         </div>
         <div class="card-body">
             <p><strong>Judul Section:</strong> {{ $statistikJudul }}</p>
-            <table class="table table-bordered table-striped">
-                <thead>
+            <table class="table table-bordered table-striped text-center">
+                <thead class="table-dark">
                     <tr>
                         <th>Label</th>
                         <th>Jumlah</th>
@@ -330,6 +307,11 @@
                         <td>{{ $stat->jumlah }}</td>
                         <td>
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditStatistik{{ $stat->id }}">Edit</button>
+                            <form action="{{ route('admin.statistik.destroy', $stat->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus statistik ini?')">Hapus</button>
+                            </form>
                         </td>
                     </tr>
 
@@ -413,7 +395,7 @@
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalTambahJuara">+ Tambah Juara</button>
         </div>
         <div class="card-body">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped text-center">
                 <thead class="table-dark">
                     <tr>
                         <th>Tahun</th>

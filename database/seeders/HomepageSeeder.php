@@ -48,6 +48,11 @@ class HomepageSeeder extends Seeder
             'pertanyaan' => 'Siapa saja yang bisa ikut?',
             'jawaban' => 'Peserta berasal dari SMA/SMK se-Indonesia.'
         ]);
+        Accordion::create([
+            'featured_id' => $featured->id,
+            'pertanyaan' => 'Siapa saja yang bisa ikut?',
+            'jawaban' => 'Peserta berasal dari SMA/SMK se-Indonesia.'
+        ]);
 
         // Video
         Video::create([

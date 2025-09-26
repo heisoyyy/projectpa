@@ -6,6 +6,7 @@
 <!-- Content -->
 
 <div class="container-fluid pt-4 px-4">
+    <h2 class="container py-4 mb-4 text-center">Dashboard Peserta</h2>
     <div class="row g-4">
         <!-- Status Akun -->
         <div class="col-sm-12 col-lg-12">
@@ -141,11 +142,11 @@
         <!-- Notifikasi -->
         <div class="col-sm-12 col-lg-4">
             <div class="rounded p-4 shadow-sm h-100">
-                <h6 class="mb-3"><i class="fa fa-bell text-warning"></i> Notifikasi Terbaru</h6>
+                <h6 class="mb-3">Notifikasi Terbaru</h6>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">✅ Akun berhasil diverifikasi</li>
-                    <li class="list-group-item">📢 Jadwal tampil telah diumumkan</li>
-                    <li class="list-group-item">⏰ Besok giliran tampil, persiapkan diri</li>
+                    <li class="list-group-item">Akun berhasil diverifikasi</li>
+                    <li class="list-group-item">Jadwal tampil telah diumumkan</li>
+                    <li class="list-group-item">Besok giliran tampil, persiapkan diri</li>
                 </ul>
             </div>
         </div>
@@ -153,7 +154,7 @@
         <!-- Status Dokumen -->
         <div class="col-sm-12 col-lg-4 c">
             <div class="rounded p-4 shadow-sm h-100">
-                <h6 class="mb-3"><i class="fa fa-folder-open text-info"></i> Status Dokumen</h6>
+                <h6 class="mb-3">Status Dokumen</h6>
 
                 {{-- Peserta --}}
                 @php
@@ -166,31 +167,31 @@
                     @if($pesertaCount > 0)
                     <span class="badge bg-success">Lengkap</span>
                     @else
-                    <span class="badge bg-warning">Isi Terlebih Dahulu ❌</span>
+                    <span class="badge bg-warning">Isi Terlebih Dahulu</span>
                     @endif
                 </p>
 
                 <p>Kartu Pelajar:
                     @if($dokumen1Uploaded > 0)
-                    <span class="badge bg-success">Upload ✔</span>
+                    <span class="badge bg-success">Upload</span>
                     @else
-                    <span class="badge bg-danger">Belum Upload ❌</span>
+                    <span class="badge bg-danger">Belum Upload</span>
                     @endif
                 </p>
 
                 <p>Pas Photo:
                     @if($dokumen2Uploaded > 0)
-                    <span class="badge bg-success">Upload ✔</span>
+                    <span class="badge bg-success">Upload</span>
                     @else
-                    <span class="badge bg-danger">Belum Upload ❌</span>
+                    <span class="badge bg-danger">Belum Upload</span>
                     @endif
                 </p>
 
                 <p>Surat Izin:
                     @if(Auth::user()->foto_surat_izin)
-                    <span class="badge bg-success">Upload ✔</span>
+                    <span class="badge bg-success">Upload</span>
                     @else
-                    <span class="badge bg-danger">Belum Upload ❌</span>
+                    <span class="badge bg-danger">Belum Upload</span>
                     @endif
                 </p>
             </div>
@@ -199,11 +200,11 @@
         <!-- Pengumuman -->
         <div class="col-sm-12 col-lg-4" id="pengumuman">
             <div class="rounded p-4 shadow-sm h-100">
-                <h6 class="mb-3"><i class="fa fa-bullhorn text-danger"></i> Pengumuman Panitia</h6>
+                <h6 class="mb-3">Pengumuman Panitia</h6>
 
                 @forelse($pengumuman as $item)
                 <p class="mb-2">
-                    📌 <strong>{{ $item->judul }}</strong>
+                    <strong>{{ $item->judul }}</strong>
                     <br><small class="text-muted">{{ $item->created_at->diffForHumans() }}</small>
                 </p>
                 @empty

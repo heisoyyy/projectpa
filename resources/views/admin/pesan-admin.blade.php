@@ -61,8 +61,8 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <h5 class="mb-3 text-center">Daftar Pesan</h5>
-        <table class="table table-bordered text-center">
-            <thead class="table-light">
+        <table class="table table-bordered table-striped text-center">
+            <thead class="table-primary">
                 <tr>
                     <th>No</th>
                     <th>Judul</th>

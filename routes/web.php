@@ -148,6 +148,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/hasil-admin', [HasilController::class, 'store'])->name('admin.hasil-admin.store');
     Route::put('/admin/hasil-admin/{hasil}', [HasilController::class, 'update'])->name('admin.hasil-admin.update');
     Route::delete('/admin/hasil-admin/{hasil}', [HasilController::class, 'destroy'])->name('admin.hasil-admin.destroy');
+    Route::post('/hasil/{id}/publish', [HasilController::class, 'publish'])->name('hasil.publish');
+    Route::post('/hasil/{id}/unpublish', [HasilController::class, 'unpublish'])->name('hasil.unpublish');
+    Route::post('/admin/hasil/publish-all', [HasilController::class, 'publishAll'])->name('admin.hasil.publishAll');
+    Route::post('/admin/hasil/unpublish-all', [HasilController::class, 'unpublishAll'])->name('admin.hasil.unpublishAll');
+
 
     // Profile
     Route::get('/admin/profile-admin', [ProfileAdminController::class, 'edit'])->name('admin.profile.edit');

@@ -6,6 +6,7 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Sidebar Toggle -->
+   
   <script>
       const sidebar = document.getElementById('sidebar');
       const content = document.getElementById('content');

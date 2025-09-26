@@ -3,12 +3,12 @@
 @section('title', 'Kelola Informasi')
 
 @section('content')
-<div class="container py-4">
+<div class="container py-4  mt-2">
     <h2 class="mb-4 text-center">Kelola Informasi LKBB Komando</h2>
 
     <!-- Hero Section -->
     <div class="card mb-4 shadow-sm">
-        <div class="card-header fw-bold bg-primary text-white">Hero Section</div>
+        <div class="card-header fw-bold bg-dark text-white">Background</div>
         <div class="card-body">
             <form action="{{ route('admin.kelola-informasi.hero') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -34,7 +34,7 @@
 
     <!-- Biodata Kepala Sekolah & Ketua OSIS -->
     <div class="card mb-4 shadow-sm">
-        <div class="card-header fw-bold bg-success text-white">Biodata Kepala Sekolah & Ketua OSIS</div>
+        <div class="card-header fw-bold bg-dark text-white">Biodata Kepala Sekolah & Ketua OSIS</div>
         <div class="card-body row">
             @foreach($biodata as $bio)
             <div class="col-md-6 mb-3">
@@ -89,7 +89,7 @@
 
     <!-- Dokumen Section -->
     <div class="card mb-4 shadow-sm">
-        <div class="card-header fw-bold bg-info text-white">Dokumen & Panduan</div>
+        <div class="card-header fw-bold bg-dark text-white">Dokumen & Panduan</div>
         <div class="card-body">
             <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addDokumenModal">Tambah Dokumen</button>
 
@@ -118,7 +118,7 @@
             </div>
 
             <!-- List Dokumen -->
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover text-center">
                 <thead class="table-light">
                     <tr>
                         <th>Thumbnail</th>
@@ -234,7 +234,7 @@
 
 
             <!-- List History -->
-            <table class="table table-bordered table-hover align-middle">
+            <table class="table table-bordered table-hover align-middle text-center">
                 <thead class="table-light">
                     <tr>
                         <th width="80">Foto</th>

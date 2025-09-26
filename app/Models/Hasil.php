@@ -15,9 +15,11 @@ class Hasil extends Model
         'nilai_variasi',
         'nilai_formasi',
         'nilai_kompak',
-        'total',   // pastikan ada
+        'total',
         'catatan',
+        'is_published',
     ];
+
 
     public function team()
     {

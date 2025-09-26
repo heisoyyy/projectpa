@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h3 class="mb-4 text-center">Atur Jadwal Lomba</h3>
+<h3 class="mb-4 text-center  mt-4">Atur Jadwal Lomba</h3>
 
 <!-- Tombol Tambah Jadwal -->
 <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#tambahJadwalModal">
