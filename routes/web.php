@@ -30,13 +30,15 @@ use App\Http\Controllers\Admin\KelolaInformasiController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\SettingPendaftaranController;
 
+use App\Http\Controllers\ContactController;
+
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 */
-
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 // Redirect dari root (/) ke /home
 Route::get('/', function () {
     return redirect('/home');
@@ -49,7 +51,8 @@ Route::get('/', function () {
 Route::get('/home', [HomepageController::class, 'index'])->name('home');
 
 // Halaman Contact
-Route::get('/home/contact', [KontakController::class, 'contact'])->name('home.contact');
+Route::get('/home/contact', [ContactController::class, 'contact'])->name('home.contact');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 // Informasi
 Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi.index');

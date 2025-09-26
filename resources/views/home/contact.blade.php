@@ -58,36 +58,84 @@
         </div>
       </div>
 
-      <!-- Form Kontak -->
+      <!-- Form Kontak - UPDATE -->
       <div class="col-lg-6">
-        <form id="contact-form" action="" method="post" class="p-4 border rounded shadow-sm bg-white">
+        <!-- Alert Messages -->
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <i class="fa fa-check-circle me-2"></i>{{ session('success') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="fa fa-exclamation-triangle me-2"></i>{{ session('error') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        <form id="contact-form" action="{{ route('contact.send') }}" method="post" class="p-4 border rounded shadow-sm bg-white">
+          @csrf
           <div class="row g-3">
             <div class="col-lg-12">
               <fieldset>
-                <label for="name">Nama Lengkap</label>
-                <input type="text" name="name" id="name" placeholder="Masukan Nama" autocomplete="on" required>
+                <label for="name" class="form-label fw-bold">Nama Lengkap</label>
+                <input type="text" name="name" id="name"
+                  class="form-control @error('name') is-invalid @enderror"
+                  placeholder="Masukan Nama"
+                  autocomplete="on"
+                  value="{{ old('name') }}" required>
+                @error('name')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
               </fieldset>
             </div>
+
             <div class="col-lg-12">
               <fieldset>
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="Masukan Email" required>
+                <label for="email" class="form-label fw-bold">Email</label>
+                <input type="email" name="email" id="email"
+                  class="form-control @error('email') is-invalid @enderror"
+                  placeholder="Masukan Email"
+                  value="{{ old('email') }}" required>
+                @error('email')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
               </fieldset>
             </div>
+
             <div class="col-lg-12">
               <fieldset>
-                <label for="subject">Subject</label>
-                <input type="text" name="subject" id="subject" placeholder="Masukan Subject" autocomplete="on">
+                <label for="subject" class="form-label fw-bold">Subject</label>
+                <input type="text" name="subject" id="subject"
+                  class="form-control @error('subject') is-invalid @enderror"
+                  placeholder="Masukan Subject"
+                  autocomplete="on"
+                  value="{{ old('subject') }}" required>
+                @error('subject')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
               </fieldset>
             </div>
+
             <div class="col-lg-12">
               <fieldset>
-                <label for="pesan">Pesan</label>
-                <textarea name="pesan" id="pesan" placeholder="Masukan Pesan"></textarea>
+                <label for="pesan" class="form-label fw-bold">Pesan</label>
+                <textarea name="pesan" id="pesan"
+                  class="form-control @error('pesan') is-invalid @enderror"
+                  placeholder="Masukan Pesan"
+                  rows="4" required>{{ old('pesan') }}</textarea>
+                @error('pesan')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
               </fieldset>
             </div>
+
             <div class="col-lg-12 text-end">
-              <button type="submit" id="form-submit" class="orange-button">Kirim Pesan</button>
+              <button type="submit" id="form-submit" class="orange-button">
+                <i class="fa fa-paper-plane me-2"></i>Kirim Pesan
+              </button>
             </div>
           </div>
         </form>
