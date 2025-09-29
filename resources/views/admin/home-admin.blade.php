@@ -131,7 +131,7 @@
         <a href="{{ url('admin/daftar-admin') }}" class="btn btn-primary">
             <i class="fa fa-user-check me-2"></i>Verifikasi Peserta
         </a>
-        <a href="{{ url('admin/kelola-homepage') }}" class="btn btn-secondary">
+        <a href="{{ url('admin/homepage') }}" class="btn btn-secondary">
             <i class="fa fa-home me-2"></i>Kelola Homepage
         </a>
         <a href="{{ url('admin/jadwal-admin') }}" class="btn btn-success">

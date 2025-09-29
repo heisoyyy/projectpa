@@ -5,6 +5,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+{{-- Favicon (optional, bisa pakai Logo.jpeg) --}}
+<link rel="icon" href="{{ asset('assets/images/Logo.jpg') }}" type="image/jpeg">
 
 <style>
     :root {
@@ -86,10 +88,11 @@
         display: block;
     }
 
-    .sidebar{
+    .sidebar {
         background: #000000ff;
         background-color: #f9f9f9ff
     }
+
     /* Sidebar links */
     .sidebar .nav-link {
         color: #333;
@@ -113,6 +116,7 @@
         text-align: center;
         border-top: 1px solid #ddd;
     }
+
     .sidebar .nav-link.active {
         background-color: #181617ff !important;
         /* hitam */
@@ -130,8 +134,10 @@
         color: #000;
         border-radius: 5px;
     }
+
     .navbar-red-900 {
-        background-color: #000000ff !important; /* Tailwind red-900 */
+        background-color: #000000ff !important;
+        /* Tailwind red-900 */
     }
 
     .navbar-red-900 .nav-link,
@@ -140,14 +146,20 @@
     }
 
     .navbar-red-900 .nav-link.active {
-        color: #ffcccc !important; /* sedikit berbeda untuk link aktif */
+        color: #ffcccc !important;
+        /* sedikit berbeda untuk link aktif */
     }
-    .featured-image img {
-    width: 15%;               /* mengikuti lebar container */
-    aspect-ratio: 5 / 6;       /* lebar : tinggi = 8:7 */
-    object-fit: cover;         /* tetap proporsional, crop jika perlu */
-    border-radius: 10px;       /* opsional, lebih rapi */
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15); /* efek modern */
-}
-</style>
 
+    .featured-image img {
+        width: 15%;
+        /* mengikuti lebar container */
+        aspect-ratio: 5 / 6;
+        /* lebar : tinggi = 8:7 */
+        object-fit: cover;
+        /* tetap proporsional, crop jika perlu */
+        border-radius: 10px;
+        /* opsional, lebih rapi */
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        /* efek modern */
+    }
+</style>
