@@ -32,7 +32,12 @@
                 </li>
             </ul>
         </li>
-
+        <!-- Verifikasi -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.verifikasi.index') }}">
+                <i class="fa fa-user-check"></i> Verifikasi User
+            </a>
+        </li>
         <!-- Daftar Peserta -->
         <li class="nav-item">
             <a href="{{ url('admin/daftar-admin') }}"

@@ -38,8 +38,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/admin/setting-admin') }}"
-                                class="dropdown-item {{ Request::is('admin/profile-admin*') ? 'active' : '' }}">
+                            <a href="{{ url('setting-admin') }}"
+                                class="dropdown-item {{ Request::is('setting-admin*') ? 'active' : '' }}">
                                 <i class="fa fa-cog me-2"></i>Settings
                             </a>
                         </li>

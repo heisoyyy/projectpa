@@ -65,7 +65,14 @@
             <div class="text-center">
               <button type="submit" class="btn-login">
                 <i class="fa fa-sign-in"></i> Login
-              </button>
+              </button> 
+            </div>
+            <div class="text-center mt-2">
+              <small><a href="{{ route('password.request') }}">Lupa password?</a></small>
+            </div>
+
+            <div class="text-center mt-2">
+              <small>Tidak menerima OTP? <a href="{{ route('otp.resend.form') }}">Kirim ulang</a></small>
             </div>
           </form>
 

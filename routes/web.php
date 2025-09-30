@@ -23,6 +23,8 @@ use App\Http\Controllers\Admin\FeaturedController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\StatistikController;
 use App\Http\Controllers\Admin\JuaraController;
+use App\Http\Controllers\Admin\UserVerificationController;
+use App\Http\Controllers\Admin\SettingAdminController;
 
 // Informasi
 use App\Http\Controllers\Informasi\InformasiController;
@@ -31,7 +33,24 @@ use App\Http\Controllers\KontakController;
 use App\Http\Controllers\SettingPendaftaranController;
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Auth\OtpController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
+
+// OTP Resend
+Route::get('/otp/resend', function () {
+    return view('auth.resend_otp');
+})->name('otp.resend.form');
+
+Route::post('/otp/resend', [AuthController::class, 'resendOtp'])->name('otp.resend');
+
+// Lupa Password
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 /*
 |--------------------------------------------------------------------------
@@ -168,7 +187,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/profile-admin', [ProfileAdminController::class, 'update'])->name('admin.profile.update');
 
     // Setinng
-    Route::get('/admin/setting-admin', fn() => view('admin.setting-admin'));
+    Route::get('/setting-admin', [SettingAdminController::class, 'index'])->name('admin.setting');
+
+    Route::post('/setting-admin/password', [SettingAdminController::class, 'updatePassword'])->name('admin.password.update');
+    Route::post('/setting-admin/notifikasi', [SettingAdminController::class, 'updateNotifikasi'])->name('admin.notifikasi.update');
+    Route::post('/setting-admin/backup', [SettingAdminController::class, 'backupDatabase'])->name('admin.database.backup');
+    Route::delete('/setting-admin/reset', [SettingAdminController::class, 'resetDatabase'])->name('admin.database.reset');
 
     // Laporan
     Route::get('/admin/laporan-admin', [LaporanController::class, 'index'])
@@ -272,6 +296,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::post('kelola-informasi/history', [KelolaInformasiController::class, 'storeHistory'])->name('admin.kelola-informasi.history.store');
     Route::put('kelola-informasi/history/{id}', [KelolaInformasiController::class, 'updateHistory'])->name('admin.kelola-informasi.history.update');
     Route::delete('kelola-informasi/history/{id}', [KelolaInformasiController::class, 'deleteHistory'])->name('admin.kelola-informasi.history.delete');
+
+    Route::get('/admin/verifikasi-user', [UserVerificationController::class, 'index'])->name('admin.verifikasi.index');
+    Route::post('/admin/verifikasi-user/{id}', [UserVerificationController::class, 'verifyUser'])->name('admin.verifikasi.verify');
 });
 
 // Homepage Informasi

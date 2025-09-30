@@ -117,4 +117,33 @@ class AuthController extends Controller
 
         return redirect()->route('login.form')->with('success', 'Verifikasi berhasil! Silakan login.');
     }
+
+    public function resendOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user->is_verified) {
+            return back()->with('error', 'Akun sudah terverifikasi.');
+        }
+
+        $otp = rand(100000, 999999);
+        $user->update([
+            'otp_code' => $otp,
+            'otp_expires_at' => now()->addMinutes(10),
+        ]);
+
+        try {
+            Mail::to($user->email)->send(new \App\Mail\OtpMail($otp));
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal mengirim ulang OTP. Silakan coba lagi.');
+        }
+
+        // ✅ Redirect ke halaman verifikasi OTP sambil bawa email user
+        return redirect()->route('verify.form', ['email' => $user->email])
+            ->with('success', 'Kode OTP baru telah dikirim ke email Anda.');
+    }
 }
