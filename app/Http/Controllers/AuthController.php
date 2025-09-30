@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OtpMail;
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -21,19 +25,26 @@ class AuthController extends Controller
             'kota' => 'required|string|max:255',
         ]);
 
+        // Generate OTP 6 digit
+        $otp = rand(100000, 999999);
+
         $user = User::create([
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'nama_sekolah' => $request->nama_sekolah,
             'nomor_sekolah' => $request->nomor_sekolah,
             'kota' => $request->kota,
-            'team_id'      => $request->team_id,
             'role' => 'user',
+            'otp_code' => $otp,
+            'otp_expires_at' => Carbon::now()->addMinutes(10),
         ]);
 
-        return redirect()->route('login.form')->with('success', 'Registrasi berhasil! Silakan login.');
-    }
+        // Kirim OTP ke email
+        Mail::to($user->email)->send(new OtpMail($otp));
 
+        return redirect()->route('verify.form', ['email' => $user->email])
+            ->with('success', 'Registrasi berhasil! Silakan cek email untuk kode verifikasi.');
+    }
 
     // LOGIN
     public function login(Request $request)
@@ -41,17 +52,28 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+            $user = Auth::user();
 
-            if (Auth::user()->role === 'admin') {
+            // 🟢 Admin tidak perlu verifikasi OTP
+            if ($user->role === 'admin') {
+                $request->session()->regenerate();
                 return redirect('/admin')->with('success', 'Selamat datang Admin!');
             }
 
+            // 🟡 User biasa harus verifikasi OTP
+            if (!$user->is_verified) {
+                Auth::logout();
+                return back()->with('error', 'Email belum diverifikasi. Silakan cek email Anda.');
+            }
+
+            // 🟢 Login user biasa
+            $request->session()->regenerate();
             return redirect('/user')->with('success', 'Login berhasil, selamat datang!');
         }
 
         return back()->with('error', 'Login gagal! Email atau password salah.');
     }
+
 
     // LOGOUT
     public function logout(Request $request)
@@ -64,5 +86,35 @@ class AuthController extends Controller
     {
         $informasi = Informasi::first(); // 🔥 untuk ambil background dll
         return view('home.pendaftaran', compact('informasi'));
+    }
+    public function showVerifyForm(Request $request)
+    {
+        $email = $request->query('email');
+        return view('home.verify', compact('email'));
+    }
+
+    public function verifyOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'otp_code' => 'required|digits:6',
+        ]);
+
+        $user = User::where('email', $request->email)
+            ->where('otp_code', $request->otp_code)
+            ->where('otp_expires_at', '>=', now())
+            ->first();
+
+        if (!$user) {
+            return back()->with('error', 'Kode OTP salah atau sudah kadaluarsa.');
+        }
+
+        $user->update([
+            'is_verified' => 1,
+            'otp_code' => null,
+            'otp_expires_at' => null,
+        ]);
+
+        return redirect()->route('login.form')->with('success', 'Verifikasi berhasil! Silakan login.');
     }
 }

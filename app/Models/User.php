@@ -6,7 +6,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Pesan;
-use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -22,17 +21,18 @@ class User extends Authenticatable
         'status',
         'foto_profile',
         'foto_surat_izin',
+
+        // 🟢 Kolom verifikasi & OTP
+        'is_verified',
+        'otp_code',
+        'otp_expires_at',
     ];
 
-    // Relasi: 1 User bisa punya banyak Team
+    // Relasi: 1 User bisa punya 1 Team
     public function team()
     {
         return $this->hasOne(Team::class, 'user_id');
     }
-    // public function team()
-    // {
-    //     return $this->belongsTo(Team::class);
-    // }
 
     // Relasi: user bisa menerima banyak pesan
     public function pesans()
@@ -41,6 +41,4 @@ class User extends Authenticatable
             ->withPivot('is_read')
             ->withTimestamps();
     }
-    
-    
 }

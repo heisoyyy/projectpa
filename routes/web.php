@@ -38,6 +38,7 @@ use App\Http\Controllers\ContactController;
 | Web Routes
 |--------------------------------------------------------------------------
 */
+
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 // Redirect dari root (/) ke /home
 Route::get('/', function () {
@@ -114,7 +115,12 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::put('/user/profile-user', [ProfileUserController::class, 'update'])->name('user.profile.update');
     Route::post('/user/profile-user/upload-foto', [ProfileUserController::class, 'uploadFoto'])->name('user.profile.uploadFoto');
 
+    // 📝 Halaman Setting User (ganti password)
     Route::get('/user/setting-user', [SettingUserController::class, 'index'])->name('user.setting');
+
+    // 🔑 Proses update password
+    Route::put('/user/setting/update-password', [SettingUserController::class, 'updatePassword'])
+        ->name('user.setting.updatePassword');
     // Route::put('/user/setting-user/password',[SettingUserController::class, 'updatePassword'])->name('user.setting.updatePassword');
 });
 
@@ -275,3 +281,5 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
 // Admin
 // Route::get('/admin/kelola-informasi', [KelolaInformasiController::class, 'index'])->name('admin.kelola-informasi.index');
+Route::get('/verify', [AuthController::class, 'showVerifyForm'])->name('verify.form');
+Route::post('/verify', [AuthController::class, 'verifyOtp'])->name('verify.otp');

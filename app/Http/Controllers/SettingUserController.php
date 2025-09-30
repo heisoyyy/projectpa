@@ -8,9 +8,15 @@ use Illuminate\Support\Facades\Hash;
 
 class SettingUserController extends Controller
 {
+    // 📝 Tampilkan halaman setting
+    public function index()
+    {
+        return view('user.setting-user');
+    }
+
+    // 🔑 Proses update password
     public function updatePassword(Request $request)
     {
-        
         $user = Auth::user();
 
         // Validasi input
@@ -30,10 +36,18 @@ class SettingUserController extends Controller
             return back()->withErrors(['password_lama' => 'Password lama salah.']);
         }
 
-        // Update password baru
+        // Cegah password baru sama dengan lama
+        if (Hash::check($request->password_baru, $user->password)) {
+            return back()->withErrors(['password_baru' => 'Password baru tidak boleh sama dengan password lama.']);
+        }
+
+        // Update password
         $user->password = Hash::make($request->password_baru);
         $user->save();
 
-        return back()->with('success', 'Password berhasil diperbarui.');
+        // Logout setelah update
+        Auth::logout();
+
+        return redirect()->route('login.form')->with('success', 'Password berhasil diperbarui. Silakan login kembali.');
     }
 }
