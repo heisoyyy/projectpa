@@ -29,7 +29,7 @@ use App\Http\Controllers\Admin\SettingAdminController;
 // Informasi
 use App\Http\Controllers\Informasi\InformasiController;
 use App\Http\Controllers\Admin\KelolaInformasiController;
-use App\Http\Controllers\KontakController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\SettingPendaftaranController;
 
 use App\Http\Controllers\ContactController;
@@ -115,6 +115,9 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     // Dashboard User
     Route::get('/user/dashboard', [PendaftaranUserController::class, 'index'])
         ->name('user.dashboard');
+    Route::get('/user/notifikasi', [NotifikasiController::class, 'index'])->name('user.notifikasi.index');
+    Route::post('/user/notifikasi/{id}/read', [NotifikasiController::class, 'markAsRead'])->name('user.notifikasi.read');
+    Route::delete('/user/notifikasi/{id}', [NotifikasiController::class, 'destroy'])->name('user.notifikasi.destroy');
 
     // Halaman Pendaftaran Peserta
     Route::middleware(['auth', 'role:user'])->group(function () {

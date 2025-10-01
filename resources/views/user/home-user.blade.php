@@ -1,46 +1,40 @@
 @extends('user.komponen.komponen')
 
-@section('title', 'Peserta LKBB')
+@section('title', 'Dashboard Peserta')
 
 @section('content')
-<!-- Content -->
-
 <div class="container-fluid pt-4 px-4">
     <h2 class="container py-4 mb-4 text-center">Dashboard Peserta</h2>
     <div class="row g-4">
-        <!-- Status Akun -->
-        <div class="col-sm-12 col-lg-12">
+
+        {{-- =================== STATUS AKUN =================== --}}
+        <div class="col-12">
             <div class="rounded p-4 shadow-sm h-100">
                 <h6 class="mb-3"><i class="fa fa-user-check text-success"></i> Status Akun</h6>
                 <div class="d-flex flex-wrap justify-content-between align-items-center">
-                    <!-- Sekolah -->
+
                     <div class="me-4 mb-2">
                         <p class="mb-1">Sekolah:</p>
                         <b>{{ Auth::user()->nama_sekolah }}</b>
                     </div>
 
-                    <!-- Status Tim -->
+                    {{-- Status Tim --}}
                     <div class="me-4 mb-2">
-                        @php $team = Auth::user()->team; @endphp
                         <p class="mb-1">Status:</p>
-                        @if($team)
-                        @if($team->status == 'pending')
-                        <span class="badge bg-warning">Belum Diverifikasi</span>
-                        @elseif($team->status == 'verified')
+                        @if(!$team)
+                        <span class="badge bg-secondary">Belum Daftar</span>
+                        @elseif($team->status === 'verified')
                         <span class="badge bg-success">Terverifikasi</span>
+                        @elseif($team->status === 'pending')
+                        <span class="badge bg-warning">Belum Diverifikasi</span>
                         @else
                         <span class="badge bg-secondary">Tidak Diketahui</span>
                         @endif
-                        @else
-                        <span class="badge bg-secondary">Belum Daftar</span>
-                        @endif
                     </div>
 
-                    <!-- Pelatih -->
+                    {{-- Pelatih --}}
                     <div class="me-4 mb-2">
-                        @php
-                        $pelatih = $team ? $team->members->where('role', 'pelatih') : collect();
-                        @endphp
+                        @php $pelatih = $team ? $team->members->where('role', 'pelatih') : collect(); @endphp
                         <p class="mb-1">Pelatih:</p>
                         <ul class="mb-0 ps-3">
                             @forelse($pelatih as $p)
@@ -51,19 +45,17 @@
                         </ul>
                     </div>
 
-                    <!-- Tombol Profil -->
                     <div class="mb-2">
                         <a href="{{ url('user/profile-user') }}" class="btn btn-sm btn-outline-secondary">
                             <i class="fa fa-id-card"></i> Lihat Profil
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>
 
-        <!-- Jadwal Tampil -->
-        <div class="col-sm-12 col-lg-8 ">
+        {{-- =================== JADWAL TAMPIL =================== --}}
+        <div class="col-sm-12 col-lg-8">
             <div class="rounded p-4 shadow-sm h-100">
                 <h6 class="mb-3"><i class="fa fa-calendar"></i> Jadwal & Nomor Urut</h6>
 
@@ -93,18 +85,17 @@
                     </div>
                 </div>
 
-                <!-- Preview Urutan -->
+                {{-- Tabel Preview --}}
                 <div class="table-responsive mt-3">
                     <table class="table table-sm table-hover align-middle text-center">
                         <thead>
                             <tr>
-                                <th width="250px">Sekolah</th>
-                                <th width="100px">Nomor Urut</th>
-                                <th width="120px">Waktu</th>
+                                <th>Sekolah</th>
+                                <th>Nomor Urut</th>
+                                <th>Waktu</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- Peserta sebelum --}}
                             @if($sebelum)
                             <tr>
                                 <td>{{ $sebelum->team->nama_tim ?? '-' }}</td>
@@ -113,14 +104,12 @@
                             </tr>
                             @endif
 
-                            {{-- Jadwal Anda --}}
                             <tr class="table-danger fw-bold">
                                 <td>{{ Auth::user()->nama_sekolah }} (Anda)</td>
-                                <td><b>{{ $jadwal->urutan }}</b></td>
+                                <td>{{ $jadwal->urutan }}</td>
                                 <td>{{ \Carbon\Carbon::parse($jadwal->waktu)->format('H:i') }}</td>
                             </tr>
 
-                            {{-- Peserta sesudah --}}
                             @if($sesudah)
                             <tr>
                                 <td>{{ $sesudah->team->nama_tim ?? '-' }}</td>
@@ -134,37 +123,33 @@
                 @endif
             </div>
         </div>
-    </div>
 
-    <!-- Aktivitas, Dokumen & Pengumuman -->
-    <div class="row g-4 mt-2">
-
-        <!-- Aktivitas -->
+        {{-- =================== NOTIF & DOKUMEN & PENGUMUMAN =================== --}}
         <div class="col-sm-12 col-lg-4">
             <div class="rounded p-4 shadow-sm h-100">
-                <h6 class="mb-3">Aktivitas Terbaru</h6>
+                <h6 class="mb-3">🔔 Notifikasi Terbaru</h6>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Akun berhasil diverifikasi</li>
-                    <li class="list-group-item">Jadwal tampil telah diumumkan</li>
-                    <li class="list-group-item">Besok giliran tampil, persiapkan diri</li>
+                    @forelse($notifikasi as $n)
+                    <li class="list-group-item {{ $n->is_read ? '' : 'fw-bold' }}">
+                        <div>{{ $n->judul }}</div>
+                        <small class="text-muted">{{ $n->created_at->diffForHumans() }}</small>
+                        <p class="mb-0">{{ $n->pesan }}</p>
+                    </li>
+                    @empty
+                    <li class="list-group-item text-muted"><i>Tidak ada notifikasi</i></li>
+                    @endforelse
                 </ul>
             </div>
         </div>
 
-        <!-- Status Dokumen -->
-        <div class="col-sm-12 col-lg-4 c">
+        <div class="col-sm-12 col-lg-4">
             <div class="rounded p-4 shadow-sm h-100">
-                <h6 class="mb-3">Status Dokumen</h6>
-
-                {{-- Hitung status dokumen --}}
+                <h6 class="mb-3">📄 Status Dokumen</h6>
                 @php
                 $pesertaCount = $team ? $team->members->where('role','peserta')->count() : 0;
                 $dokumen1Uploaded = $team ? $team->members->where('role','peserta')->whereNotNull('dokumen_1')->count() : 0;
                 $dokumen2Uploaded = $team ? $team->members->where('role','peserta')->whereNotNull('dokumen_2')->count() : 0;
                 $suratIzinUploaded = Auth::user()->foto_surat_izin ? true : false;
-
-                // cek kelengkapan
-                $isComplete = $pesertaCount > 0 && $dokumen1Uploaded > 0 && $dokumen2Uploaded > 0 && $suratIzinUploaded;
                 @endphp
 
                 <p>Peserta:
@@ -201,15 +186,13 @@
             </div>
         </div>
 
-        <!-- Pengumuman -->
-        <div class="col-sm-12 col-lg-4" id="pengumuman">
+        <div class="col-sm-12 col-lg-4">
             <div class="rounded p-4 shadow-sm h-100">
-                <h6 class="mb-3">Pengumuman Panitia</h6>
-
+                <h6 class="mb-3">📢 Pengumuman Panitia</h6>
                 @forelse($pengumuman as $item)
                 <p class="mb-2">
-                    <strong>{{ $item->judul }}</strong>
-                    <br><small class="text-muted">{{ $item->created_at->diffForHumans() }}</small>
+                    <strong>{{ $item->judul }}</strong><br>
+                    <small class="text-muted">{{ $item->created_at->diffForHumans() }}</small>
                 </p>
                 @empty
                 <p class="text-muted"><i>Tidak ada pengumuman untuk Anda</i></p>
@@ -218,44 +201,11 @@
         </div>
     </div>
 </div>
-@endsection
 
-@php
-use Carbon\Carbon;
-
-$popupMessage = null;
-if($jadwal) {
-$jadwalTime = Carbon::parse($jadwal->tanggal.' '.$jadwal->waktu);
-$now = Carbon::now();
-
-// 10 menit sebelum tampil
-if ($now->between($jadwalTime->copy()->subMinutes(10), $jadwalTime->copy()->subMinutes(9))) {
-$popupMessage = "Giliran tampil Anda akan dimulai 10 menit lagi!";
-}
-
-// 1 menit sebelum tampil
-if ($now->between($jadwalTime->copy()->subMinute(), $jadwalTime)) {
-$popupMessage = "Giliran tampil Anda akan dimulai 1 menit lagi!";
-}
-}
-@endphp
-
+{{-- =================== ALERT SECTION =================== --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-@if($popupMessage)
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        Swal.fire({
-            title: 'Pengingat Jadwal!',
-            text: "{{ $popupMessage }}",
-            icon: 'info',
-            confirmButtonText: 'Siap!'
-        });
-    });
-</script>
-@endif
-
-{{-- Alert untuk status dokumen --}}
+@if(session('dokumen_alert'))
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         @if($isComplete)
@@ -276,3 +226,31 @@ $popupMessage = "Giliran tampil Anda akan dimulai 1 menit lagi!";
         @endif
     });
 </script>
+@endif
+
+@if(session('status_verified'))
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            title: 'Selamat!',
+            text: 'Status tim Anda sudah diverifikasi oleh admin.',
+            icon: 'success',
+            confirmButtonText: 'Oke'
+        });
+    });
+</script>
+@endif
+
+@if(session('jadwal_baru'))
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            title: 'Jadwal Sudah Ada!',
+            text: 'Tim Anda sudah mendapatkan jadwal tampil dari panitia.',
+            icon: 'success',
+            confirmButtonText: 'Lihat Jadwal'
+        });
+    });
+</script>
+@endif
+@endsection
