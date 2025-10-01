@@ -136,13 +136,13 @@
         </div>
     </div>
 
-    <!-- Notifikasi, Dokumen & Pengumuman -->
+    <!-- Aktivitas, Dokumen & Pengumuman -->
     <div class="row g-4 mt-2">
 
-        <!-- Notifikasi -->
+        <!-- Aktivitas -->
         <div class="col-sm-12 col-lg-4">
             <div class="rounded p-4 shadow-sm h-100">
-                <h6 class="mb-3">Notifikasi Terbaru</h6>
+                <h6 class="mb-3">Aktivitas Terbaru</h6>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Akun berhasil diverifikasi</li>
                     <li class="list-group-item">Jadwal tampil telah diumumkan</li>
@@ -156,11 +156,15 @@
             <div class="rounded p-4 shadow-sm h-100">
                 <h6 class="mb-3">Status Dokumen</h6>
 
-                {{-- Peserta --}}
+                {{-- Hitung status dokumen --}}
                 @php
                 $pesertaCount = $team ? $team->members->where('role','peserta')->count() : 0;
                 $dokumen1Uploaded = $team ? $team->members->where('role','peserta')->whereNotNull('dokumen_1')->count() : 0;
                 $dokumen2Uploaded = $team ? $team->members->where('role','peserta')->whereNotNull('dokumen_2')->count() : 0;
+                $suratIzinUploaded = Auth::user()->foto_surat_izin ? true : false;
+
+                // cek kelengkapan
+                $isComplete = $pesertaCount > 0 && $dokumen1Uploaded > 0 && $dokumen2Uploaded > 0 && $suratIzinUploaded;
                 @endphp
 
                 <p>Peserta:
@@ -188,7 +192,7 @@
                 </p>
 
                 <p>Surat Izin:
-                    @if(Auth::user()->foto_surat_izin)
+                    @if($suratIzinUploaded)
                     <span class="badge bg-success">Upload</span>
                     @else
                     <span class="badge bg-danger">Belum Upload</span>
@@ -212,7 +216,63 @@
                 @endforelse
             </div>
         </div>
-
     </div>
 </div>
 @endsection
+
+@php
+use Carbon\Carbon;
+
+$popupMessage = null;
+if($jadwal) {
+$jadwalTime = Carbon::parse($jadwal->tanggal.' '.$jadwal->waktu);
+$now = Carbon::now();
+
+// 10 menit sebelum tampil
+if ($now->between($jadwalTime->copy()->subMinutes(10), $jadwalTime->copy()->subMinutes(9))) {
+$popupMessage = "Giliran tampil Anda akan dimulai 10 menit lagi!";
+}
+
+// 1 menit sebelum tampil
+if ($now->between($jadwalTime->copy()->subMinute(), $jadwalTime)) {
+$popupMessage = "Giliran tampil Anda akan dimulai 1 menit lagi!";
+}
+}
+@endphp
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if($popupMessage)
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            title: 'Pengingat Jadwal!',
+            text: "{{ $popupMessage }}",
+            icon: 'info',
+            confirmButtonText: 'Siap!'
+        });
+    });
+</script>
+@endif
+
+{{-- Alert untuk status dokumen --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        @if($isComplete)
+        Swal.fire({
+            icon: 'success',
+            title: '✅ Dokumen Lengkap',
+            text: 'Semua dokumen sudah lengkap. Menunggu verifikasi panitia.',
+            timer: 4000,
+            showConfirmButton: false
+        });
+        @else
+        Swal.fire({
+            icon: 'warning',
+            title: '⚠️ Dokumen Belum Lengkap',
+            text: 'Harap lengkapi semua dokumen agar bisa diverifikasi.',
+            confirmButtonText: 'Oke'
+        });
+        @endif
+    });
+</script>

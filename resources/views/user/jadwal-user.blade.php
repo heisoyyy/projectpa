@@ -99,28 +99,33 @@
 </div>
 
 @if($jadwal)
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // Waktu tampil tim
     const tampilTime = new Date("{{ $jadwal->tanggal }} {{ $jadwal->waktu }}").getTime();
     const countdownEl = document.getElementById("countdown");
 
-    // Element status di tabel
     const tableRow = document.querySelector('tr.table-primary');
     const statusTd = tableRow.querySelector('td:nth-child(5) span.badge');
 
-    // Timer update setiap detik
     const timer = setInterval(() => {
         const now = new Date().getTime();
         const distance = tampilTime - now;
 
+        // countdown default
+        if (distance > 0) {
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            countdownEl.innerHTML = `${hours}:${minutes}:${seconds}`;
+        }
+
         // 15 menit sebelum tampil
         if (distance <= 15 * 60 * 1000 && distance > 0) {
-            const minutesLeft = Math.floor(distance / (1000 * 60));
-            const secondsLeft = Math.floor((distance % (1000 * 60)) / 1000);
-            countdownEl.innerHTML = `Bersiap! ${minutesLeft}m ${secondsLeft}s lagi`;
+            countdownEl.innerHTML = `Bersiap! ${Math.floor(distance / (1000 * 60))}m ${Math.floor((distance % (1000 * 60)) / 1000)}s lagi`;
             countdownEl.classList.remove("text-success");
             countdownEl.classList.add("text-danger");
         }
+
         // Sedang tampil
         else if (distance <= 0 && distance > -30 * 60 * 1000) {
             countdownEl.innerHTML = "Sedang Tampil";
@@ -129,7 +134,8 @@
             statusTd.textContent = "Sedang Tampil";
             statusTd.className = "badge bg-primary";
         }
-        // Sudah tampil + tombol hasil
+
+        // Sudah tampil
         else if (distance <= -30 * 60 * 1000) {
             clearInterval(timer);
             countdownEl.innerHTML = "Selesai Tampil";
@@ -138,7 +144,6 @@
             statusTd.textContent = "Sudah Tampil";
             statusTd.className = "badge bg-success";
 
-            // Tambah tombol cek hasil
             if (!document.getElementById('cekHasilBtn')) {
                 const resultBtn = document.createElement('a');
                 resultBtn.id = "cekHasilBtn";
@@ -149,9 +154,42 @@
             }
         }
     }, 1000);
+
+    // === Popup Reminder ===
+    const notifTimer = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = tampilTime - now;
+
+        if (distance <= 10 * 60 * 1000 && distance > 9 * 60 * 1000) {
+            Swal.fire({
+                icon: 'info',
+                title: '10 Menit Lagi!',
+                text: 'Giliran tampil tim {{ $jadwal->team->nama_sekolah ?? "Anda" }} akan dimulai!',
+                timer: 4000,
+                showConfirmButton: false
+            });
+        }
+        if (distance <= 1 * 60 * 1000 && distance > 59 * 1000) {
+            Swal.fire({
+                icon: 'warning',
+                title: '1 Menit Lagi!',
+                text: 'Bersiaplah, giliran tampil segera dimulai!',
+                timer: 4000,
+                showConfirmButton: false
+            });
+        }
+        if (distance <= 0 && distance > -20 * 60 * 1000) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Giliran Anda!',
+                text: 'Sekarang tim Anda sedang tampil!',
+                timer: 6000,
+                showConfirmButton: false
+            });
+            clearInterval(notifTimer);
+        }
+    }, 1000);
 </script>
 @endif
-
-
 
 @endsection
