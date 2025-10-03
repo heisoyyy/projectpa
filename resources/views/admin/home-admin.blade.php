@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="container-fluid py-4">
-    <h3 class="mb-5">Dashboard Admin</h3>
+    <h2 class="mb-4">Dashboard Admin</h2>
 
     {{-- Statistik Ringkas --}}
     <div class="row g-4 mb-5">

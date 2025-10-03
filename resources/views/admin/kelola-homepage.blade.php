@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-4  mt-2">
-    <h3 class="mb-4 text-center">Kelola Homepage</h3>
+    <h2 class="mb-4">Kelola Homepage</h2>
 
     {{-- ===== Banner ===== --}}
     <div class="card mb-4">

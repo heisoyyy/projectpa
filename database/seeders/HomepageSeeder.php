@@ -62,13 +62,6 @@ class HomepageSeeder extends Seeder
             'background' => 'video1.jpg'
         ]);
 
-        Video::create([
-            'judul' => 'LKBB 2024 Highlights',
-            'link' => 'https://youtube.com/watch?v=wxyz5678',
-            'thumbnail' => 'video2.jpg',
-            'background' => 'video2.jpg'
-        ]);
-
         // Statistik
         Statistik::create([
             'judul_section' => 'LKBB Komando 2025',

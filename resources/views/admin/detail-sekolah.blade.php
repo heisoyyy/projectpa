@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <h3 class="mb-4">Detail Pendaftaran - {{ $team->nama_tim }}</h3>
+    <h2 class="mb-4">Detail Pendaftaran - {{ $team->nama_tim }}</h2>
 
     {{-- Info Sekolah --}}
     <div class="card mb-4 shadow-sm">

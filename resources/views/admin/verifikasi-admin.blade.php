@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2 class="mb-4">📋 Daftar User & Status Verifikasi</h2>
+    <h2 class="mb-4">Daftar User & Status Verifikasi</h2>
 
     {{-- Flash Message --}}
     @if (session('success'))

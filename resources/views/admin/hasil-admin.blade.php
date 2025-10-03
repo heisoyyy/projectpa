@@ -2,7 +2,7 @@
 @section('title','Hasil Lomba Admin')
 @section('content')
 
-<h3 class="mb-4 text-center  mt-4">Input & Lihat Hasil Lomba</h3>
+<h2 class="mb-4 mt-4">Input & Lihat Hasil Lomba</h2>
 
 <!-- Tombol Tambah Nilai -->
 <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#tambahHasilModal">

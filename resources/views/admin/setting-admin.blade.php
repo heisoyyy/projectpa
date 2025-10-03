@@ -22,7 +22,7 @@
     @endif
 
     <div class="d-flex align-items-center justify-content-between mb-4">
-        <h3 class="fw-bold mb-0">⚙️ Pengaturan Akun & Sistem</h3>
+        <h3 class="fw-bold mb-0">Pengaturan Akun & Sistem</h3>
         <small class="text-muted">Terakhir diperbarui: {{ now()->format('d-m-Y H:i') }}</small>
     </div>
 

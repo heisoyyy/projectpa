@@ -2,7 +2,7 @@
 @section('title', 'Laporan Lomba')
 @section('content')
 
-<h3 class="mb-4 text-center mt-4">Laporan Perlombaan</h3>
+<h2 class="mb-4 mt-4">Laporan Perlombaan</h2>
 
 <div class="row mb-4">
   <div class="col-md-3"><div class="card shadow-sm text-center"><div class="card-body"><h5>Total Sekolah</h5><h3>{{ $totalSekolah ?? 0 }}</h3></div></div></div>

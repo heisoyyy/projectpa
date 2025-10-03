@@ -4,15 +4,15 @@
 
 @section('content')
 
-<h3 class="mb-4">Profile Admin</h3>
+<h2 class="mb-4 mt-4">Profile Admin</h2>
 
 <div class="row">
   <!-- Info Profile -->
   <div class="col-md-4">
     <div class="card shadow-sm">
       <div class="card-body text-center">
-        <img src="{{ $admin->foto_profile ? asset('storage/'.$admin->foto_profile) : asset('images/default.png') }}" 
-             class="rounded-circle mb-3" width="120" height="120" alt="Foto Profil">
+        <img src="{{ $admin->foto_profile ? asset('storage/'.$admin->foto_profile) : asset('images/default.png') }}"
+          class="rounded-circle mb-3" width="120" height="120" alt="Foto Profil">
         <h5>{{ $admin->nama_sekolah ?? 'Admin' }}</h5>
         <p class="text-muted">{{ $admin->email }}</p>
         <p class="text-muted">No. Sekolah: {{ $admin->nomor_sekolah }}</p>
@@ -28,7 +28,7 @@
       </div>
       <div class="card-body">
         @if(session('success'))
-          <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
         <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">

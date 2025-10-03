@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-4  mt-2">
-    <h2 class="mb-4 text-center">Kelola Informasi LKBB Komando</h2>
+    <h2 class="mb-4">Kelola Informasi LKBB Komando</h2>
 
     <!-- Hero Section -->
     <div class="card mb-4 shadow-sm">

@@ -2,7 +2,7 @@
 @section('title', 'Detail Tim')
 @section('content')
 
-<h3 class="mb-4">Detail Tim: {{ $team->user->nama_sekolah ?? '-' }}</h3>
+<h2 class="mb-4">Detail Tim: {{ $team->user->nama_sekolah ?? '-' }}</h2>
 
 <div class="card mb-3">
     <div class="card-body">
