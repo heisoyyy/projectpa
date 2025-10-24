@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('home.partials.head')
-<body>
 
+<body>
+  
+  <!-- Programmer By Heisoyyy -->
   <!-- Preloader -->
   <div id="js-preloader" class="js-preloader">
     <div class="preloader-inner">
@@ -27,4 +29,5 @@
   @include('home.partials.footer')
 
 </body>
+
 </html>
