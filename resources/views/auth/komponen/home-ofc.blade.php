@@ -15,13 +15,16 @@
     </div>
   </div>
 
+  {{-- Header --}}
+  @include('home.partials.header')
+
   {{-- Main Content --}}
   <main>
     @yield('content')
   </main>
 
   {{-- Footer --}}
-  @include('home.partials.login-footer')
+  @include('home.partials.footer')
 
 </body>
 </html>

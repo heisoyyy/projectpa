@@ -150,7 +150,6 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Dashboard Admin
-    Route::get('/admin', fn() => view('admin.home-admin'));
     Route::get('/admin', [DashboardAdminController::class, 'index'])->name('admin.home');
 
     // Cek Pendaftaran
