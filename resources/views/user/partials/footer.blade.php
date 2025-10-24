@@ -6,7 +6,7 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Sidebar Toggle -->
-   
+
   <script>
       const sidebar = document.getElementById('sidebar');
       const content = document.getElementById('content');
@@ -86,27 +86,29 @@
           }
       });
   </script>
-
-
   <script>
-      // misalnya jadwal tampil jam 10:15
-      const tampilTime = new Date("2025-06-21T10:15:00").getTime();
-      const countdown = document.getElementById("countdown");
+      document.addEventListener('DOMContentLoaded', function() {
+          const countdown = document.getElementById("countdown");
+          if (!countdown) return; // 🔒 Aman, kalau elemen tidak ada langsung stop
 
-      setInterval(function() {
-          const now = new Date().getTime();
-          const distance = tampilTime - now;
+          const tampilTime = new Date("2025-06-21T10:15:00").getTime();
 
-          if (distance <= 0) {
-              countdown.innerHTML = "Sedang Tampil";
-          } else {
-              const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-              const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-              const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-              countdown.innerHTML = `${hours}:${minutes}:${seconds}`;
-          }
-      }, 1000);
+          setInterval(function() {
+              const now = new Date().getTime();
+              const distance = tampilTime - now;
+
+              if (distance <= 0) {
+                  countdown.innerHTML = "Sedang Tampil";
+              } else {
+                  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                  countdown.innerHTML = `${hours}:${minutes}:${seconds}`;
+              }
+          }, 1000);
+      });
   </script>
+
 
   <script>
       document.addEventListener('DOMContentLoaded', function() {

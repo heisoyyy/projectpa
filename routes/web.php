@@ -191,10 +191,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Setinng
     Route::get('/setting-admin', [SettingAdminController::class, 'index'])->name('admin.setting');
 
-    Route::post('/setting-admin/password', [SettingAdminController::class, 'updatePassword'])->name('admin.password.update');
-    Route::post('/setting-admin/notifikasi', [SettingAdminController::class, 'updateNotifikasi'])->name('admin.notifikasi.update');
-    Route::post('/setting-admin/backup', [SettingAdminController::class, 'backupDatabase'])->name('admin.database.backup');
-    Route::delete('/setting-admin/reset', [SettingAdminController::class, 'resetDatabase'])->name('admin.database.reset');
+    Route::post('/setting-admin/password', [SettingAdminController::class, 'updatePassword'])
+        ->name('admin.password.update');;
+
 
     // Laporan
     Route::get('/admin/laporan-admin', [LaporanController::class, 'index'])

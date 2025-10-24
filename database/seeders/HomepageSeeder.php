@@ -14,26 +14,25 @@ class HomepageSeeder extends Seeder
 {
     public function run(): void
     {
-        // Banner
         Banner::create([
             'judul' => 'SMAN PLUS PROVINSI RIAU',
             'sub_judul' => 'Haloo PLUSERR',
             'kategori' => 'LKBB KOMANDO 2025',
-            'gambar' => 'banner1.jpg'
+            'gambar' => 'assets/images/banner-01.jpg', // ✅ tanpa 'public/'
         ]);
 
         Banner::create([
             'judul' => 'SMAN 1 Pekanbaru',
             'sub_judul' => 'HALO SMANSA',
             'kategori' => 'LKBB 2024',
-            'gambar' => 'banner2.jpg'
+            'gambar' => 'assets/images/banner-02.jpg', // ✅ path konsisten
         ]);
 
         // Featured
         $featured = Featured::create([
             'judul' => 'Lomba Ketangkasan Baris Berbaris',
             'sub_judul' => 'KOMANDO',
-            'gambar' => 'featured.jpg'
+            'gambar' => 'assets/images/featured.jpg'
         ]);
 
         // Accordion (pastikan featured_id sesuai dengan Featured yang dibuat)
@@ -58,8 +57,8 @@ class HomepageSeeder extends Seeder
         Video::create([
             'judul' => 'LKBB Komando Recap',
             'link' => 'https://youtube.com/watch?v=abcd1234',
-            'thumbnail' => 'video1.jpg',
-            'background' => 'video1.jpg'
+            'thumbnail' => 'assets/images/video-frame.jpg',
+            'background' => 'assets/images/video-bg.jpg'
         ]);
 
         // Statistik
