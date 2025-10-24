@@ -5,7 +5,7 @@
         <nav class="main-nav d-flex justify-content-between align-items-center">
 
           <!-- 🔸 Logo -->
-          <a href="{{ url('/home') }}" class="logo d-flex align-items-center">
+          <a href="{{ url('/home') }}" >
             <h1 class="logo-text">Komando</h1>
           </a>
 
