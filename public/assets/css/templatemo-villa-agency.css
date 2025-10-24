@@ -408,246 +408,133 @@ Pre-loader Style
   border-radius: 50%;
 }
 
-/* =======================================================
-   ✅ HEADER STYLE - FINAL RESPONSIVE VERSION
-======================================================= */
-
-/* Sub Header (Optional Info Bar) */
-.sub-header {
-  background-color: #fff;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-}
-.sub-header ul { margin: 0; padding: 0; list-style: none; }
-.sub-header ul li { display: inline-block; }
-.sub-header ul.social-links { text-align: right; }
-.sub-header ul.social-links li { margin-left: 8px; }
-.sub-header ul.social-links li a {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  background-color: #cdcdcd;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 30px;
-  color: #fff;
-  font-size: 14px;
-  transition: all .3s;
-}
-.sub-header ul.social-links li a:hover { background-color: #800000; }
-.sub-header ul.info li {
-  font-size: 14px;
-  color: #7a7a7a;
-  border-right: 1px solid #eee;
-  margin-right: 25px;
-  padding-right: 25px;
-}
-.sub-header ul.info li:last-child { margin-right: 0; padding-right: 0; border-right: none; }
-.sub-header ul.info li i { font-size: 20px; color: #800000; margin-right: 8px; }
-
-/* =======================================================
-   🟣 HEADER AREA
-======================================================= */
+/* ==================== HEADER ==================== */
 .header-area {
   position: relative;
-  height: 80px;
-  z-index: 100;
-  background: linear-gradient(270deg, #250101, #7b1200, #bc002c, #200000);
-  background-size: 800% 800%;
-  animation: headerGradient 12s ease infinite;
-  transition: all 0.5s ease;
-}
-@keyframes headerGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.background-header {
-  background-color: #fff;
-  height: 80px !important;
-  position: fixed !important;
-  top: 0 !important;
-  left: 0;  
-  right: 0;
-  box-shadow: 0 0 10px rgba(0,0,0,0.15)!important;
-  transition: all 0.5s ease;
+  height: 75px;
+  background: linear-gradient(90deg, #5c0000, #9b0000);
+  z-index: 999;
+  transition: 0.3s;
 }
 
 /* Logo */
-.header-area .logo h1,
 .logo-text {
-  line-height: 80px;
-  font-size: 28px;
-  text-transform: uppercase;
-  color: #f5f4f4;
+  color: #fff;
   font-weight: 700;
-  letter-spacing: 2px;
+  font-size: 26px;
+  letter-spacing: 1px;
+  line-height: 75px;
   margin: 0;
 }
 
-/* Nav Desktop */
-.header-area .main-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: transparent;
-  position: relative;
-}
-
-.header-area .main-nav .nav {
+/* Desktop Menu */
+.nav {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex-basis: 100%;
-  justify-content: flex-end;
+  gap: 15px;
 }
 
-.header-area .main-nav .nav li {
+.nav li {
   list-style: none;
-  padding: 0 10px;
 }
 
-.header-area .main-nav .nav li a {
-  display: block;
+.nav li a {
+  color: #fff;
+  text-decoration: none;
   font-weight: 500;
-  font-size: 15px;
-  color: #fff;
-  transition: all 0.3s ease;
+  transition: color 0.3s;
 }
 
-.header-area .main-nav .nav li a:hover,
-.header-area .main-nav .nav li a.active {
-  color: #ffdddd;
+.nav li a:hover,
+.nav li a.active {
+  color: #ffe4e4;
 }
 
-/* Tombol Login */
-.header-area .main-nav .nav li:last-child a {
-  background-color: #1e1e1e;
-  color: #fff;
-  padding: 8px 16px;
+.nav li:last-child a {
+  background: #111;
+  padding: 8px 18px;
   border-radius: 20px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.header-area .main-nav .nav li:last-child a:hover {
-  background-color: #050000;
+  color: #fff;
 }
 
-/* =======================================================
-   🍔 MODERN MENU TRIGGER (HAMBURGER)
-======================================================= */
+/* ==================== HAMBURGER ==================== */
 .menu-trigger {
   display: none;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.menu-trigger:hover {
-  box-shadow: 0 0 15px rgba(255, 120, 120, 0.8);
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: 0.3s;
 }
-
+.menu-trigger:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
 .menu-trigger .bar {
   width: 22px;
   height: 2.5px;
   background: #fff;
+  border-radius: 3px;
   margin: 3.5px 0;
-  border-radius: 4px;
-  transition: all 0.4s ease;
+  transition: 0.4s;
 }
-
-.menu-trigger.active .top {
+.menu-trigger.active .bar:nth-child(1) {
   transform: translateY(6px) rotate(45deg);
 }
-.menu-trigger.active .middle {
+.menu-trigger.active .bar:nth-child(2) {
   opacity: 0;
 }
-.menu-trigger.active .bottom {
+.menu-trigger.active .bar:nth-child(3) {
   transform: translateY(-6px) rotate(-45deg);
 }
 
-/* =======================================================
-   📱 RESPONSIVE MENU
-======================================================= */
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 991px) {
   .menu-trigger {
     display: flex;
-    z-index: 1001;
   }
-
-  .header-area {
-    height: 80px;
-    padding: 0 15px;
-    box-shadow: none;
-  }
-
-  .header-area .main-nav .nav {
+  .nav {
     position: absolute;
-    top: 80px;
+    top: 75px;
     left: 0;
     width: 100%;
     flex-direction: column;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(8px);
+    align-items: center;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(10px);
+    padding: 20px 0;
     border-radius: 0 0 15px 15px;
     display: none;
-    text-align: center;
-    padding: 15px 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    z-index: 1000;
-    animation: menuSlideDown 0.4s ease;
+    animation: slideDown 0.4s ease;
   }
-
-  .header-area .main-nav .nav.show {
+  .nav.show {
     display: flex;
   }
-
-  .header-area .main-nav .nav li {
+  .nav li {
+    padding: 10px 0;
     width: 100%;
-    padding: 12px 0;
+    text-align: center;
     border-top: 1px solid #eee;
   }
-
-  .header-area .main-nav .nav li:first-child {
-    border-top: none;
-  }
-
-  .header-area .main-nav .nav li a {
+  .nav li:first-child { border-top: none; }
+  .nav li a {
+    color: #111;
     font-size: 17px;
-    font-weight: 500;
-    color: #1e1e1e;
-    transition: 0.3s;
   }
-
-  .header-area .main-nav .nav li a:hover {
-    color: #800000;
-  }
-
-  .header-area .main-nav .nav li:last-child a {
-    justify-content: center;
+  .nav li:last-child a {
+    background: #111;
+    color: #fff;
     border-radius: 25px;
     margin-top: 10px;
   }
 }
 
-@media (max-width: 575px) {
-  .header-area .logo h1 { font-size: 22px; }
-  .header-area .main-nav .nav li a { font-size: 15px; }
-}
-
-@keyframes menuSlideDown {
+/* Animation */
+@keyframes slideDown {
   0% { opacity: 0; transform: translateY(-10px); }
   100% { opacity: 1; transform: translateY(0); }
 }

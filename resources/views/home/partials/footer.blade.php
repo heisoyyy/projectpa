@@ -111,13 +111,19 @@
 <!-- ===== Isotope Filtering ===== -->
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Isotope
-    var iso = new Isotope('#isotope-grid', {
-      itemSelector: '.properties-items',
-      layoutMode: 'fitRows',
-      transitionDuration: '0.4s'
-    });
+  document.addEventListener("DOMContentLoaded", function() {
+    const grid = document.querySelector('#isotope-grid');
+
+    if (grid) {
+      var iso = new Isotope(grid, {
+        itemSelector: '.properties-items',
+        layoutMode: 'fitRows',
+        transitionDuration: '0.4s'
+      });
+      console.log("✅ Isotope initialized successfully!");
+    } else {
+      console.warn("⚠️ Element #isotope-grid not found in DOM!");
+    }
 
     // Filter buttons
     document.querySelectorAll('.properties-filter a').forEach(btn => {

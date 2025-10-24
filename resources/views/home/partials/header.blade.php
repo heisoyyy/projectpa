@@ -3,13 +3,13 @@
     <div class="row align-items-center">
       <div class="col-12">
         <nav class="main-nav d-flex justify-content-between align-items-center">
-          
-          <!-- Logo -->
+
+          <!-- 🔸 Logo -->
           <a href="{{ url('/home') }}" class="logo d-flex align-items-center">
             <h1 class="logo-text">Komando</h1>
           </a>
 
-          <!-- Menu -->
+          <!-- 🔸 Menu -->
           <ul class="nav">
             <li><a href="{{ url('/home') }}" class="{{ request()->is('home') ? 'active' : '' }}">Home</a></li>
             <li><a href="{{ url('informasi') }}" class="{{ request()->is('informasi') ? 'active' : '' }}">Informasi</a></li>
@@ -20,15 +20,17 @@
 
           <!-- 🔸 Modern Mobile Menu Button -->
           <div class="menu-trigger" aria-label="Menu">
-            <div class="bar top"></div>
-            <div class="bar middle"></div>
-            <div class="bar bottom"></div>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
           </div>
+
         </nav>
       </div>
     </div>
   </div>
 </header>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const trigger = document.querySelector(".menu-trigger");

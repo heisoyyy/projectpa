@@ -13,7 +13,7 @@
       <div class="header-text">
         <span class="category">{{ $banner->kategori }} <em>{{ $banner->judul }}</em></span>
         <h2>{!! nl2br(e($banner->sub_judul ?? '')) !!}</h2>
-      </div>s
+      </div>
     </div>
     @endforeach
   </div>
