@@ -109,28 +109,39 @@
     });
 </script>
 
-{{-- 💬 SweetAlert untuk notifikasi interaktif --}}
+{{-- 💬 SweetAlert untuk notifikasi interaktif (hanya muncul sekali) --}}
 @if ($todayRegistrations->count() > 0)
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        Swal.fire({
-            title: 'Pendaftar Baru!',
-            html: `
-                    <p class="text-start">Terdapat <b>{{ $todayRegistrations->count() }}</b> pendaftar baru hari ini:</p>
-                    <ul class="text-start">
-                        @foreach ($todayRegistrations as $reg)
-                            <li><b>{{ $reg->nama_sekolah }}</b> <small>({{ $reg->kota }})</small></li>
-                        @endforeach
-                    </ul>
-                `,
-            icon: 'info',
-            confirmButtonText: 'Lihat Data',
-            confirmButtonColor: '#3085d6',
-            backdrop: true,
-            timer: 7000
-        });
+        const alertKey = 'alert_pendaftar_{{ now()->format("Ymd") }}'; // unik per hari
+
+        // Cek apakah sudah pernah ditampilkan hari ini
+        if (!localStorage.getItem(alertKey)) {
+            Swal.fire({
+                title: '📋 Pendaftar Baru!',
+                html: `
+                <p class="text-start">
+                    Terdapat <b>{{ $todayRegistrations->count() }}</b> pendaftar baru hari ini:
+                </p>
+                <ul class="text-start">
+                    @foreach ($todayRegistrations as $reg)
+                        <li><b>{{ $reg->nama_sekolah }}</b> <small>({{ $reg->kota }})</small></li>
+                    @endforeach
+                </ul>
+            `,
+                icon: 'info',
+                confirmButtonText: 'Oke',
+                confirmButtonColor: '#3085d6',
+                backdrop: true,
+                timer: 7000
+            }).then(() => {
+                // Simpan status sudah tampil di localStorage
+                localStorage.setItem(alertKey, 'shown');
+            });
+        }
     });
 </script>
 @endif
+
 @endsection
