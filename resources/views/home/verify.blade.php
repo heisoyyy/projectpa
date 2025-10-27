@@ -3,6 +3,17 @@
 @section('title', 'Verifikasi OTP - LKBB Komando')
 
 @section('content')
+
+@php
+    $user = \App\Models\User::where('email', $email)->first();
+@endphp
+
+@if($user && $user->is_verified)
+    <script>
+        window.location.href = "{{ route('login.form') }}";
+    </script>
+@endif
+
 <div class="login-section">
     <div class="container">
         <div class="row">
@@ -12,10 +23,10 @@
                     <p class="text-center text-muted mb-3">Masukkan kode OTP yang dikirim ke email <strong>{{ $email }}</strong></p>
 
                     @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
+                        <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
                     @if (session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
+                        <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
 
                     <form action="{{ route('verify.otp') }}" method="POST">

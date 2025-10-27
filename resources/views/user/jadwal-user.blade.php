@@ -152,22 +152,22 @@
             // === POPUP NOTIF ===
             if (distance <= 15 * 60 * 1000 && !popup15) {
                 popup15 = true;
-                Swal.fire("⏰ Sebentar Lagi!", "15 menit lagi giliran kamu!", "info");
+                Swal.fire("Sebentar Lagi!", "15 menit lagi giliran kamu!", "info");
             }
             if (distance <= 10 * 60 * 1000 && !popup10) {
                 popup10 = true;
-                Swal.fire("⚡ Ayo Bersiap!", "10 menit lagi tampil!", "warning");
+                Swal.fire("Ayo Bersiap!", "10 menit lagi tampil!", "warning");
             }
             if (distance <= 3 * 60 * 1000 && !popup3) {
                 popup3 = true;
-                Swal.fire("🔥 SEMANGAT!", "Tinggal 3 menit lagi!", "success");
+                Swal.fire("SEMANGAT!", "Tinggal 3 menit lagi!", "success");
             }
             if (distance <= 10 * 1000 && !popupDeg) {
                 popupDeg = true;
                 let degTime = 10;
                 const degTimer = setInterval(() => {
                     Swal.fire({
-                        title: `⏳ ${degTime}`,
+                        title: `${degTime}`,
                         text: "Waktunya tampil hampir dimulai!",
                         timer: 900,
                         showConfirmButton: false,
@@ -181,7 +181,7 @@
 
         // Sedang tampil (0 s.d. 30 menit setelah)
         else if (distance <= 0 && distance > -30 * 60 * 1000) {
-            countdownEl.innerHTML = "🎭 Sedang Tampil";
+            countdownEl.innerHTML = "Sedang Tampil";
             countdownEl.className = "fs-3 fw-bold text-primary mb-3";
             statusBadge.textContent = "Sedang Tampil";
             statusBadge.className = "badge bg-primary";
@@ -191,14 +191,14 @@
 
             if (!popupSedang) {
                 popupSedang = true;
-                Swal.fire("🎬 Giliranmu!", "Sekarang tim kamu sedang tampil!", "success");
+                Swal.fire("Giliranmu!", "Sekarang tim kamu sedang tampil!", "success");
             }
         }
 
         // Sudah tampil (>30 menit lewat)
         else if (distance <= -30 * 60 * 1000) {
             clearInterval(timer);
-            countdownEl.innerHTML = "✅ Selesai Tampil";
+            countdownEl.innerHTML = "Selesai Tampil";
             countdownEl.className = "fs-3 fw-bold text-success mb-3";
             statusBadge.textContent = "Sudah Tampil";
             statusBadge.className = "badge bg-success";

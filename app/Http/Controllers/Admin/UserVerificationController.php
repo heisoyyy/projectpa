@@ -8,10 +8,23 @@ use Illuminate\Http\Request;
 
 class UserVerificationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $users = User::where('role', 'user')->orderBy('created_at', 'desc')->get();
-        return view('admin.verifikasi-admin', compact('users'));
+
+        // 🔥 Ambil user yang daftar hari ini
+        $todayRegistrations = User::whereDate('created_at', today())
+            ->where('role', 'user')
+            ->get();
+
+        // ✅ Tampilkan notifikasi hanya SEKALI per session
+        $showNotification = false;
+        if (!$request->session()->has('shown_today_notification') && $todayRegistrations->count() > 0) {
+            $showNotification = true;
+            $request->session()->put('shown_today_notification', true);
+        }
+
+        return view('admin.verifikasi-admin', compact('users', 'todayRegistrations', 'showNotification'));
     }
 
     public function verifyUser($id)
@@ -28,6 +41,24 @@ class UserVerificationController extends Controller
             'otp_expires_at' => null,
         ]);
 
-        return back()->with('success', 'User berhasil diverifikasi secara manual.');
+        return redirect()->route('admin.verifikasi.index')
+            ->with('success', 'User berhasil diverifikasi secara manual.');
+    }
+    public function destroy($id)
+    {
+        $user = \App\Models\User::findOrFail($id);
+
+        try {
+            // jika user punya team atau relasi lain, hapus dulu relasinya
+            if ($user->team) {
+                $user->team->delete();
+            }
+
+            $user->delete();
+
+            return redirect()->back()->with('success', 'User berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus user: ' . $e->getMessage());
+        }
     }
 }

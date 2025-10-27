@@ -202,55 +202,79 @@
     </div>
 </div>
 
-{{-- =================== ALERT SECTION =================== --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if(session('dokumen_alert'))
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        @if($isComplete)
-        Swal.fire({
-            icon: 'success',
-            title: '✅ Dokumen Lengkap',
-            text: 'Semua dokumen sudah lengkap. Menunggu verifikasi panitia.',
-            timer: 4000,
-            showConfirmButton: false
-        });
-        @else
-        Swal.fire({
-            icon: 'warning',
-            title: '⚠️ Dokumen Belum Lengkap',
-            text: 'Harap lengkapi semua dokumen agar bisa diverifikasi.',
-            confirmButtonText: 'Oke'
-        });
-        @endif
-    });
-</script>
-@endif
+        // 🔧 Fungsi hanya tampil sekali
+        const showOnce = async (key, config) => {
+            try {
+                const lastState = localStorage.getItem(key);
 
-@if(session('status_verified'))
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        Swal.fire({
-            title: 'Selamat!',
-            text: 'Status tim Anda sudah diverifikasi oleh admin.',
-            icon: 'success',
-            confirmButtonText: 'Oke'
-        });
-    });
-</script>
-@endif
+                // Hanya tampil jika belum pernah atau status berubah
+                if (lastState !== 'shown') {
+                    console.log('Menampilkan alert:', key);
+                    Swal.fire(config);
+                    localStorage.setItem(key, 'shown');
+                } else {
+                    console.log('Alert sudah pernah tampil:', key);
+                }
+            } catch (err) {
+                console.error('Error SweetAlert:', err);
+            }
+        };
 
-@if(session('jadwal_baru'))
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        Swal.fire({
-            title: 'Jadwal Sudah Ada!',
-            text: 'Tim Anda sudah mendapatkan jadwal tampil dari panitia.',
-            icon: 'success',
-            confirmButtonText: 'Lihat Jadwal'
-        });
+        // 💡 Reset otomatis kalau status berubah dari backend
+        const resetKey = (key) => localStorage.removeItem(key);
+
+        (async () => {
+            // ==================== DOKUMEN ALERT ====================
+            @if(session('dokumen_alert'))
+            console.log('Trigger dokumen_alert');
+            @if($isComplete)
+            resetKey('alert_dokumen_lengkap');
+            showOnce('alert_dokumen_lengkap', {
+                icon: 'success',
+                title: '✅ Dokumen Lengkap',
+                text: 'Semua dokumen sudah lengkap. Menunggu verifikasi panitia.',
+                timer: 4000,
+                showConfirmButton: false
+            });
+            @else
+            resetKey('alert_dokumen_belum_lengkap');
+            showOnce('alert_dokumen_belum_lengkap', {
+                icon: 'warning',
+                title: '⚠️ Dokumen Belum Lengkap',
+                text: 'Harap lengkapi semua dokumen agar bisa diverifikasi.',
+                confirmButtonText: 'Oke'
+            });
+            @endif
+            @endif
+
+            // ==================== STATUS VERIFIED ====================
+            @if(session('status_verified'))
+            console.log('Trigger status_verified');
+            resetKey('alert_status_verified');
+            showOnce('alert_status_verified', {
+                title: 'Selamat!',
+                text: 'Status tim Anda sudah diverifikasi oleh admin.',
+                icon: 'success',
+                confirmButtonText: 'Oke'
+            });
+            @endif
+
+            // ==================== JADWAL BARU ====================
+            @if(session('jadwal_baru'))
+            console.log('Trigger jadwal_baru');
+            resetKey('alert_jadwal_baru');
+            showOnce('alert_jadwal_baru', {
+                title: 'Jadwal Sudah Ada!',
+                text: 'Tim Anda sudah mendapatkan jadwal tampil dari panitia.',
+                icon: 'success',
+                confirmButtonText: 'Lihat Jadwal'
+            });
+            @endif
+        })();
     });
 </script>
-@endif
+
 @endsection

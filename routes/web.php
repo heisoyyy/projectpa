@@ -156,6 +156,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/daftar-admin', [AdminController::class, 'index'])->name('admin.daftar');
     Route::get('/admin/detail-sekolah/{id}', [AdminController::class, 'detail'])->name('admin.detail');
     Route::post('/admin/verifikasi/{id}', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');
+    
     Route::delete('/admin/hapus-sekolah/{id}', [AdminController::class, 'hapusSekolah']);
     // Toggle status pendaftaran
     Route::post('/pendaftaran/toggle', [DashboardAdminController::class, 'togglePendaftaran'])->name('admin.pendaftaran.toggle');
@@ -300,6 +301,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin/verifikasi-user', [UserVerificationController::class, 'index'])->name('admin.verifikasi.index');
     Route::post('/admin/verifikasi-user/{id}', [UserVerificationController::class, 'verifyUser'])->name('admin.verifikasi.verify');
+    Route::delete('/admin/verifikasi/{id}/delete', [UserVerificationController::class, 'destroy'])
+    ->name('admin.verifikasi.delete');
+
 });
 
 // Homepage Informasi
