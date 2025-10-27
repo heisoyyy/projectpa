@@ -14,46 +14,86 @@ class DashboardUserController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $userId = $user->id;
+
+        \Log::info('✅ MASUK DashboardUserController@index', ['user_id' => $userId]);
+
         $team = $user->team;
-        $notifikasi = Notifikasi::where('user_id', $user->id)
+        $notifikasi = Notifikasi::where('user_id', $userId)
             ->latest()
             ->take(5)
             ->get();
 
         $jadwal = $sebelum = $sesudah = null;
-        $isComplete = false;
+        $alerts = [];
 
-        if ($team) {
-            // 📝 CEK STATUS DOKUMEN
+        // Fungsi pembantu buat session key unik per user
+        $key = fn($base) => "{$base}_alert_shown_user_{$userId}";
+
+        // Jika user belum punya tim
+        if (!$team) {
+            if (!session()->has($key('belum_tim'))) {
+                $alerts[] = [
+                    'type' => 'belum_tim',
+                    'message' => 'Lengkapi data tim dan dokumen peserta terlebih dahulu sebelum melanjutkan.',
+                    'priority' => 5
+                ];
+                session()->put($key('belum_tim'), true);
+            }
+        } else {
+            // 🟡 Cek kelengkapan dokumen
             $pesertaCount = $team->members->where('role', 'peserta')->count();
             $dok1 = $team->members->where('role', 'peserta')->whereNotNull('dokumen_1')->count();
             $dok2 = $team->members->where('role', 'peserta')->whereNotNull('dokumen_2')->count();
             $surat = $user->foto_surat_izin ? true : false;
             $isComplete = $pesertaCount > 0 && $dok1 > 0 && $dok2 > 0 && $surat;
 
-            if (!session()->has('dokumen_state') || session('dokumen_state') !== ($isComplete ? 'complete' : 'incomplete')) {
-                session()->flash('dokumen_alert', $isComplete ? 'complete' : 'incomplete');
-                session()->put('dokumen_state', $isComplete ? 'complete' : 'incomplete');
+            if ($isComplete && !session()->has($key('dokumen_lengkap'))) {
+                $alerts[] = [
+                    'type' => 'dokumen_lengkap',
+                    'priority' => 4
+                ];
+                session()->put($key('dokumen_lengkap'), true);
+            } elseif (!$isComplete && !session()->has($key('dokumen_belum_lengkap'))) {
+                $alerts[] = [
+                    'type' => 'dokumen_belum_lengkap',
+                    'priority' => 4
+                ];
+                session()->put($key('dokumen_belum_lengkap'), true);
             }
 
-            // 🟢 STATUS TIM TERVERIFIKASI
-            if ($team->status === 'verified') {
-                if (!session()->has('status_verified_shown')) {
-                    session()->flash('status_verified', true);
-                    session()->put('status_verified_shown', true);
+            // 🟢 Cek status verifikasi
+            if ($team->status === 'verified' && !session()->has($key('verified'))) {
+                $alerts[] = [
+                    'type' => 'verified',
+                    'priority' => 3
+                ];
+                session()->put($key('verified'), true);
 
-                    $this->buatNotifikasiUnik(
-                        $user->id,
-                        'Status Tim Terverifikasi',
-                        'Tim Anda telah diverifikasi oleh panitia. Selamat!'
-                    );
-                }
-            } else {
-                session()->forget('status_verified_shown');
+                $this->buatNotifikasiUnik(
+                    $userId,
+                    'Status Tim Terverifikasi',
+                    'Tim Anda telah diverifikasi oleh panitia. Selamat!'
+                );
             }
 
-            // 📅 CEK JADWAL TAMPIL
+            // 📅 Cek jadwal tampil
             $jadwal = Jadwal::where('team_id', $team->id)->first();
+            if ($jadwal && !session()->has($key('jadwal'))) {
+                $alerts[] = [
+                    'type' => 'jadwal',
+                    'priority' => 2
+                ];
+                session()->put($key('jadwal'), true);
+
+                $this->buatNotifikasiUnik(
+                    $userId,
+                    'Jadwal Tampil Sudah Tersedia',
+                    'Tim Anda telah mendapatkan jadwal tampil dari panitia.'
+                );
+            }
+
+            // 🔹 Ambil jadwal sebelum dan sesudah tim ini
             if ($jadwal) {
                 $sebelum = Jadwal::where('tanggal', $jadwal->tanggal)
                     ->where('urutan', '<', $jadwal->urutan)
@@ -64,31 +104,25 @@ class DashboardUserController extends Controller
                     ->where('urutan', '>', $jadwal->urutan)
                     ->orderBy('urutan', 'asc')
                     ->first();
-
-                if (!session()->has('jadwal_alert_shown')) {
-                    session()->flash('jadwal_baru', true);
-                    session()->put('jadwal_alert_shown', true);
-
-                    $this->buatNotifikasiUnik(
-                        $user->id,
-                        'Jadwal Tampil Sudah Tersedia',
-                        'Tim Anda telah mendapatkan jadwal tampil dari panitia.'
-                    );
-                }
-            } else {
-                session()->forget('jadwal_alert_shown');
             }
         }
 
+        // Urutkan alert berdasar prioritas
+        usort($alerts, fn($a, $b) => $a['priority'] <=> $b['priority']);
+
+        // Kirim ke session untuk view
+        if (!empty($alerts)) {
+            session()->flash('dashboard_alerts', $alerts);
+            \Log::info('🚨 ALERT DITEMUKAN', ['alerts' => $alerts]);
+        }
+
+        // Ambil pengumuman
         $pengumuman = Pesan::where(function ($q) use ($team) {
             $q->where('tujuan', 'all');
             if ($team) {
                 $q->orWhereRaw("FIND_IN_SET(?, tujuan)", [$team->id]);
             }
-        })
-            ->latest()
-            ->take(5)
-            ->get();
+        })->latest()->take(5)->get();
 
         return view('user.home-user', compact(
             'user',
@@ -97,8 +131,7 @@ class DashboardUserController extends Controller
             'sebelum',
             'sesudah',
             'pengumuman',
-            'notifikasi',
-            'isComplete'
+            'notifikasi'
         ));
     }
 
@@ -107,8 +140,8 @@ class DashboardUserController extends Controller
         if (!Notifikasi::where('user_id', $userId)->where('judul', $judul)->exists()) {
             Notifikasi::create([
                 'user_id' => $userId,
-                'judul'   => $judul,
-                'pesan'   => $pesan,
+                'judul' => $judul,
+                'pesan' => $pesan,
                 'is_read' => false,
             ]);
         }

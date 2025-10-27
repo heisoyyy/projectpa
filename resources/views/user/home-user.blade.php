@@ -202,60 +202,78 @@
     </div>
 </div>
 
+
 {{-- ================= ALERT SWEETALERT ================= --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const showOnce = async (key, config) => {
-        // reset jika status berubah
-        localStorage.removeItem(key);
-        await Swal.fire(config);
-        localStorage.setItem(key, 'shown');
-    };
+    async function showAlertsSequentially(alerts) {
+        for (const alert of alerts) {
+            switch(alert.type) {
+                case 'belum_tim':
+                    await Swal.fire({
+                        icon: 'warning',
+                        title: '⚠️ Lengkapi Data Tim',
+                        text: 'Lengkapi data tim dan dokumen peserta terlebih dahulu sebelum melanjutkan.',
+                        confirmButtonText: 'Oke',
+                        confirmButtonColor: '#ffc107'
+                    });
+                    break;
 
-    (async () => {
-        @if(session('dokumen_alert'))
-            console.log('Trigger dokumen_alert');
-            @if($isComplete)
-                await showOnce('alert_dokumen_lengkap', {
-                    icon: 'success',
-                    title: '✅ Dokumen Lengkap',
-                    text: 'Semua dokumen sudah lengkap. Menunggu verifikasi panitia.',
-                    timer: 4000,
-                    showConfirmButton: false
-                });
-            @else
-                await showOnce('alert_dokumen_belum_lengkap', {
-                    icon: 'warning',
-                    title: '⚠️ Dokumen Belum Lengkap',
-                    text: 'Harap lengkapi semua dokumen agar bisa diverifikasi.',
-                    confirmButtonText: 'Oke'
-                });
-            @endif
-        @endif
+                case 'dokumen_belum_lengkap':
+                    await Swal.fire({
+                        icon: 'warning',
+                        title: '⚠️ Dokumen Belum Lengkap',
+                        text: 'Harap lengkapi semua dokumen agar bisa diverifikasi.',
+                        confirmButtonText: 'Oke',
+                        confirmButtonColor: '#ffc107'
+                    });
+                    break;
 
-        @if(session('status_verified'))
-            console.log('Trigger status_verified');
-            await showOnce('alert_status_verified', {
-                title: 'Selamat!',
-                text: 'Status tim Anda sudah diverifikasi oleh admin.',
-                icon: 'success',
-                confirmButtonText: 'Oke'
-            });
-        @endif
+                case 'dokumen_lengkap':
+                    await Swal.fire({
+                        icon: 'success',
+                        title: '✅ Dokumen Lengkap',
+                        text: 'Semua dokumen sudah lengkap. Menunggu verifikasi panitia.',
+                        confirmButtonText: 'Oke',
+                        confirmButtonColor: '#28a745'
+                    });
+                    break;
 
-        @if(session('jadwal_baru'))
-            console.log('Trigger jadwal_baru');
-            await showOnce('alert_jadwal_baru', {
-                title: 'Jadwal Sudah Ada!',
-                text: 'Tim Anda sudah mendapatkan jadwal tampil dari panitia.',
-                icon: 'success',
-                confirmButtonText: 'Lihat Jadwal'
-            });
-        @endif
-    })();
+                case 'verified':
+                    await Swal.fire({
+                        icon: 'success',
+                        title: '🎉 Selamat!',
+                        text: 'Status tim Anda sudah diverifikasi oleh admin.',
+                        confirmButtonText: 'Oke',
+                        confirmButtonColor: '#28a745'
+                    });
+                    break;
+
+                case 'jadwal':
+                    await Swal.fire({
+                        icon: 'info',
+                        title: '📅 Jadwal Sudah Ada!',
+                        text: 'Tim Anda sudah mendapatkan jadwal tampil dari panitia.',
+                        confirmButtonText: 'Lihat Jadwal',
+                        confirmButtonColor: '#17a2b8'
+                    });
+                    break;
+
+                default:
+                    console.warn("⚠️ Jenis alert tidak dikenali:", alert.type);
+            }
+        }
+    }
+
+    @if(session('dashboard_alerts'))
+        const alerts = @json(session('dashboard_alerts'));
+        console.log("📢 Alerts aktif:", alerts);
+        if (alerts && alerts.length > 0) {
+            showAlertsSequentially(alerts);
+        }
+    @endif
 });
 </script>
-
 
 @endsection
