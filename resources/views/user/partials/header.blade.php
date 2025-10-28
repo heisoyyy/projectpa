@@ -21,11 +21,29 @@
                 <!-- Messages -->
                 <li class="nav-item dropdown me-2">
                     @php
-                    $teamId = auth()->user()->team->id ?? null;
-                    $unreadCount = $teamId ? \App\Models\Pesan::forTeam($teamId)->count() : 0;
-                    $pesans = $teamId
-                    ? \App\Models\Pesan::forTeam($teamId)->latest()->take(5)->get()
-                    : collect([]);
+                    $user = auth()->user();
+                    $teamId = $user->team->id ?? null;
+                    
+                    if ($teamId) {
+                        // Ambil semua pesan untuk user (all atau specific team)
+                        $allPesans = \App\Models\Pesan::forTeam($teamId)->get();
+                        
+                        // Hitung yang belum dibaca dengan cek pivot table
+                        $unreadCount = $allPesans->filter(function($pesan) use ($user) {
+                            $pivot = $pesan->receivers()->where('user_id', $user->id)->first();
+                            return !$pivot || !$pivot->pivot->is_read;
+                        })->count();
+                        
+                        // Ambil 5 pesan terbaru, urutkan yang belum dibaca dulu
+                        $pesans = $allPesans->sortByDesc(function($pesan) use ($user) {
+                            $pivot = $pesan->receivers()->where('user_id', $user->id)->first();
+                            $isRead = $pivot ? $pivot->pivot->is_read : false;
+                            return !$isRead; // Belum dibaca di atas
+                        })->take(5);
+                    } else {
+                        $unreadCount = 0;
+                        $pesans = collect([]);
+                    }
                     @endphp
 
                     <a class="nav-link position-relative" href="#" id="messageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -37,27 +55,47 @@
                         @endif
                     </a>
 
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="messageDropdown">
-                        <li class="dropdown-header">Pesan Terbaru</li>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="messageDropdown" style="max-width: 350px; min-width: 300px;">
+                        <li class="dropdown-header d-flex justify-content-between align-items-center">
+                            <span>Pesan Terbaru</span>
+                            @if($unreadCount > 0)
+                            <span class="badge bg-danger">{{ $unreadCount }} Belum Dibaca</span>
+                            @endif
+                        </li>
 
                         @forelse($pesans as $pesan)
+                        @php
+                        $pivot = $pesan->receivers()->where('user_id', $user->id)->first();
+                        $isRead = $pivot ? $pivot->pivot->is_read : false;
+                        @endphp
                         <li>
-                            <a class="dropdown-item d-flex flex-column" href="{{ route('user.pesan.read', $pesan->id) }}">
-                                <strong>{{ $pesan->judul }}</strong>
+                            <a class="dropdown-item d-flex flex-column {{ $isRead ? 'text-muted' : 'fw-bold' }}" 
+                               href="{{ route('user.pesan.read', $pesan->id) }}"
+                               style="border-left: 3px solid {{ $isRead ? '#6c757d' : '#dc3545' }}; padding-left: 12px;">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <strong class="{{ $isRead ? 'text-muted' : 'text-dark' }}">
+                                        {{ $pesan->judul }}
+                                    </strong>
+                                    @if(!$isRead)
+                                    <span class="badge bg-danger ms-2" style="font-size: 0.65rem;">Baru</span>
+                                    @endif
+                                </div>
                                 <small class="text-muted">{{ Str::limit($pesan->isi, 50) }}</small>
-                                <small class="text-muted">{{ $pesan->created_at->diffForHumans() }}</small>
+                                <small class="text-muted">
+                                    <i class="far fa-clock"></i> {{ $pesan->created_at->diffForHumans() }}
+                                </small>
                             </a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         @empty
-                        <li><span class="dropdown-item text-muted">Tidak ada pesan</span></li>
+                        <li><span class="dropdown-item text-muted text-center">Tidak ada pesan</span></li>
                         @endforelse
 
                         <li>
-                            <a class="dropdown-item text-center fw-bold" href="{{ route('user.pesan.index') }}">
-                                Lihat Semua Pesan
+                            <a class="dropdown-item text-center fw-bold text-primary" href="{{ route('user.pesan.index') }}">
+                                <i class="fas fa-envelope-open-text"></i> Lihat Semua Pesan
                             </a>
                         </li>
                     </ul>

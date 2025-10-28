@@ -99,51 +99,72 @@ Route::post('/home/login', [AuthController::class, 'login'])->name('login.post')
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-// ========== USER ==========
+// ========== USER ROUTES ==========
 Route::middleware(['auth', 'role:user'])->group(function () {
 
     Route::get('/user', [DashboardUserController::class, 'index'])->name('user.home');
 
     Route::get('/user/home', [HomeController::class, 'index'])->name('user.home');
 
-    Route::get('/user/cek-dokumen', [App\Http\Controllers\UserController::class, 'cekDokumenStatus'])
+    Route::get('/user/cek-dokumen', [UserController::class, 'cekDokumenStatus'])
         ->name('user.cek-dokumen');
-    // Pesan
-    Route::get('/user/pesan', [UserController::class, 'pesanIndex'])->name('user.pesan.index');
-    Route::get('/user/pesan/{pesan}', [UserController::class, 'pesanRead'])->name('user.pesan.read');
+
+    // ========== PESAN ROUTES (URUTAN PENTING!) ==========
+    // PENTING: Route mark-all-read HARUS DI ATAS route {pesan}
+    // Karena Laravel route matching dari atas ke bawah
+    Route::post('/user/pesan/mark-all-read', [UserController::class, 'markAllAsRead'])
+        ->name('user.pesan.markAllRead');
+
+    // Route list pesan
+    Route::get('/user/pesan', [UserController::class, 'pesanIndex'])
+        ->name('user.pesan.index');
+
+    // Route read pesan (pakai {pesan} bukan {id} untuk consistency)
+    Route::get('/user/pesan/{pesan}', [UserController::class, 'pesanRead'])
+        ->name('user.pesan.read');
 
     // Dashboard User
     Route::get('/user/dashboard', [PendaftaranUserController::class, 'index'])
         ->name('user.dashboard');
-    Route::get('/user/notifikasi', [NotifikasiController::class, 'index'])->name('user.notifikasi.index');
-    Route::post('/user/notifikasi/{id}/read', [NotifikasiController::class, 'markAsRead'])->name('user.notifikasi.read');
-    Route::delete('/user/notifikasi/{id}', [NotifikasiController::class, 'destroy'])->name('user.notifikasi.destroy');
+
+    // Notifikasi
+    Route::get('/user/notifikasi', [NotifikasiController::class, 'index'])
+        ->name('user.notifikasi.index');
+    Route::post('/user/notifikasi/{id}/read', [NotifikasiController::class, 'markAsRead'])
+        ->name('user.notifikasi.read');
+    Route::delete('/user/notifikasi/{id}', [NotifikasiController::class, 'destroy'])
+        ->name('user.notifikasi.destroy');
 
     // Halaman Pendaftaran Peserta
     Route::middleware(['auth', 'role:user'])->group(function () {
-        Route::get('/user/pendaftaran-user', [PendaftaranUserController::class, 'index'])->name('user.pendaftaran.index');
-        Route::post('/user/pendaftaran-user', [PendaftaranUserController::class, 'store'])->name('user.pendaftaran.store');
+        Route::get('/user/pendaftaran-user', [PendaftaranUserController::class, 'index'])
+            ->name('user.pendaftaran.index');
+        Route::post('/user/pendaftaran-user', [PendaftaranUserController::class, 'store'])
+            ->name('user.pendaftaran.store');
         Route::put('/user/pendaftaran-user/update/{team}', [PendaftaranUserController::class, 'update'])
             ->name('user.pendaftaran.update');
     });
 
+    Route::get('/user/jadwal-user', [JadwalUserController::class, 'index'])
+        ->name('user.jadwal');
 
-    Route::get('/user/jadwal-user', [JadwalUserController::class, 'index'])->name('user.jadwal');
+    Route::get('/user/hasil-user', [HasilController::class, 'hasilPeserta'])
+        ->name('user.hasil');
 
-    Route::get('/user/hasil-user', [HasilController::class, 'hasilPeserta'])->name('user.hasil');
-
-
-    Route::get('/user/profile-user', [ProfileUserController::class, 'edit'])->name('user.profile.edit');
-    Route::put('/user/profile-user', [ProfileUserController::class, 'update'])->name('user.profile.update');
-    Route::post('/user/profile-user/upload-foto', [ProfileUserController::class, 'uploadFoto'])->name('user.profile.uploadFoto');
+    Route::get('/user/profile-user', [ProfileUserController::class, 'edit'])
+        ->name('user.profile.edit');
+    Route::put('/user/profile-user', [ProfileUserController::class, 'update'])
+        ->name('user.profile.update');
+    Route::post('/user/profile-user/upload-foto', [ProfileUserController::class, 'uploadFoto'])
+        ->name('user.profile.uploadFoto');
 
     // 📝 Halaman Setting User (ganti password)
-    Route::get('/user/setting-user', [SettingUserController::class, 'index'])->name('user.setting');
+    Route::get('/user/setting-user', [SettingUserController::class, 'index'])
+        ->name('user.setting');
 
     // 🔑 Proses update password
     Route::put('/user/setting/update-password', [SettingUserController::class, 'updatePassword'])
         ->name('user.setting.updatePassword');
-    // Route::put('/user/setting-user/password',[SettingUserController::class, 'updatePassword'])->name('user.setting.updatePassword');
 });
 
 // ========== ADMIN ==========
@@ -156,7 +177,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/daftar-admin', [AdminController::class, 'index'])->name('admin.daftar');
     Route::get('/admin/detail-sekolah/{id}', [AdminController::class, 'detail'])->name('admin.detail');
     Route::post('/admin/verifikasi/{id}', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');
-    
+
     Route::delete('/admin/hapus-sekolah/{id}', [AdminController::class, 'hapusSekolah']);
     // Toggle status pendaftaran
     Route::post('/pendaftaran/toggle', [DashboardAdminController::class, 'togglePendaftaran'])->name('admin.pendaftaran.toggle');
@@ -302,8 +323,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/verifikasi-user', [UserVerificationController::class, 'index'])->name('admin.verifikasi.index');
     Route::post('/admin/verifikasi-user/{id}', [UserVerificationController::class, 'verifyUser'])->name('admin.verifikasi.verify');
     Route::delete('/admin/verifikasi/{id}/delete', [UserVerificationController::class, 'destroy'])
-    ->name('admin.verifikasi.delete');
-
+        ->name('admin.verifikasi.delete');
 });
 
 // Homepage Informasi
