@@ -128,7 +128,7 @@
 
                     <div class="alert alert-info border-0 d-flex align-items-start mt-4 mb-0">
                         <i class="bi bi-lightbulb-fill me-2 mt-1"></i>
-                        <small class="text-start">Ingin mengubah data profil? Hubungi administrator</small>
+                        <small class="text-start">Ingin mengubah data profil? <a href="{{ url('user/profile-user') }}">Klik</a></small>
                     </div>
                 </div>
             </div>

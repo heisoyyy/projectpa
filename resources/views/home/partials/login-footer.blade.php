@@ -7,7 +7,7 @@
 
 <style>
   .login-card {
-    background: #fff;
+    background: #d6d6d6;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);

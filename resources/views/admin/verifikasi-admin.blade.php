@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2 class="mb-4 fw-bold">Daftar User & Status Verifikasi</h2>
+    <h2 class="mb-4 fw-bold">Daftar User & Status Aktivasi</h2>
 
     {{-- Notifikasi Pendaftar Baru Hari Ini --}}
     @if ($todayRegistrations->count() > 0)

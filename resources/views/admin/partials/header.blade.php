@@ -7,7 +7,7 @@
         </button>
 
         <!-- Brand -->
-        <a class="navbar-brand fw-bold" href="#">OSIS SMAN PLUS</a>
+        <a class="navbar-brand fw-bold" href="{{ url('/admin') }}">OSIS SMAN PLUS</a>
 
         <!-- Mobile Toggler -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

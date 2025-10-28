@@ -24,7 +24,6 @@
                 <th>Sekolah</th>
                 <th>Total Nilai (Rata-rata)</th>
                 <th>Ranking</th>
-                <th>Anggota Tim</th>
             </tr>
         </thead>
         <tbody>
@@ -34,13 +33,6 @@
                 <td>{{ $data->nama_sekolah }}</td>
                 <td>{{ number_format($data->total_nilai, 2) }}</td>
                 <td>{{ $data->ranking }}</td>
-                <td>
-                    <ul>
-                        @foreach($data->anggota as $anggota)
-                            <li>{{ $anggota }}</li>
-                        @endforeach
-                    </ul>
-                </td>
             </tr>
             @endforeach
 

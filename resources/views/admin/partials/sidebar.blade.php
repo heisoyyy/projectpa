@@ -35,7 +35,7 @@
         <!-- Verifikasi -->
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.verifikasi.index') }}">
-                <i class="fa fa-user-check"></i> Verifikasi User
+                <i class="fa fa-user-check"></i> Aktivisi User
             </a>
         </li>
         <!-- Daftar Peserta -->
