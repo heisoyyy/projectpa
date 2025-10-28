@@ -127,7 +127,7 @@
         {{-- =================== NOTIF & DOKUMEN & PENGUMUMAN =================== --}}
         <div class="col-sm-12 col-lg-4">
             <div class="rounded p-4 shadow-sm h-100">
-                <h6 class="mb-3">🔔 Notifikasi Terbaru</h6>
+                <h6 class="mb-3">Notifikasi Terbaru</h6>
                 <ul class="list-group list-group-flush">
                     @forelse($notifikasi as $n)
                     <li class="list-group-item {{ $n->is_read ? '' : 'fw-bold' }}">
@@ -144,7 +144,7 @@
 
         <div class="col-sm-12 col-lg-4">
             <div class="rounded p-4 shadow-sm h-100">
-                <h6 class="mb-3">📄 Status Dokumen</h6>
+                <h6 class="mb-3">Status Dokumen</h6>
                 @php
                 $pesertaCount = $team ? $team->members->where('role','peserta')->count() : 0;
                 $dokumen1Uploaded = $team ? $team->members->where('role','peserta')->whereNotNull('dokumen_1')->count() : 0;
@@ -188,7 +188,7 @@
 
         <div class="col-sm-12 col-lg-4">
             <div class="rounded p-4 shadow-sm h-100">
-                <h6 class="mb-3">📢 Pengumuman Panitia</h6>
+                <h6 class="mb-3">Pengumuman Panitia</h6>
                 @forelse($pengumuman as $item)
                 <p class="mb-2">
                     <strong>{{ $item->judul }}</strong><br>
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 case 'belum_tim':
                     await Swal.fire({
                         icon: 'warning',
-                        title: '⚠️ Lengkapi Data Tim',
+                        title: 'Lengkapi Data Tim',
                         text: 'Lengkapi data tim dan dokumen peserta terlebih dahulu sebelum melanjutkan.',
                         confirmButtonText: 'Oke',
                         confirmButtonColor: '#ffc107'
@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 case 'dokumen_belum_lengkap':
                     await Swal.fire({
                         icon: 'warning',
-                        title: '⚠️ Dokumen Belum Lengkap',
+                        title: 'Dokumen Belum Lengkap',
                         text: 'Harap lengkapi semua dokumen agar bisa diverifikasi.',
                         confirmButtonText: 'Oke',
                         confirmButtonColor: '#ffc107'
@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 case 'dokumen_lengkap':
                     await Swal.fire({
                         icon: 'success',
-                        title: '✅ Dokumen Lengkap',
+                        title: 'Dokumen Lengkap',
                         text: 'Semua dokumen sudah lengkap. Menunggu verifikasi panitia.',
                         confirmButtonText: 'Oke',
                         confirmButtonColor: '#28a745'
@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 case 'verified':
                     await Swal.fire({
                         icon: 'success',
-                        title: '🎉 Selamat!',
+                        title: 'Selamat!',
                         text: 'Status tim Anda sudah diverifikasi oleh admin.',
                         confirmButtonText: 'Oke',
                         confirmButtonColor: '#28a745'
@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 case 'jadwal':
                     await Swal.fire({
                         icon: 'info',
-                        title: '📅 Jadwal Sudah Ada!',
+                        title: 'Jadwal Sudah Ada!',
                         text: 'Tim Anda sudah mendapatkan jadwal tampil dari panitia.',
                         confirmButtonText: 'Lihat Jadwal',
                         confirmButtonColor: '#17a2b8'
@@ -261,14 +261,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     break;
 
                 default:
-                    console.warn("⚠️ Jenis alert tidak dikenali:", alert.type);
+                    console.warn("Jenis alert tidak dikenali:", alert.type);
             }
         }
     }
 
     @if(session('dashboard_alerts'))
         const alerts = @json(session('dashboard_alerts'));
-        console.log("📢 Alerts aktif:", alerts);
+        console.log("Alerts aktif:", alerts);
         if (alerts && alerts.length > 0) {
             showAlertsSequentially(alerts);
         }
