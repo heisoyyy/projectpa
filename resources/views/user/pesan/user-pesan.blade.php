@@ -56,8 +56,7 @@
                     @endphp
                     
                     <a href="{{ route('user.pesan.read', $pesan->id) }}" 
-                       class="list-group-item list-group-item-action {{ $isRead ? '' : 'list-group-item-warning' }}"
-                       style="border-left: 4px solid {{ $isRead ? '#6c757d' : '#dc3545' }};">
+                       class="list-group-item list-group-item-action {{ $isRead ? '' : 'list-group-item-warning' }}">
                         
                         <div class="d-flex w-100 justify-content-between align-items-start">
                             <div class="flex-grow-1">

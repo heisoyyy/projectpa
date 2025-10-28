@@ -70,8 +70,7 @@
                         @endphp
                         <li>
                             <a class="dropdown-item d-flex flex-column {{ $isRead ? 'text-muted' : 'fw-bold' }}" 
-                               href="{{ route('user.pesan.read', $pesan->id) }}"
-                               style="border-left: 3px solid {{ $isRead ? '#6c757d' : '#dc3545' }}; padding-left: 12px;">
+                               href="{{ route('user.pesan.read', $pesan->id) }}">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <strong class="{{ $isRead ? 'text-muted' : 'text-dark' }}">
                                         {{ $pesan->judul }}
