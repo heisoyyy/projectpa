@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use App\Models\Pesan;
+use App\Notifications\ResetPasswordNotification;
 
-class User extends Authenticatable
+class User extends Authenticatable implements CanResetPasswordContract
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, CanResetPassword;
 
     protected $fillable = [
         'email',
@@ -28,6 +31,28 @@ class User extends Authenticatable
         'otp_expires_at',
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+        'otp_code',
+    ];
+
+    protected $casts = [
+        'otp_expires_at' => 'datetime',
+        'is_verified' => 'boolean',
+    ];
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
     // Relasi: 1 User bisa punya 1 Team
     public function team()
     {
@@ -41,8 +66,9 @@ class User extends Authenticatable
             ->withPivot('is_read')
             ->withTimestamps();
     }
+
     public function notifikasis()
     {
-        return $this->hasMany(\App\Models\Notifikasi::class);
+        return $this->hasMany(Notifikasi::class);
     }
 }
