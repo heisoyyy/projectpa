@@ -12,6 +12,9 @@
                         <img src="{{ asset('assets/images/Logo.jpg') }}" alt="Logo" class="login-logo">
                     </div>
                     <h3 class="text-center mb-3">Lupa Password</h3>
+                    <p class="text-center text-muted mb-4">
+                        Masukkan email yang kamu gunakan saat mendaftar untuk reset Password.
+                    </p>
 
                     @if(session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
@@ -26,8 +29,11 @@
 
                         <div class="text-center mt-3">
                             <button type="submit" class="btn-login">
-                                <i class="fa fa-paper-plane"></i> Kirim Link Reset
+                                Send Email
                             </button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <small><a href="{{ route('login.form') }}">Kembali ke Login</a></small>
                         </div>
                     </form>
 

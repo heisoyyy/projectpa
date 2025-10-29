@@ -100,7 +100,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // ========== USER ROUTES ==========
-Route::middleware(['auth', 'role:user'])->group(function () {
+Route::middleware(['ensure.login', 'role:user'])->group(function () {
 
     Route::get('/user', [DashboardUserController::class, 'index'])->name('user.home');
 
@@ -168,7 +168,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 });
 
 // ========== ADMIN ==========
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['ensure.login', 'role:admin'])->group(function () {
 
     // Dashboard Admin
     Route::get('/admin', [DashboardAdminController::class, 'index'])->name('admin.home');
