@@ -11,7 +11,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
                         <h4 class="mb-1">
-                            <i class="fas fa-inbox text-primary"></i> Kotak Pesan
+                            Kotak Pesan
                         </h4>
                         @if($unreadCount > 0)
                         <small class="text-muted">
@@ -24,7 +24,7 @@
                     <form action="{{ route('user.pesan.markAllRead') }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-sm btn-success">
-                            <i class="fas fa-check-double"></i> Tandai Semua Dibaca
+                            Tandai Semua Dibaca
                         </button>
                     </form>
                     @endif
@@ -103,7 +103,6 @@
                     </a>
                     @empty
                     <div class="text-center py-5">
-                        <i class="fas fa-inbox text-muted" style="font-size: 4rem;"></i>
                         <p class="text-muted mt-3">Tidak ada pesan</p>
                         @if(!auth()->user()->team)
                         <small class="text-muted">Silakan daftar tim terlebih dahulu untuk menerima pesan.</small>

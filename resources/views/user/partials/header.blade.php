@@ -93,8 +93,8 @@
                         @endforelse
 
                         <li>
-                            <a class="dropdown-item text-center fw-bold text-primary" href="{{ route('user.pesan.index') }}">
-                                <i class="fas fa-envelope-open-text"></i> Lihat Semua Pesan
+                            <a class="dropdown-item text-center fw-bold" href="{{ route('user.pesan.index') }}">
+                                Lihat Semua Pesan
                             </a>
                         </li>
                     </ul>
