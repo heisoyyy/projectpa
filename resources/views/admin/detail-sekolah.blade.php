@@ -4,13 +4,13 @@
 
 @section('content')
 <div class="container-fluid">
-    <h2 class="mb-4">Detail Pendaftaran - {{ $team->nama_tim }}</h2>
+    <h2 class="mb-4">Detail Pendaftaran Tim- {{ $team->nama_tim }}</h2>
 
     {{-- Info Sekolah --}}
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
-            <h5 class="card-title">Data Sekolah</h5>
-            <p><strong>Nama Sekolah:</strong> {{ $team->nama_tim }}</p>
+            <h5 class="card-title">Data Tim Sekolah</h5>
+            <p><strong>Nama Tim:</strong> {{ $team->nama_tim }}</p>
             <p><strong>Alamat:</strong> {{ $team->user->kota ?? '-' }}</p>
             <p><strong>Status:</strong>
                 @if($team->status == 'pending')

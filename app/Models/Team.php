@@ -15,7 +15,17 @@ class Team extends Model
     // {
     //     return $this->belongsTo(User::class);
     // }
+    // Helper: Hitung jumlah peserta
+    public function getPesertaCountAttribute()
+    {
+        return $this->members()->where('role', 'peserta')->count();
+    }
 
+    // Helper: Hitung jumlah pelatih
+    public function getPelatihCountAttribute()
+    {
+        return $this->members()->where('role', 'pelatih')->count();
+    }
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

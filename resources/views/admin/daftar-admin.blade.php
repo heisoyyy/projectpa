@@ -3,7 +3,7 @@
 @section('title', 'Daftar Admin')
 @section('content')
 <div class="container-fluid text-center mt-4">
-    <h2 class="mb-4">Daftar Peserta Sekolah</h2>
+    <h2 class="mb-4">Daftar Tim Peserta Sekolah</h2>
 
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
@@ -15,7 +15,7 @@
                 <thead class="text-center">
                     <tr>
                         <th>No</th>
-                        <th>Nama Sekolah</th>
+                        <th>Nama Tim Sekolah</th>
                         <th>Jumlah Peserta</th>
                         <th>Status</th>
                         <th>Surat Izin</th>

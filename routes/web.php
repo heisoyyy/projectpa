@@ -136,15 +136,26 @@
             ->name('user.notifikasi.destroy');
 
         // Halaman Pendaftaran Peserta
-        Route::middleware(['auth', 'role:user'])->group(function () {
-            Route::get('/user/pendaftaran-user', [PendaftaranUserController::class, 'index'])
-                ->name('user.pendaftaran.index');
-            Route::post('/user/pendaftaran-user', [PendaftaranUserController::class, 'store'])
-                ->name('user.pendaftaran.store');
-            Route::put('/user/pendaftaran-user/update/{team}', [PendaftaranUserController::class, 'update'])
-                ->name('user.pendaftaran.update');
-        });
+        // ========== PENDAFTARAN MULTI TIM ==========
+        // Halaman Pendaftaran (List semua tim)
+        Route::get('/user/pendaftaran-user', [PendaftaranUserController::class, 'index'])
+            ->name('user.pendaftaran.index');
+        // Tambah Tim Baru
+        Route::post('/user/pendaftaran/team', [PendaftaranUserController::class, 'storeTeam'])
+            ->name('user.pendaftaran.store.team');
+        // Tambah/Update Anggota Tim (Peserta & Pelatih)
+        Route::post('/user/pendaftaran/{teamId}/members', [PendaftaranUserController::class, 'storeMembers'])
+            ->name('user.pendaftaran.store.members');
+        Route::put('/user/pendaftaran/{teamId}/members', [PendaftaranUserController::class, 'updateMembers'])
+            ->name('user.pendaftaran.update.members');
+        // Hapus Tim
+        Route::delete('/user/pendaftaran/team/{teamId}', [PendaftaranUserController::class, 'deleteTeam'])
+            ->name('user.pendaftaran.delete.team');
+        // Hapus Member (Peserta/Pelatih)
+        Route::delete('/user/pendaftaran/member/{memberId}', [PendaftaranUserController::class, 'deleteMember'])
+            ->name('user.pendaftaran.delete.member');
 
+        // Halaman Jadwal Peserta
         Route::get('/user/jadwal-user', [JadwalUserController::class, 'index'])
             ->name('user.jadwal');
 

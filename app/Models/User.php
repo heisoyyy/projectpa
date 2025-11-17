@@ -53,10 +53,16 @@ class User extends Authenticatable implements CanResetPasswordContract
         $this->notify(new ResetPasswordNotification($token));
     }
 
-    // Relasi: 1 User bisa punya 1 Team
+    // Untuk get semua tim
+    public function teams()
+    {
+        return $this->hasMany(Team::class, 'user_id');
+    }
+
+    // Helper untuk backward compatibility
     public function team()
     {
-        return $this->hasOne(Team::class, 'user_id');
+        return $this->hasOne(Team::class, 'user_id')->latest();
     }
 
     // Relasi: user bisa menerima banyak pesan
