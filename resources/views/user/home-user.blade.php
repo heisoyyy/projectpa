@@ -32,7 +32,7 @@
                         @endif
                     </div>
 
-                    {{-- Pelatih --}}
+                    <!-- {{-- Pelatih --}}
                     <div class="me-4 mb-2">
                         @php $pelatih = $team ? $team->members->where('role', 'pelatih') : collect(); @endphp
                         <p class="mb-1">Pelatih:</p>
@@ -43,7 +43,7 @@
                             <li><i>Belum ada</i></li>
                             @endforelse
                         </ul>
-                    </div>
+                    </div> -->
 
                     <div class="mb-2">
                         <a href="{{ url('user/profile-user') }}" class="btn btn-sm btn-outline-secondary">

@@ -29,7 +29,7 @@ class LaporanController extends Controller
                 return (object)[
                     'team_id' => $team->id,
                     'total_nilai' => $avgTotal,
-                    'nama_sekolah' => $team->user->nama_sekolah ?? '-',
+                    'nama_tim' => $team->nama_tim ?? '-',
                     'anggota' => $team->users->pluck('name')->toArray()
                 ];
             })
@@ -44,7 +44,7 @@ class LaporanController extends Controller
                 return (object)[
                     'team_id' => $team_id,
                     'total_nilai' => $avgTotal,
-                    'nama_sekolah' => $team->user->nama_sekolah ?? '-',
+                    'nama_tim' => $team->nama_tim ?? '-',
                     'anggota' => $team->users->pluck('name')->toArray()
                 ];
             })
@@ -92,7 +92,7 @@ class LaporanController extends Controller
                 return (object)[
                     'team_id' => $team_id,
                     'total_nilai' => $avgTotal,
-                    'nama_sekolah' => $team->user->nama_sekolah ?? '-',
+                    'nama_tim' => $team->nama_tim ?? '-',
                     'anggota' => $team->users->pluck('name')->toArray()
                 ];
             })

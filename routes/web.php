@@ -335,6 +335,11 @@
         Route::post('/admin/verifikasi-user/{id}', [UserVerificationController::class, 'verifyUser'])->name('admin.verifikasi.verify');
         Route::delete('/admin/verifikasi/{id}/delete', [UserVerificationController::class, 'destroy'])
             ->name('admin.verifikasi.delete');
+        Route::put('/admin/verifikasi/{id}/update', [UserVerificationController::class, 'update'])
+            ->name('admin.verifikasi.update');
+
+        Route::put('/admin/verifikasi/{id}/password', [UserVerificationController::class, 'updatePassword'])
+            ->name('admin.verifikasi.updatePassword');
     });
 
     // Homepage Informasi

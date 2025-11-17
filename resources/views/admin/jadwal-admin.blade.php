@@ -35,11 +35,12 @@
             <input type="text" name="tempat" id="tempat" class="form-control" placeholder="Contoh: GOR SMAN Plus" required>
           </div>
           <div class="mb-3">
-            <label for="sekolah" class="form-label">Sekolah</label>
-            <select name="sekolah_id" id="sekolah" class="form-select" required>
-              <option value="">-- Pilih Sekolah --</option>
-              @foreach($sekolahBelumJadwal as $team)
-              <option value="{{ $team->id }}">{{ $team->user->nama_sekolah }}</option>
+            <label for="team" class="form-label">Sekolah</label>
+            <label for="team" class="form-label">Nama Tim</label>
+            <select name="team_id" id="team" class="form-select" required>
+              <option value="">-- Pilih Tim --</option>
+              @foreach($teamBelumJadwal as $team)
+              <option value="{{ $team->id }}">{{ $team->nama_tim }}</option>
               @endforeach
             </select>
           </div>
@@ -77,7 +78,7 @@
       <td>{{ $jadwal->tanggal }}</td>
       <td>{{ $jadwal->waktu }}</td>
       <td>{{ $jadwal->tempat }}</td>
-      <td>{{ $jadwal->team->user->nama_sekolah }}</td>
+      <td>{{ $jadwal->team->nama_tim }}</td>
       <td>{{ $jadwal->urutan }}</td>
       <td>
         <!-- Tombol Edit -->
@@ -122,11 +123,13 @@
             <input type="text" name="tempat" id="tempat{{ $jadwal->id }}" class="form-control" value="{{ $jadwal->tempat }}" required>
           </div>
           <div class="mb-3">
-            <label for="sekolah{{ $jadwal->id }}" class="form-label">Sekolah</label>
-            <select name="sekolah_id" id="sekolah{{ $jadwal->id }}" class="form-select" required>
-              <option value="{{ $jadwal->team->id }}" selected>{{ $jadwal->team->user->nama_sekolah }}</option>
-              @foreach($sekolahBelumJadwal as $team)
-              <option value="{{ $team->id }}">{{ $team->user->nama_sekolah }}</option>
+            <label for="team{{ $jadwal->id }}" class="form-label">Sekolah</label>
+            <label for="team" class="form-label">Nama Tim</label>
+            <label for="team{{ $jadwal->id }}" class="form-label">Nama Tim</label>
+            <select name="team_id" id="team{{ $jadwal->id }}" class="form-select" required>
+              <option value="{{ $jadwal->team->id }}" selected>{{ $jadwal->team->nama_tim }}</option>
+              @foreach($teamBelumJadwal as $team)
+              <option value="{{ $team->id }}">{{ $team->nama_tim }}</option>
               @endforeach
             </select>
           </div>

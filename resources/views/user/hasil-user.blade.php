@@ -45,7 +45,7 @@
                                 @endphp
                                 <tr class="{{ $row->peringkat == 1 ? 'table-warning' : ($row->peringkat == 2 ? 'table-secondary' : ($row->peringkat == 3 ? 'table-info' : '')) }}">
                                     <td>{{ $row->peringkat }}</td>
-                                    <td>{{ $row->team->user->nama_sekolah ?? '-' }}</td>
+                                    <td>{{ $row->team->nama_tim ?? '-' }}</td>
                                     <td>{{ number_format($row->total, 2) }}</td>
                                     <td>{!! $badge !!}</td>
                                 </tr>
@@ -65,7 +65,7 @@
                     @if($myResult)
                         <div class="alert mt-3 alert-info">
                             <i class="fa fa-flag"></i> Sekolah Anda: 
-                            <strong>{{ $myResult->team->user->nama_sekolah }}</strong> 
+                            <strong>{{ $myResult->team->nama_tim }}</strong> 
                             berada di <strong>Peringkat {{ $myResult->peringkat }}</strong> 
                             dengan nilai <strong>{{ number_format($myResult->total, 2) }}</strong>.
                         </div>

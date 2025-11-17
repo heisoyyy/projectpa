@@ -61,4 +61,37 @@ class UserVerificationController extends Controller
             return redirect()->back()->with('error', 'Gagal menghapus user: ' . $e->getMessage());
         }
     }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama_sekolah' => 'required|string|max:255',
+            'kota' => 'required|string|max:255',
+            'email' => 'required|email',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'nama_sekolah' => $request->nama_sekolah,
+            'kota' => $request->kota,
+            'email' => $request->email,
+        ]);
+
+        return back()->with('success', 'Data user berhasil diperbarui.');
+    }
+
+    public function updatePassword(Request $request, $id)   
+    {
+        $request->validate([
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'password' => bcrypt($request->password),
+        ]);
+
+        return back()->with('success', 'Password user berhasil diubah.');
+    }
 }

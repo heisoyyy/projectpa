@@ -48,7 +48,7 @@
               $sudahInput = $hasils->pluck('team_id')->contains($team->id);
               @endphp
               <option value="{{ $team->id }}" @if($sudahInput) disabled style="display:none" @endif>
-                {{ $team->user->nama_sekolah ?? '-' }}
+                {{ $team->nama_tim ?? '-' }}
               </option>
               @endforeach
             </select>
@@ -90,7 +90,7 @@
     @foreach($hasils as $i => $hasil)
     <tr>
       <td>{{ $i+1 }}</td>
-      <td>{{ $hasil->team->user->nama_sekolah ?? '-' }}</td>
+      <td>{{ $hasil->team->nama_tim ?? '-' }}</td>
       <td>{{ $hasil->nilai_baris }}</td>
       <td>{{ $hasil->nilai_variasi }}</td>
       <td>{{ $hasil->nilai_formasi }}</td>
@@ -108,7 +108,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header bg-warning text-white">
-                <h5 class="modal-title">Edit Nilai: {{ $hasil->team->user->nama_sekolah }}</h5>
+                <h5 class="modal-title">Edit Nilai: {{ $hasil->team->nama_tim }}</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
               </div>
               <form action="{{ route('admin.hasil-admin.update', $hasil->id) }}" method="POST">

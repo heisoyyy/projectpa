@@ -30,7 +30,7 @@
             @foreach($hasil as $data)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $data->nama_sekolah }}</td>
+                <td>{{ $data->nama_tim }}</td>
                 <td>{{ number_format($data->total_nilai, 2) }}</td>
                 <td>{{ $data->ranking }}</td>
             </tr>

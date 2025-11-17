@@ -75,7 +75,19 @@
                             @else
                             <button class="btn btn-sm btn-success" disabled>Sudah Diverifikasi</button>
                             @endif
+                            {{-- 🌼 Tombol Edit (Modal) --}}
+                            <button class="btn btn-sm btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editUserModal{{ $user->id }}">
+                                <i class="bi bi-pencil"></i> Edit
+                            </button>
 
+                            {{-- 🔐 Tombol Ubah Password (Modal) --}}
+                            <button class="btn btn-sm btn-info text-white"
+                                data-bs-toggle="modal"
+                                data-bs-target="#passwordUserModal{{ $user->id }}">
+                                <i class="bi bi-key"></i> Password
+                            </button>
                             {{-- Tombol Hapus --}}
                             <form action="{{ route('admin.verifikasi.delete', $user->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus user ini? Tindakan ini tidak dapat dibatalkan.')">
                                 @csrf
@@ -96,6 +108,95 @@
         </div>
     </div>
 </div>
+
+
+{{-- Modal Edit User --}}
+@foreach ($users as $user)
+<div class="modal fade" id="editUserModal{{ $user->id }}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form action="{{ route('admin.verifikasi.update', $user->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title text-white">Edit User - {{ $user->nama_sekolah }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nama Sekolah</label>
+                        <input type="text" name="nama_sekolah" value="{{ $user->nama_sekolah }}"
+                            class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Kota</label>
+                        <input type="text" name="kota" value="{{ $user->kota }}"
+                            class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" value="{{ $user->email }}"
+                            class="form-control" required>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-warning text-white">Simpan</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+@endforeach
+{{-- Modal Update Password --}}
+@foreach ($users as $user)
+<div class="modal fade" id="passwordUserModal{{ $user->id }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form action="{{ route('admin.verifikasi.updatePassword', $user->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title text-white">Ubah Password - {{ $user->nama_sekolah }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Password Baru</label>
+                        <input type="password" name="password" class="form-control" required minlength="6">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Konfirmasi Password</label>
+                        <input type="password" name="password_confirmation" class="form-control" required minlength="6">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-info text-white">Update Password</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+@endforeach
+
 
 {{-- ✨ Animasi alert muncul halus --}}
 <script>

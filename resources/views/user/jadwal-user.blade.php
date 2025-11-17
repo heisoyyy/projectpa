@@ -46,7 +46,7 @@
                                 {{-- Sebelum Anda --}}
                                 @if($sebelum)
                                 <tr>
-                                    <td>{{ $sebelum->team->nama_sekolah ?? '-' }}</td>
+                                    <td>{{ $sebelum->team->nama_tim ?? '-' }}</td>
                                     <td>{{ \Carbon\Carbon::parse($sebelum->tanggal)->translatedFormat('l, d F Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($sebelum->waktu)->format('H:i') }} WIB</td>
                                     <td>{{ $sebelum->urutan }}</td>
@@ -56,7 +56,7 @@
 
                                 {{-- Jadwal Anda --}}
                                 <tr class="table-danger fw-bold" id="row-anda">
-                                    <td>{{ $jadwal->team->nama_sekolah ?? Auth::user()->nama_sekolah }} (Anda)</td>
+                                    <td>{{ $jadwal->team->nama_tim ?? Auth::user()->nama_tim }} (Anda)</td>
                                     <td>{{ \Carbon\Carbon::parse($jadwal->tanggal)->translatedFormat('l, d F Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($jadwal->waktu)->format('H:i') }} WIB</td>
                                     <td>{{ $jadwal->urutan }}</td>
@@ -66,7 +66,7 @@
                                 {{-- Sesudah Anda --}}
                                 @if($sesudah)
                                 <tr>
-                                    <td>{{ $sesudah->team->nama_sekolah ?? '-' }}</td>
+                                    <td>{{ $sesudah->team->nama_tim ?? '-' }}</td>
                                     <td>{{ \Carbon\Carbon::parse($sesudah->tanggal)->translatedFormat('l, d F Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($sesudah->waktu)->format('H:i') }} WIB</td>
                                     <td>{{ $sesudah->urutan }}</td>

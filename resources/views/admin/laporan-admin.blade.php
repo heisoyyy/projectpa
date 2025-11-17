@@ -8,7 +8,7 @@
   <div class="col-md-3"><div class="card shadow-sm text-center"><div class="card-body"><h5>Total Sekolah</h5><h3>{{ $totalSekolah ?? 0 }}</h3></div></div></div>
   <div class="col-md-3"><div class="card shadow-sm text-center"><div class="card-body"><h5>Total Jadwal</h5><h3>{{ $totalJadwal ?? 0 }}</h3></div></div></div>
   <div class="col-md-3"><div class="card shadow-sm text-center"><div class="card-body"><h5>Peserta Dinilai</h5><h3>{{ $totalDinilai ?? 0 }}</h3></div></div></div>
-  <div class="col-md-3"><div class="card shadow-sm text-center"><div class="card-body"><h5>Juara 1</h5><h4>{{ $juaraSatu->nama_sekolah ?? '-' }}</h4></div></div></div>
+  <div class="col-md-3"><div class="card shadow-sm text-center"><div class="card-body"><h5>Juara 1</h5><h4>{{ $juaraSatu->nama_tim ?? '-' }}</h4></div></div></div>
 </div>
 
 <div class="mb-3">
@@ -29,7 +29,7 @@
         @forelse($hasil as $data)
         <tr>
           <td>{{ $loop->iteration }}</td>
-          <td>{{ $data->nama_sekolah }}</td>
+          <td>{{ $data->nama_tim }}</td>
           <td>{{ number_format($data->total_nilai,2) }}</td>
           <td>{{ $data->ranking }}</td>
           <td>
