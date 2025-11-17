@@ -34,7 +34,8 @@
         </li>
         <!-- Verifikasi -->
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.verifikasi.index') }}">
+            <a href="{{ route('admin.verifikasi.index') }}"
+                class="nav-link {{ Request::is('admin/admin/verifikasi-user*') ? 'active' : '' }}">
                 <i class="fa fa-user-check"></i> Aktivisi User
             </a>
         </li>

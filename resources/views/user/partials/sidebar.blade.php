@@ -11,6 +11,13 @@
               </a>
           </li>
           <li class="nav-item">
+              {{-- Pesan --}}
+              <a href="{{ url('/user/pesan') }}"
+                  class="nav-item nav-link {{ Request::is('user/pesan') ? 'active' : '' }}">
+                  <i class="fa fa-check-circle me-2"></i>Pesan
+              </a>
+          </li>
+          <li class="nav-item">
               {{-- Pendaftaran --}}
               <a href="{{ url('user/pendaftaran-user') }}"
                   class="nav-item nav-link {{ Request::is('user/pendaftaran-user*') ? 'active' : '' }}">

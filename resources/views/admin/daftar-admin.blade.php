@@ -43,7 +43,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ url('admin/detail-sekolah/'.$team->id) }}" class="btn btn-sm btn-info">Cek</a>
+                            <a href="{{ url('admin/detail-sekolah/'.$team->id) }}" class="btn btn-sm btn-info">Cek</a>  
                             @if($team->status == 'pending')
                             <form action="{{ route('admin.verifikasi', $team->id) }}" method="POST" class="d-inline">
                                 @csrf

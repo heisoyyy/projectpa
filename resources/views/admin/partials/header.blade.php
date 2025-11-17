@@ -38,6 +38,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ url('admin/manage-user') }}"
+                                class="dropdown-item {{ Request::is('admin/manage-user*') ? 'active' : '' }}">
+                                <i class="fa fa-star me-2"></i>Juri/Admin
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('setting-admin') }}"
                                 class="dropdown-item {{ Request::is('setting-admin*') ? 'active' : '' }}">
                                 <i class="fa fa-cog me-2"></i>Settings

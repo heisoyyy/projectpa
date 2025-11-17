@@ -188,6 +188,8 @@
         Route::get('/admin/daftar-admin', [AdminController::class, 'index'])->name('admin.daftar');
         Route::get('/admin/detail-sekolah/{id}', [AdminController::class, 'detail'])->name('admin.detail');
         Route::post('/admin/verifikasi/{id}', [AdminController::class, 'verifikasi'])->name('admin.verifikasi');
+        Route::put('/admin/team/update/{id}', [AdminController::class, 'updateTim'])->name('admin.updateTim');
+
 
         Route::delete('/admin/hapus-sekolah/{id}', [AdminController::class, 'hapusSekolah']);
         // Toggle status pendaftaran
@@ -226,6 +228,18 @@
 
         Route::post('/setting-admin/password', [SettingAdminController::class, 'updatePassword'])
             ->name('admin.password.update');;
+        // Halaman daftar admin/juri
+        Route::get('/admin/manage-user', [AdminController::class, 'manageUser'])->name('admin.manageUser');
+
+        // Tambah admin/juri
+        Route::post('/admin/manage-user/store', [AdminController::class, 'storeUser'])->name('admin.storeUser');
+
+        // Update admin/juri
+        Route::put('/admin/manage-user/update/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser');
+
+        // Hapus admin/juri
+        Route::delete('/admin/manage-user/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+
 
 
         // Laporan
@@ -351,3 +365,5 @@
     // Route::get('/admin/kelola-informasi', [KelolaInformasiController::class, 'index'])->name('admin.kelola-informasi.index');
     Route::get('/verify', [AuthController::class, 'showVerifyForm'])->name('verify.form');
     Route::post('/verify', [AuthController::class, 'verifyOtp'])->name('verify.otp');
+
+    
