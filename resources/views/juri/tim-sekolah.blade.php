@@ -1,8 +1,9 @@
-@extends('admin.komponen.komponen')
+@extends('juri.komponen.komponen')
 
-@section('title', 'Daftar Admin')
+@section('title', 'Tim Sekolah')
+
 @section('content')
-<div class="container-fluid text-center mt-4">
+<div class="container-fluid mt-4">
     <h2 class="mb-4">Daftar Tim Peserta Sekolah</h2>
 
     @if(session('success'))
@@ -19,7 +20,6 @@
                         <th>Jumlah Pelatih</th>
                         <th>Jumlah Peserta</th>
                         <th>Status</th>
-                        <th>Surat Izin</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -28,8 +28,8 @@
                     <tr>
                         <td>{{ $i+1 }}</td>
                         <td>{{ $team->nama_tim }}</td>
-                        <td>{{ $team->pelatih_count }}</td>
-                        <td>{{ $team->peserta_count }}</td>
+                        <td>{{ $team->pelatih_count  }}</td>
+                        <td>{{ $team->peserta_count  }}</td>
                         <td>
                             @if($team->status == 'pending')
                             <span class="badge bg-warning">Belum Diverifikasi</span>
@@ -38,22 +38,7 @@
                             @endif
                         </td>
                         <td>
-                            @if($team->user && $team->user->foto_surat_izin)
-                            <a href="{{ asset('storage/'.$team->user->foto_surat_izin) }}" class="btn btn-sm btn-primary" target="_blank">Lihat Surat</a>
-                            @else
-                            <span class="text-muted">Tidak ada surat</span>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{ url('admin/detail-sekolah/'.$team->id) }}" class="btn btn-sm btn-info">Cek</a>
-                            @if($team->status == 'pending')
-                            <form action="{{ route('admin.verifikasi', $team->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit" name="status" value="verified" class="btn btn-sm btn-success">Verifikasi</button>
-                            </form>
-                            @else
-                            <button class="btn btn-sm btn-secondary" disabled>Sudah</button>
-                            @endif
+                            <a href="{{ url('juri/detail-sekolah/'.$team->id) }}" class="btn btn-sm btn-info">Cek</a>  
                         </td>
                     </tr>
                     @empty

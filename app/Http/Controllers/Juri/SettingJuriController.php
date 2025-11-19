@@ -1,29 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\juri;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-
-class SettingAdminController extends Controller
+class SettingJuriController extends Controller
 {
-    /**
-     * Tampilkan halaman pengaturan admin
-     */
     public function index()
     {
-        /** @var \App\Models\User $admin */
-        $admin = Auth::user();
+        /** @var \App\Models\User $juri */
+        $juri = Auth::user();
 
-        return view('admin.setting-admin', compact('admin'));
+        return view('juri.setting-juri', compact('juri'));
     }
 
-    /**
-     * Update password admin
-     */
     public function updatePassword(Request $request)
     {
         // 🔒 Validasi input form
@@ -38,17 +30,17 @@ class SettingAdminController extends Controller
         ]);
 
         // ✅ Pastikan variabel bertipe App\Models\User agar Intelephense tahu method `save()` valid
-        /** @var \App\Models\User $admin */
-        $admin = Auth::user();
+        /** @var \App\Models\User $juri */
+        $juri = Auth::user();
 
         // 🔐 Cek apakah password lama benar
-        if (!Hash::check($request->password_lama, $admin->password)) {
+        if (!Hash::check($request->password_lama, $juri->password)) {
             return back()->with('error', 'Password lama yang Anda masukkan salah.');
         }
 
         // ✅ Update password baru dan simpan ke database
-        $admin->password = Hash::make($request->password_baru);
-        $admin->save(); // <--- Tidak akan error lagi di VS Code
+        $juri->password = Hash::make($request->password_baru);
+        $juri->save(); // <--- Tidak akan error lagi di VS Code
 
         return back()->with('success', 'Password berhasil diperbarui!');
     }

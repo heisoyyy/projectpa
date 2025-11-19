@@ -44,7 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($team->members->where('role','peserta') as $i => $peserta)
+                    @forelse($team->members->where('role','peserta')->values() as $i => $peserta)
                     <tr>
                         <td>{{ $i+1 }}</td>
                         <td>{{ $peserta->nama }}</td>
@@ -88,7 +88,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($team->members->where('role','pelatih') as $i => $pelatih)
+                    @forelse($team->members->where('role','pelatih')->values() as $i => $pelatih)
                     <tr>
                         <td>{{ $i+1 }}</td>
                         <td>{{ $pelatih->nama }}</td>

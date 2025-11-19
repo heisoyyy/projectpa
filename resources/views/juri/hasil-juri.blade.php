@@ -1,5 +1,7 @@
-@extends('admin.komponen.komponen')
-@section('title','Hasil Lomba Admin')
+@extends('juri.komponen.komponen')
+
+@section('title', 'Hasil Juri')
+
 @section('content')
 
 <h2 class="mb-4 mt-4">Input & Lihat Hasil Lomba</h2>
@@ -8,25 +10,6 @@
 <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#tambahHasilModal">
   + Tambah Nilai
 </button>
-@if(\App\Models\Hasil::where('is_published', true)->exists())
-<!-- Tombol Unshare Semua -->
-<form action="{{ route('admin.hasil.unpublishAll') }}" method="POST" class="d-inline">
-  @csrf
-  <button type="submit" class="btn btn-danger mb-3">
-    <i class="fa fa-times-circle"></i> Unshare Semua
-  </button>
-</form>
-@else
-<!-- Tombol Share Semua -->
-<form action="{{ route('admin.hasil.publishAll') }}" method="POST" class="d-inline">
-  @csrf
-  <button type="submit" class="btn btn-success mb-3">
-    <i class="fa fa-share-alt"></i> Share Semua
-  </button>
-</form>
-@endif
-
-
 
 <!-- Modal Tambah Nilai -->
 <div class="modal fade" id="tambahHasilModal" tabindex="-1">
@@ -36,7 +19,7 @@
         <h5 class="modal-title">Tambah Nilai Tim</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <form action="{{ route('admin.hasil-admin.store') }}" method="POST">
+      <form action="{{ route('juri.hasil-juri.store') }}" method="POST">
         @csrf
         <div class="modal-body">
           <div class="mb-3">
@@ -111,7 +94,7 @@
                 <h5 class="modal-title">Edit Nilai: {{ $hasil->team->nama_tim }}</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
               </div>
-              <form action="{{ route('admin.hasil-admin.update', $hasil->id) }}" method="POST">
+              <form action="{{ route('juri.hasil-juri.update', $hasil->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
@@ -131,22 +114,11 @@
         </div>
 
         <!-- Delete -->
-        <form action="{{ route('admin.hasil-admin.destroy', $hasil->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus nilai ini?')">
+        <form action="{{ route('juri.hasil-juri.destroy', $hasil->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus nilai ini?')">
           @csrf
           @method('DELETE')
           <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
         </form>
-        @if($hasil->is_published)
-        <form action="{{ route('hasil.unpublish', $hasil->id) }}" method="POST" class="d-inline">
-          @csrf
-          <button type="submit" class="btn btn-sm btn-warning">Unshare 🚫</button>
-        </form>
-        @else
-        <form action="{{ route('hasil.publish', $hasil->id) }}" method="POST" class="d-inline">
-          @csrf
-          <button type="submit" class="btn btn-sm btn-success">Share 📢</button>
-        </form>
-        @endif
       </td>
     </tr>
     @endforeach
@@ -188,5 +160,6 @@
     });
   });
 </script>
+
 
 @endsection

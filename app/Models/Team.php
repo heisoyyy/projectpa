@@ -53,4 +53,13 @@ class Team extends Model
     {
         return $this->hasMany(Pesan::class, 'tujuan');
     }
+    public function pelatih()
+    {
+        return $this->hasMany(Member::class)->where('role', 'pelatih');
+    }
+
+    public function peserta()
+    {
+        return $this->hasMany(Member::class)->where('role', 'peserta');
+    }
 }

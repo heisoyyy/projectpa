@@ -66,7 +66,7 @@
       <th>Tanggal</th>
       <th>Waktu</th>
       <th>Tempat</th>
-      <th>Sekolah</th>
+      <th>Tim</th>
       <th>Urutan</th>
       <th>Aksi</th>
     </tr>

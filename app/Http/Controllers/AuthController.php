@@ -62,6 +62,11 @@ class AuthController extends Controller
                 Auth::logout();
                 return back()->with('error', 'Email belum diverifikasi. Silakan cek email Anda.');
             }
+            // Juri
+            if ($user->role === 'juri') {
+                $request->session()->regenerate();
+                return redirect('/juri')->with('success', 'Selamat datang Juri!');
+            }
 
             // User terverifikasi
             $request->session()->regenerate();

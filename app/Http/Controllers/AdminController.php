@@ -13,7 +13,7 @@ class AdminController extends Controller
     // Daftar sekolah (semua tim)
     public function index()
     {
-        $teams = Team::withCount('members')->get();
+        $teams = Team::withCount(['pelatih', 'peserta'])->get();
         return view('admin.daftar-admin', compact('teams'));
     }
 
