@@ -7,7 +7,7 @@
         </button>
 
         <!-- Brand -->
-        <a class="navbar-brand fw-bold" href="{{ url('/juri') }}">OSIS SMAN PLUS</a>
+        <a class="navbar-brand fw-bold" href="{{ url('/juri') }}">LKBB KOMANDO SMAN PLUS</a>
 
         <!-- Mobile Toggler -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

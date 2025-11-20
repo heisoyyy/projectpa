@@ -2,135 +2,89 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesan dari Website</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 0;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        .header {
-            background: linear-gradient(135deg, #800000, #a00000);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .header p {
-            margin: 5px 0 0 0;
-            opacity: 0.9;
-        }
-        .content {
-            padding: 30px;
-        }
-        .field {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-left: 4px solid #800000;
-            border-radius: 5px;
-        }
-        .label {
-            font-weight: bold;
-            color: #800000;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-        .value {
-            font-size: 16px;
-            color: #333;
-        }
-        .message-content {
-            background: white;
-            padding: 20px;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            white-space: pre-wrap;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-        .reply-info {
-            background: #e3f2fd;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid #2196f3;
-        }
-        .reply-info strong {
-            color: #1565c0;
-        }
-        .footer {
-            text-align: center;
-            color: #6c757d;
-            font-size: 12px;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e9ecef;
-        }
-    </style>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Email Notifikasi</title>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Pesan Baru dari Website</h1>
-            <p>OSIS SMAN Plus Provinsi Riau</p>
-        </div>
 
-        <div class="content">
-            <p style="margin-bottom: 25px; font-size: 16px;">Anda menerima pesan baru dari form contact website:</p>
+<body style="margin:0; padding:0; background:#f4f5f7; font-family: Arial, Helvetica, sans-serif;">
 
-            <div class="field">
-                <div class="label">Nama Pengirim</div>
-                <div class="value">{{ $data['name'] }}</div>
-            </div>
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f5f7; padding:20px;">
+    <tr>
+        <td align="center">
 
-            <div class="field">
-                <div class="label">Email Pengirim</div>
-                <div class="value">{{ $data['email'] }}</div>
-            </div>
+            <table width="620" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:8px; border:1px solid #e1e1e1; overflow:hidden;">
+                
+                <!-- Header -->
+                <tr>
+                    <td style="background: linear-gradient(135deg, #720000, #9a0000); padding:28px; text-align:center; color:#ffffff;">
+                        <h1 style="margin:0; font-size:22px; font-weight:600;">Pesan Baru dari Website</h1>
+                        <p style="margin-top:6px; font-size:14px; opacity:0.95;">OSIS SMAN Plus Provinsi Riau</p>
+                    </td>
+                </tr>
 
-            <div class="field">
-                <div class="label">Subject</div>
-                <div class="value">{{ $data['subject'] }}</div>
-            </div>
+                <!-- Content -->
+                <tr>
+                    <td style="padding:28px; color:#ff0000; font-size:15px; line-height:1.6;">
 
-            <div class="field">
-                <div class="label">Pesan</div>
-                <div class="message-content">{{ $data['message'] }}</div>
-            </div>
+                        <p style="margin-bottom:22px;">
+                            Anda menerima pesan baru dari formulir kontak website:
+                        </p>
 
-            <div class="field">
-                <div class="label">Waktu Dikirim</div>
-                <div class="value">{{ $data['sent_at'] }}</div>
-            </div>
+                        <!-- Field -->
+                        <div style="margin-bottom:18px; padding:14px; background:#f7f8fa; border-left:4px solid #7a0c0c; border-radius:4px;">
+                            <div style="font-size:13px; font-weight:bold; color:#7a0c0c; margin-bottom:6px;">Nama Pengirim</div>
+                            <div style="font-size:15px;">{{ $data['name'] }}</div>
+                        </div>
 
-            <div class="reply-info">
-                <p><strong>Cara Membalas:</strong></p>
-                <p>Anda dapat membalas langsung dengan klik reply pada email ini, atau kirim email baru ke: <strong>{{ $data['email'] }}</strong></p>
-            </div>
-        </div>
+                        <div style="margin-bottom:18px; padding:14px; background:#f7f8fa; border-left:4px solid #7a0c0c; border-radius:4px;">
+                            <div style="font-size:13px; font-weight:bold; color:#7a0c0c; margin-bottom:6px;">Email Pengirim</div>
+                            <div style="font-size:15px;">{{ $data['email'] }}</div>
+                        </div>
 
-        <div class="footer">
-            <p>Email ini dikirim otomatis dari sistem website SMAN Plus Provinsi Riau</p>
-            <p>ProjectPA © 2025 - Laravel Email System</p>
-        </div>
-    </div>
+                        <div style="margin-bottom:18px; padding:14px; background:#f7f8fa; border-left:4px solid #7a0c0c; border-radius:4px;">
+                            <div style="font-size:13px; font-weight:bold; color:#7a0c0c; margin-bottom:6px;">Subjek</div>
+                            <div style="font-size:15px;">{{ $data['subject'] }}</div>
+                        </div>
+
+                        <div style="margin-bottom:18px; padding:14px; background:#f7f8fa; border-left:4px solid #7a0c0c; border-radius:4px;">
+                            <div style="font-size:13px; font-weight:bold; color:#7a0c0c; margin-bottom:6px;">Isi Pesan</div>
+                            <div style="background:#ffffff; border:1px solid #dddddd; border-radius:6px; padding:16px; font-size:15px; white-space:pre-wrap; line-height:1.6;">
+                                {{ $data['message'] }}
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:18px; padding:14px; background:#f7f8fa; border-left:4px solid #7a0c0c; border-radius:4px;">
+                            <div style="font-size:13px; font-weight:bold; color:#7a0c0c; margin-bottom:6px;">Waktu Dikirim</div>
+                            <div style="font-size:15px;">{{ $data['sent_at'] }}</div>
+                        </div>
+
+                        <!-- Reply Info -->
+                        <div style="background:#eaf2fb; border-left:4px solid #1b5ebc; border-radius:6px; padding:18px; margin-top:25px;">
+                            <p style="margin:0 0 8px 0; color:#1b5ebc; font-weight:bold;">Cara Membalas:</p>
+                            <p style="margin:0;">
+                                Anda dapat langsung membalas dengan mengeklik tombol “Reply” pada email ini,
+                                atau mengirim email baru ke:
+                                <strong>{{ $data['email'] }}</strong>
+                            </p>
+                        </div>
+
+                    </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                    <td style="text-align:center; padding:20px; font-size:12px; color:#777777; border-top:1px solid #e1e1e1; background:#fafafa;">
+                        <p style="margin:0;">Email ini dikirim otomatis oleh sistem website Komando SMAN Plus Provinsi Riau.</p>
+                        <p style="margin:4px 0 0 0;">&copy; {{ date('Y') }} SMAN PLUS PROVINSI RIAU. All rights reserved.</p>
+                    </td>
+                </tr>
+
+            </table>
+
+        </td>
+    </tr>
+</table>
+
 </body>
 </html>
