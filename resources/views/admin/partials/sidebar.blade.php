@@ -13,14 +13,14 @@
 
         <!-- Homepage Dropdown -->
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle {{ Request::is('admin/homepage') || Request::is('admin/kelola-informasi') ? 'active' : '' }}"
+            <a class="nav-link dropdown-toggle {{ Request::is('admin/kelola-homepage') || Request::is('admin/kelola-informasi') ? 'active' : '' }}"
                 href="#" id="homepageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-home me-2"></i>Kelola Homepage
             </a>
             <ul class="dropdown-menu" aria-labelledby="homepageDropdown">
                 <li>
-                    <a class="dropdown-item {{ Request::is('admin/homepage') ? 'active' : '' }}"
-                        href="{{ url('admin/homepage') }}">
+                    <a class="dropdown-item {{ Request::is('admin/kelola-homepage') ? 'active' : '' }}"
+                        href="{{ url('admin/kelola-homepage') }}">
                         Homepage Home
                     </a>
                 </li>

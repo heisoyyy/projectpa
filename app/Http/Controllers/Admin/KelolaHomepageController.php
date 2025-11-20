@@ -10,7 +10,7 @@ use App\Models\Homepage\Video;
 use App\Models\Homepage\Statistik;
 use App\Models\Homepage\Juara;
 
-class HomepageController extends Controller
+class KelolaHomepageController extends Controller
 {
     public function index()
     {

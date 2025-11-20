@@ -30,7 +30,7 @@
         <tr>
           <td>{{ $loop->iteration }}</td>
           <td>{{ $data->nama_tim }}</td>
-          <td>{{ number_format($data->total_nilai,2) }}</td>
+          <td>{{ rtrim(rtrim(number_format($data->total_nilai, 2, '.', ''), '0'), '.') }}</td>
           <td>{{ $data->ranking }}</td>
           <td>
             <a href="{{ route('admin.hasil-admin.detail', $data->team_id) }}" class="btn btn-sm btn-info">Detail</a>

@@ -25,15 +25,14 @@ use App\Http\Controllers\Admin\StatistikController;
 use App\Http\Controllers\Admin\JuaraController;
 use App\Http\Controllers\Admin\UserVerificationController;
 use App\Http\Controllers\Admin\SettingAdminController;
+use App\Http\Controllers\Admin\KelolaHomepageController;
 
 // Informasi
 use App\Http\Controllers\Informasi\InformasiController;
 use App\Http\Controllers\Admin\KelolaInformasiController;
 use App\Http\Controllers\NotifikasiController;
-use App\Http\Controllers\SettingPendaftaranController;
 
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 
@@ -265,7 +264,7 @@ Route::middleware(['ensure.login', 'role:admin'])->group(function () {
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
     // Homepage
-    Route::get('homepage', [HomepageController::class, 'index'])->name('admin.homepage');
+    Route::get('kelola-homepage', [KelolaHomepageController::class, 'index'])->name('admin.kelola-homepage');
 
     // Banner
     Route::post('banner', [BannerController::class, 'store'])->name('admin.banner.store');
