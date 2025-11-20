@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Jadwal;
 use App\Models\Team;
+use Carbon\Carbon;
 
 class JadwalJuriController extends Controller
 {
     public function index()
     {
+        
         $jadwals = Jadwal::with('team.user')->orderBy('urutan')->get();
 
         // Tim yang belum memiliki jadwal

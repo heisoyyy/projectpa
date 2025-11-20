@@ -79,7 +79,7 @@
                     <td>{{ $pesan->judul }}</td>
                     <td>{{ $pesan->isi }}</td>
                     <td>{{ $pesan->nama_sekolah_tujuan }}</td>
-                    <td>{{ $pesan->created_at->format('d-m-Y H:i') }}</td>
+                    <td>{{ $pesan->created_at->format('d F Y H:i') }}</td>
                     <td>
                         <form action="{{ route('admin.pesan.destroy',$pesan->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus pesan ini?')">
                             @csrf

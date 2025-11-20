@@ -75,8 +75,8 @@
     @foreach($jadwals as $i => $jadwal)
     <tr>
       <td>{{ $i+1 }}</td>
-      <td>{{ $jadwal->tanggal }}</td>
-      <td>{{ $jadwal->waktu }}</td>
+      <td>{{ Carbon\Carbon::parse($jadwal->tanggal)->format('d F Y') }}</td>
+      <td>{{ Carbon\Carbon::parse($jadwal->waktu)->format('H:i') }}</td>
       <td>{{ $jadwal->tempat }}</td>
       <td>{{ $jadwal->team->nama_tim }}</td>
       <td>{{ $jadwal->urutan }}</td>
