@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OtpMail;
+use App\Mail\AkunBerhasilDiverifikasiMail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -143,6 +144,8 @@ class AuthController extends Controller
             'otp_code' => null,
             'otp_expires_at' => null,
         ]);
+        // 🔥 KIRIM EMAIL NOTIFIKASI BARU
+        Mail::to($user->email)->send(new AkunBerhasilDiverifikasiMail($user));
 
         return redirect()->route('login.form')->with('success', 'Verifikasi berhasil! Silakan login.');
     }
