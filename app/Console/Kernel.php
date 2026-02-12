@@ -11,10 +11,5 @@ class Kernel extends ConsoleKernel
     {
         // Jalankan tiap menit
         $schedule->command('jadwal:kirim-reminder')->everyMinute();
-        $schedule->command('jadwal:reminder-30')->everyMinute();
-    }
-    protected function commands()
-    {
-        $this->load(__DIR__ . '/Commands');
     }
 }
