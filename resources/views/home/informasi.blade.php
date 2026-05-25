@@ -6,12 +6,15 @@
 
 <!-- Page Heading -->
 <div class="page-heading header-text"
-  style="background: url('{{ Storage::url($informasi->background) }}') no-repeat center center/cover;">
-  <div class="container">
+  style="background: url('{{ Storage::url($informasi->background) }}') no-repeat center center/cover; position:relative;">
+  <div style="position:absolute;inset:0;background:rgba(80,0,0,0.55);"></div>
+  <div class="container" style="position:relative;z-index:1;">
     <div class="row">
-      <div class="col-lg-12 text-center text-white">
-        <h3>{{ $informasi->title }}</h3>
-        <p>{{ $informasi->description }}</p>
+      <div class="col-lg-12 text-center">
+        <h3 style="color:#fff;font-weight:700;font-size:2.2rem;margin:6px 0 6px;text-shadow:2px 2px 8px rgba(0,0,0,0.4);">{{ $informasi->title }}</h3>
+        @if($informasi->description)
+        <p style="color:rgba(255,255,255,0.85);font-size:0.95rem;margin:0;">{{ $informasi->description }}</p>
+        @endif
       </div>
     </div>
   </div>
